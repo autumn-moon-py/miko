@@ -1,0 +1,64 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:miko/model/dictionary_model.dart';
+import 'package:miko/page/chat/widget.dart';
+import 'package:miko/page/dictionary/dictionary_view_model.dart';
+import 'package:miko/utils/routes.dart';
+import 'package:provider/provider.dart';
+
+class Message {
+  String name = '';
+  String message = '';
+  String avatar = '';
+  MessageType type = MessageType.left;
+  late String image;
+  late String avatarUrl;
+
+  Message(this.name, this.message, this.avatar, this.type,
+      {this.image = '', this.avatarUrl = ''});
+
+  void avatarCallback(BuildContext context) {
+    if (type == MessageType.left) {
+      MyRoute.to(context, '/trend');
+    }
+  }
+
+  void textCallback(BuildContext context, String dic) {
+    final model = context.read<DictionaryViewModel>().dictionaryModelList;
+    late Dictionary dictionary;
+    for (var item in model) {
+      if (item.name == dic) {
+        dictionary = item;
+        break;
+      }
+    }
+    MyRoute.to(context, '/dic_view', dictionary);
+  }
+
+  @override
+  String toString() {
+    Map messageMap = {
+      'name': name,
+      'message': message,
+      'avatar': avatar,
+      'type': type.index,
+      'image': image,
+      'avatarUrl': avatarUrl
+    };
+    String json = jsonEncode(messageMap);
+    return json;
+  }
+
+  void fromString(String json) {
+    Map messageMap = jsonDecode(json);
+    name = messageMap['name'];
+    message = messageMap['message'];
+    avatar = messageMap['avatar'];
+    type = MessageType.values[messageMap['type']];
+    image = messageMap['image'];
+    avatarUrl = messageMap['avatarUrl'];
+  }
+}
