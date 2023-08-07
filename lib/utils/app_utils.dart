@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'dart:convert';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -19,6 +17,8 @@ import 'package:provider/provider.dart';
 import 'package:r_upgrade/r_upgrade.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+bool taptap = false;
+
 class Utils {
   ///初始化
   static Future<void> init(BuildContext context) async {
@@ -28,12 +28,15 @@ class Utils {
     requestPermission();
     requestNotification();
     audioInit(context);
-    // privacyDialog();
+    privacyDialog(context);
   }
 
   ///隐私政策
-  static Future<void> privacyDialog() async {
-    // if (privacy) return;
+  static Future<void> privacyDialog(BuildContext context) async {
+    if (!taptap) return;
+    if (kDebugMode) return;
+    final privacy = context.read<SettingViewModel>().privacy;
+    if (privacy) return;
     Get.dialog(AlertDialog(
         insetPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 220),
         contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
@@ -57,6 +60,7 @@ class Utils {
               )),
           TextButton(
               onPressed: () {
+                context.read<SettingViewModel>().changePrivacy(true);
                 Get.back();
               },
               child: const Text('同意'))
@@ -78,8 +82,9 @@ class Utils {
   }
 
   ///请求权限
-  static Future<bool> requestPermission() async {
-    if (kDebugMode) return true;
+  static Future<void> requestPermission() async {
+    if (taptap) return;
+    if (kDebugMode) return;
     final installPackagesStatus =
         await Permission.requestInstallPackages.status;
     if (installPackagesStatus.isDenied) {
@@ -97,11 +102,11 @@ class Utils {
             child: const Text('确定'))
       ]));
     }
-    return true;
   }
 
   ///后台运行设置
   static Future<void> setBackground() async {
+    if (taptap) return;
     if (kDebugMode) return;
     Get.dialog(AlertDialog(title: const Text('游戏剧情播放器需要允许后台运行'), actions: [
       TextButton(
@@ -124,12 +129,14 @@ class Utils {
 
   ///请求网络
   static Future<void> checkConnect() async {
+    if (taptap) return;
+    if (kDebugMode) return;
     final connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
-      EasyLoading.showInfo('当前无网络,会影响检查更新和图鉴加载,请联网游玩',
+      EasyLoading.showInfo('当前无网络,会影响检查更新',
           duration: const Duration(seconds: 5));
     } else {
-      // checkUpgrade();
+      checkUpgrade();
     }
   }
 
@@ -195,6 +202,7 @@ class Utils {
 
   ///初始化音频
   static void audioInit(BuildContext context) {
+    if (kDebugMode) return;
     AudioPlayer bgmPlayer = AudioPlayer();
     AudioPlayer buttonPlayer = AudioPlayer();
     bgmPlayer.setAsset('assets/music/bgm.ogg');
@@ -202,7 +210,7 @@ class Utils {
     bgmPlayer.setVolume(0.5);
     buttonPlayer.setAsset('assets/music/button.ogg');
     bool playBgm = context.read<SettingViewModel>().bgm;
-    if (playBgm && !kDebugMode) bgmPlayer.play();
+    if (playBgm) bgmPlayer.play();
   }
 
   ///访问网站

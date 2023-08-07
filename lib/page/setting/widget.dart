@@ -159,19 +159,19 @@ class _SettingBodyState extends State<SettingBody> {
 
   Widget _buildTips() {
     return DefaultTextStyle(
-        style: const TextStyle(color: Colors.white, fontSize: 15),
+        style: MyTheme.miniStyle,
         child: buildCard(padding: true, addLine: false, children: [
           const Text('1.剧情不播放时,别急着退出,可以尝试双击顶部名称继续播放,还是无法播放看[2]'),
           const Text('2.进入异常日志添加记录并填表'),
           const Text('3.红米系列后台配置改为无限制,不然每次进入都会询问省电策略'),
           const Text('4.别私信秋月'),
-          const Text('5.不建议在taptap游玩,可以在官网下载本地应用')
+          const Text('5.不建议在taptap游玩,可以前往关于页面点击更新下载本地应用')
         ]));
   }
 
   @override
   Widget build(BuildContext context) {
-    Widget padding = const SizedBox(height: 20);
+    Widget padding = const SizedBox(height: 15);
     return _buildBody(children: [
       _buildTips(),
       padding,

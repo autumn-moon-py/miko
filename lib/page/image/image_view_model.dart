@@ -20,6 +20,13 @@ class ImageViewModel with ChangeNotifier {
         toastPosition: EasyLoadingToastPosition.bottom);
   }
 
+  void lockAllImage() {
+    for (var i = 0; i < imageList1.length; i++) {
+      _imageMap[imageList1[i]] = true;
+    }
+    notifyListeners();
+  }
+
   ///旧图鉴
   List<String> imageList1 = [
     'S1-01',

@@ -1,5 +1,6 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
+import 'package:miko/utils/routes.dart';
 import 'package:provider/provider.dart';
 
 import '../../widget.dart';
@@ -132,7 +133,8 @@ class TrendItem extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 GestureDetector(
-                    onTap: () {},
+                    onTap: () =>
+                        MyRoute.to(context, '/image_view', trend.image),
                     child: Image.asset('assets/photo/${trend.image}.webp',
                         width: 150, fit: BoxFit.cover))
               ]))

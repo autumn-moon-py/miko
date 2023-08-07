@@ -41,6 +41,13 @@ class DictionaryViewModel with ChangeNotifier {
         toastPosition: EasyLoadingToastPosition.bottom);
   }
 
+  void lockAllDic() {
+    for (var item in _dictionaryModelList) {
+      item.lock = true;
+    }
+    notifyListeners();
+  }
+
   ///词典列表
   List dictionaryList = [
     '软件',

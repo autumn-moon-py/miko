@@ -15,7 +15,7 @@ class _SettingPageState extends State<SettingPage> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text('设置'),
+          title: Text('设置', style: MyTheme.bigStyle),
           backgroundColor: MyTheme.foreground,
         ),
         body: Stack(children: [backgroud, body]));

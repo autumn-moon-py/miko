@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:miko/page/chat/chat_page.dart';
 import 'package:miko/page/debug/debug_view_model.dart';
 import 'package:miko/page/image/image_view_model.dart';
+import 'package:miko/page/setting/setting_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../chat/chat_view_model.dart';
@@ -28,7 +29,8 @@ class _LoadPageState extends State<LoadPage> {
       await context.read<ImageViewModel>().init();
       await context.read<DictionaryViewModel>().init();
       await context.read<DebugViewModel>().init();
-      Get.to(const ChatPage());
+      await context.read<SettingViewModel>().init();
+      Get.off(const ChatPage());
     });
   }
 

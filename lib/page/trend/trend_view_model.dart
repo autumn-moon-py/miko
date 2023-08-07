@@ -11,6 +11,8 @@ class TrendViewModel with ChangeNotifier {
   void addTrend(Trend trend) {
     _trends.add(trend);
     notifyListeners();
+    user.oldTrend.add(trend);
+    user.saveTrend();
   }
 
   Future<void> init() async {

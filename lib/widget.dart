@@ -50,14 +50,11 @@ void jumpDayDialog(BuildContext context) {
         },
         child: Container(
             width: 250,
-            height: 60,
-            decoration: const BoxDecoration(
-                color: Colors.blueAccent,
-                borderRadius: BorderRadius.all(Radius.circular(5.0))),
-            child: Center(
-                child: Text('第$day天',
-                    style:
-                        const TextStyle(color: Colors.white, fontSize: 20)))));
+            height: 55,
+            decoration: BoxDecoration(
+                color: MyTheme.foreground62,
+                borderRadius: const BorderRadius.all(Radius.circular(5.0))),
+            child: Center(child: Text('第$day天', style: MyTheme.bigStyle))));
   }
 
   Widget jumpDayBody(BuildContext context, List<int> day) {
@@ -74,7 +71,7 @@ void jumpDayDialog(BuildContext context) {
       builder: (context) {
         final nowChapter = context.read<ChatViewModel>().chapter;
         return SimpleDialog(
-            backgroundColor: const Color.fromRGBO(39, 40, 42, 1),
+            backgroundColor: MyTheme.background51,
             children: [jumpDayBody(context, days[nowChapter]!)]);
       });
 }
@@ -88,8 +85,7 @@ Widget buildDefaultItem(
       onTap: () => onTap?.call(),
       child: ListTile(
           leading: Icon(leading, color: Colors.grey, size: 30),
-          title: Text(title,
-              style: const TextStyle(color: Colors.white, fontSize: 20)),
+          title: Text(title, style: MyTheme.narmalStyle),
           trailing: button ??
               const Icon(Icons.arrow_forward_ios,
                   color: Colors.grey, size: 20)));

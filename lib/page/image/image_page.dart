@@ -25,7 +25,7 @@ class ImagePage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
             centerTitle: true,
-            title: const Text('图鉴'),
+            title: Text('图鉴', style: MyTheme.bigStyle),
             backgroundColor: MyTheme.background51),
         // floatingActionButton: FloatingActionButton(onPressed: () {}),
         body: _imagePageWidget(

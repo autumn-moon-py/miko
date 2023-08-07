@@ -25,7 +25,7 @@ class DictionaryPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
             centerTitle: true,
-            title: const Text('词典'),
+            title: Text('词典', style: MyTheme.bigStyle),
             backgroundColor: MyTheme.background51),
         // floatingActionButton: FloatingActionButton(onPressed: () {}),
         body: _dictionaryWidget(

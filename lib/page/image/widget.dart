@@ -38,8 +38,8 @@ class _ImageBodyState extends State<ImageBody> {
           left: 10,
           bottom: 5,
           child: Text(image,
-              style: TextStyle(
-                  color: lock ? Colors.white : Colors.grey, fontSize: 15)));
+              style: MyTheme.narmalStyle
+                  .copyWith(color: lock ? Colors.white : Colors.grey)));
     }
 
     return !lock
@@ -70,7 +70,7 @@ class _ImageBodyState extends State<ImageBody> {
   }
 
   Widget _buildTitle(String chapter, int length, int lock) {
-    const style = TextStyle(color: Colors.white, fontSize: 20);
+    final style = MyTheme.bigStyle;
     return Container(
         margin: const EdgeInsets.fromLTRB(20, 20, 0, 10),
         child: Row(
@@ -79,7 +79,7 @@ class _ImageBodyState extends State<ImageBody> {
             children: [
               Text(chapter, style: style),
               const SizedBox(width: 10),
-              Text('$lock/$length', style: style.copyWith(fontSize: 15))
+              Text('$lock/$length', style: MyTheme.narmalStyle)
             ]));
   }
 
@@ -180,8 +180,7 @@ class ImageView extends StatelessWidget {
             backgroundColor: MyTheme.foreground,
             centerTitle: true,
             toolbarHeight: 40,
-            title: Text(imageName,
-                style: const TextStyle(color: Colors.white, fontSize: 25)),
+            title: Text(imageName, style: MyTheme.bigStyle),
             actions: [
               IconButton(
                   onPressed: () => Utils.downloadImage(imageName),

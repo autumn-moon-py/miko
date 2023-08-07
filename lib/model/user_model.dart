@@ -26,7 +26,8 @@ class User {
 
   Future<void> loadTrend() async {
     prefs = await SharedPreferences.getInstance();
-    loadTrendList(prefs.getStringList('oldTrend') ?? []);
+    List<String> trendList = prefs.getStringList('oldTrend') ?? [];
+    if (trendList.isNotEmpty) loadTrendList(trendList);
   }
 
   Future<Map> loadImage(Map imageMap) async {
@@ -101,7 +102,6 @@ class User {
   }
 
   void loadTrendList(List<String> trendList) {
-    if (trendList.isEmpty) return;
     for (var json in trendList) {
       Trend trend = Trend('', '', DateTime.now());
       trend.fromString(json);

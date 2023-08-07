@@ -129,9 +129,8 @@ class Bubble extends StatelessWidget {
   Widget _text(Function(BuildContext, String) callback,
       [BuildContext? context]) {
     String dictionary = '';
-    TextStyle style = TextStyle(
-        fontSize: textColor != null ? 15 : 20,
-        color: textColor ?? Colors.white);
+    TextStyle style =
+        MyTheme.narmalStyle.copyWith(color: textColor ?? Colors.white);
     Widget textWithDic(List<String> textList) {
       TapGestureRecognizer tapRecognizer = TapGestureRecognizer()
         ..onTap = () => callback(context!, dictionary);
@@ -139,8 +138,7 @@ class Bubble extends StatelessWidget {
         TextSpan(text: textList[0], style: textStyle ?? style),
         TextSpan(
             text: textList[1],
-            style:
-                dicStyle ?? const TextStyle(fontSize: 20, color: Colors.blue),
+            style: dicStyle ?? style.copyWith(color: Colors.blue),
             recognizer: tapRecognizer),
         TextSpan(text: textList[2], style: textStyle ?? style)
       ]));
@@ -243,8 +241,7 @@ class _TitleWidgetState extends State<TitleWidget> {
           EasyLoading.showToast('开始播放');
           storyPlayer(context);
         },
-        child: Text(typing ? '对方输入中...' : name,
-            style: const TextStyle(color: Colors.white, fontSize: 20)));
+        child: Text(typing ? '对方输入中...' : name, style: MyTheme.bigStyle));
   }
 }
 
@@ -354,7 +351,7 @@ class _ChooseButtonState extends State<ChooseButton> {
         },
         child: Container(
             width: buttonWidth,
-            height: newUI ? 40 : 50,
+            height: newUI ? 35 : 50,
             alignment: Alignment.center,
             padding: const EdgeInsets.symmetric(horizontal: 5),
             decoration: newUI
@@ -362,8 +359,7 @@ class _ChooseButtonState extends State<ChooseButton> {
                 : const BoxDecoration(
                     color: Colors.blueAccent,
                     borderRadius: BorderRadius.all(Radius.circular(5))),
-            child: Text(text,
-                style: const TextStyle(color: Colors.white, fontSize: 20))));
+            child: Text(text, style: MyTheme.narmalStyle)));
   }
 
   @override
@@ -443,7 +439,7 @@ class _ToLastState extends State<ToLast> {
                     child: ClipOval(
                         child: Container(
                             padding: const EdgeInsets.all(5),
-                            color: const Color.fromRGBO(70, 64, 96, 1),
+                            color: MyTheme.foreground62,
                             child: const Icon(Icons.arrow_downward,
                                 color: Colors.white)))))
           ]));

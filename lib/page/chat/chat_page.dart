@@ -1,9 +1,12 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
+import 'package:miko/page/chat/chat_view_model.dart';
 import 'package:miko/theme/color.dart';
 import 'package:miko/utils/routes.dart';
+import 'package:provider/provider.dart';
 
 import '../../utils/app_utils.dart';
+import '../../utils/dialog_utils.dart';
 import '../../widget.dart';
 import 'controller.dart';
 import 'widget.dart';
@@ -21,7 +24,12 @@ class _ChatPageState extends State<ChatPage> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Utils.init(context);
+      DialogUtils.init(context);
       storyPlayer(context);
+      final chatController = context.read<ChatViewModel>().chatController;
+      Future.delayed(const Duration(milliseconds: 100), () {
+        chatController.jumpTo(chatController.position.maxScrollExtent);
+      });
       debugPrint('聊天初始化');
     });
   }
@@ -64,17 +72,15 @@ class _ChatPageState extends State<ChatPage> {
         required Function onTap}) {
       return Builder(builder: (context) {
         return GestureDetector(
-          onTap: () {
-            Scaffold.of(context).closeDrawer();
-            onTap.call();
-          },
-          child: ListTile(
-              leading: Icon(leading, color: Colors.grey, size: 30),
-              title: Text(title,
-                  style: const TextStyle(color: Colors.white, fontSize: 20)),
-              trailing: const Icon(Icons.arrow_forward_ios,
-                  color: Colors.grey, size: 20)),
-        );
+            onTap: () {
+              Scaffold.of(context).closeDrawer();
+              onTap.call();
+            },
+            child: ListTile(
+                leading: Icon(leading, color: Colors.grey, size: 30),
+                title: Text(title, style: MyTheme.narmalStyle),
+                trailing: const Icon(Icons.arrow_forward_ios,
+                    color: Colors.grey, size: 20)));
       });
     }
 

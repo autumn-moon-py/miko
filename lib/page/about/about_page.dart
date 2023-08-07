@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:miko/page/dictionary/dictionary_view_model.dart';
 import 'package:miko/theme/color.dart';
 import 'package:miko/utils/app_utils.dart';
 import 'package:miko/widget.dart';
+import 'package:provider/provider.dart';
+
+import '../image/image_view_model.dart';
 
 class AboutPage extends StatefulWidget {
   const AboutPage({super.key});
@@ -27,7 +32,7 @@ class _AboutPageState extends State<AboutPage> {
         appBar: AppBar(
             centerTitle: true,
             backgroundColor: MyTheme.foreground,
-            title: const Text('关于异次元通讯')),
+            title: Text('关于异次元通讯', style: MyTheme.bigStyle)),
         body: Stack(children: [background, body]));
   }
 
@@ -41,20 +46,31 @@ class _AboutPageState extends State<AboutPage> {
         width: double.infinity,
         child: Column(children: [
           const SizedBox(height: 10),
-          ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.asset('assets/icon/icon.webp', width: 70)),
+          GestureDetector(
+            onTap: () {
+              context.read<ImageViewModel>().lockAllImage();
+              context.read<DictionaryViewModel>().lockAllDic();
+              EasyLoading.showSuccess('你已触发彩蛋, 本次启动解锁全部词典和图鉴，下次进入重置为原解锁进度');
+            },
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.asset('assets/icon/icon.webp', width: 70)),
+          ),
           const SizedBox(height: 5),
-          Text(version,
-              style: const TextStyle(color: Colors.grey, fontSize: 20)),
+          Text(version, style: MyTheme.bigStyle.copyWith(color: Colors.grey)),
           const SizedBox(height: 5),
-          const Text('秋月', style: TextStyle(color: Colors.grey, fontSize: 15)),
+          Text('秋月', style: MyTheme.narmalStyle.copyWith(color: Colors.grey)),
           const SizedBox(height: 10),
           buildCard(children: [
             buildDefaultItem(
                 leading: Icons.my_library_books_sharp,
                 title: '官网',
                 onTap: () => Utils.openWebSite('https://www.subrecovery.top')),
+            buildDefaultItem(
+                leading: Icons.my_library_books_sharp,
+                title: 'TapTap',
+                onTap: () =>
+                    Utils.openWebSite('https://www.taptap.cn/app/378027')),
             buildDefaultItem(
                 leading: Icons.upgrade,
                 title: '更新',

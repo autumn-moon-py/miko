@@ -52,15 +52,13 @@ class _DictionaryBodyState extends State<DictionaryBody> {
                     Color.fromRGBO(44, 29, 84, 1),
                     Color.fromRGBO(46, 50, 162, 1)
                   ])),
-                  child: Text(dic.name,
-                      style:
-                          const TextStyle(color: Colors.white, fontSize: 15))),
+                  child: Text(dic.name, style: MyTheme.narmalStyle)),
             ));
   }
 
   Widget _buildTitle(String chapter) {
     final width = MediaQuery.of(context).size.width;
-    const style = TextStyle(color: Colors.white, fontSize: 20);
+    final style = MyTheme.bigStyle;
     Widget line = Container(color: Colors.grey, height: 2, width: 70);
     double top = chapter == '第一章' ? 0 : 20;
     return Container(
@@ -139,7 +137,7 @@ class DictionaryView extends StatelessWidget {
         appBar: AppBar(
             centerTitle: true,
             backgroundColor: MyTheme.foreground,
-            title: const Text('词典展示')),
+            title: Text('词典展示', style: MyTheme.bigStyle)),
         body: Stack(children: [background, body]));
   }
 
@@ -160,16 +158,14 @@ class DictionaryView extends StatelessWidget {
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             Image.asset('assets/dictionary/词典.webp', width: 60),
             const SizedBox(height: 10),
-            Text(dictionary.name,
-                style: const TextStyle(fontSize: 25, color: Colors.white)),
+            Text(dictionary.name, style: MyTheme.bigStyle),
             const SizedBox(height: 10),
             Container(width: 250, height: 1, color: Colors.white),
             const SizedBox(height: 10),
             Container(
                 padding: const EdgeInsets.only(left: 5),
                 width: 290,
-                child: Text(dictionary.mean,
-                    style: const TextStyle(fontSize: 20, color: Colors.white)))
+                child: Text(dictionary.mean, style: MyTheme.narmalStyle))
           ]))
     ]);
   }
