@@ -150,14 +150,19 @@ class Bubble extends StatelessWidget {
       if (type == MessageType.left) {
         final dictionaryList =
             context!.read<DictionaryViewModel>().dictionaryList;
+        final dictionaryMap = context.read<DictionaryViewModel>().dictionaryMap;
         for (String dic in dictionaryList) {
           int index = text.indexOf(dic);
           if (index >= 0) {
-            final one = text.substring(0, index);
-            final two = text.substring(index, index + dic.length);
-            final three = text.substring(index + dic.length, text.length);
-            dictionary = dic;
-            return textWithDic([one, two, three]);
+            bool nowChapter =
+                context.read<ChatViewModel>().chapter == dictionaryMap[dic][0];
+            if (nowChapter) {
+              final one = text.substring(0, index);
+              final two = text.substring(index, index + dic.length);
+              final three = text.substring(index + dic.length, text.length);
+              dictionary = dic;
+              return textWithDic([one, two, three]);
+            }
           }
         }
       }
@@ -202,10 +207,12 @@ class Bubble extends StatelessWidget {
   Widget _buildChild({required Widget child}) {
     if (bubbleAnimation) {
       if (type == MessageType.left) {
-        return FadeInLeft(child: child);
+        return FadeInLeft(
+            duration: const Duration(milliseconds: 300), child: child);
       }
       if (type == MessageType.right) {
-        return FadeInRight(child: child);
+        return FadeInRight(
+            duration: const Duration(milliseconds: 300), child: child);
       }
     }
     return child;
