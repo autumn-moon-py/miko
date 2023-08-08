@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:math' as math;
 
 import 'package:flutter/foundation.dart';
@@ -7,6 +9,7 @@ import 'package:miko/model/debug_model.dart';
 import 'package:miko/model/user_model.dart';
 import 'package:miko/page/chat/chat_view_model.dart';
 import 'package:miko/model/message_model.dart';
+import 'package:miko/page/debug/debug_view_model.dart';
 import 'package:miko/page/setting/setting_view_model.dart';
 import 'package:miko/model/trend_model.dart';
 import 'package:miko/page/trend/trend_view_model.dart';
@@ -121,14 +124,15 @@ void storyPlayer(BuildContext ctx) async {
   String msg = ''; //消息
   List tagList = []; //多标签
   String tag = ''; //单标签
-  if (chatModel.story.isEmpty) {
-    await chatModel.changeStory();
-  }
   if (kDebugMode) {
     // chatModel.clearMessage();
-    // chatModel.changeLine(914);
+    // chatModel.changeLine(1835);
     // chatModel.changeJump(444);
-    // chatModel.changeResetLine(467);
+    // chatModel.changeResetLine(1529);
+    //// chatModel.changeChap('第二章');
+  }
+  if (chatModel.story.isEmpty) {
+    await chatModel.changeStory();
   }
   try {
     do {
@@ -211,6 +215,8 @@ void storyPlayer(BuildContext ctx) async {
         if (tagList[0] == 'BE' && jump == 0) {
           chatModel.changeLine(chatModel.resetLine);
           chatModel.clearMessage();
+          EasyLoading.showError('你已进入BE路线, 自动回溯到当天初始',
+              duration: const Duration(seconds: 3));
           continue;
         }
         if (tagList[0] == '图鉴' && jump == 0) {
@@ -331,6 +337,7 @@ void storyPlayer(BuildContext ctx) async {
     debugInfo.tag = chatModel.story[debugInfo.line][2];
     debugInfo.time = DateTime.now().toString();
     debugInfo.version = await Utils.getVersion();
+    ctx.read<DebugViewModel>().addItem(debugInfo);
   }
   debugPrint('退出播放');
 }

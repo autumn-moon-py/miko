@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:miko/model/debug_model.dart';
 import 'package:miko/page/chat/chat_view_model.dart';
 import 'package:miko/page/debug/debug_view_model.dart';
@@ -78,16 +79,21 @@ class _DebugPageState extends State<DebugPage> {
     return [
       IconButton(
           onPressed: () async {
-            DebugInfo debugInfo = DebugInfo();
-            debugInfo.beJump = chatModel.beJump;
-            debugInfo.error = '反馈时额外备注';
-            debugInfo.jump = chatModel.jump;
-            debugInfo.line = chatModel.line;
-            debugInfo.msg = chatModel.story[chatModel.line][1];
-            debugInfo.tag = chatModel.story[chatModel.line][2];
-            debugInfo.time = DateTime.now().toString();
-            debugInfo.version = await Utils.getVersion();
-            model.addItem(debugInfo);
+            try {
+              DebugInfo debugInfo = DebugInfo();
+              debugInfo.beJump = chatModel.beJump;
+              debugInfo.error = '反馈时额外备注';
+              debugInfo.jump = chatModel.jump;
+              debugInfo.line = chatModel.line;
+              debugInfo.msg = chatModel.story[chatModel.line][1];
+              debugInfo.tag = chatModel.story[chatModel.line][2];
+              debugInfo.time = DateTime.now().toString();
+              debugInfo.version = await Utils.getVersion();
+              model.addItem(debugInfo);
+              EasyLoading.showToast('成功添加日志');
+            } catch (e) {
+              EasyLoading.showError('添加日志失败：$e');
+            }
           },
           icon: const Icon(Icons.add)),
       IconButton(

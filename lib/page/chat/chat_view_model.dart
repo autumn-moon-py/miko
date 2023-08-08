@@ -90,6 +90,8 @@ class ChatViewModel with ChangeNotifier {
 
   void changeResetLine(int resetLine) => _resetLine = resetLine;
 
+  void changeChap(String chapter) => _chapter = chapter;
+
   int get resetLine => _resetLine;
 
   void changeJump(int jump) => _jump = jump;
