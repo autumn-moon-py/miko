@@ -6,7 +6,7 @@ class Setting {
   bool newImage = false;
   bool waitTyping = true;
   bool waitOffline = true;
-  bool bubbleAnimation = true;
+  bool bubbleAnimation = false;
   bool privacy = false;
   int nowMikoAvatar = 1;
   bool birthday = false;
