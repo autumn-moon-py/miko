@@ -9,6 +9,7 @@ import 'package:miko/page/chat/controller.dart';
 import 'package:miko/page/setting/setting_view_model.dart';
 import 'package:miko/theme/color.dart';
 import 'package:miko/utils/app_utils.dart';
+import 'package:miko/utils/routes.dart';
 import 'package:provider/provider.dart';
 
 import 'chat_view_model.dart';
@@ -70,7 +71,7 @@ class HomeWidget extends StatelessWidget {
           child: drawer,
         ),
         body: Stack(children: [
-          const Center(child: CircularProgressIndicator()),
+          Container(color: MyTheme.background51),
           _buildBackGround(background),
           Column(children: [Expanded(child: body), bottom]),
           _buildToLast()
@@ -263,11 +264,14 @@ class _ChatListState extends State<ChatList> {
     Widget? image;
     bool newUI = true;
     final bubbleAnimation = context.watch<SettingViewModel>().bubbleAnimation;
-    if (item.avatar.isNotEmpty) {
-      avatar = Image.asset(item.avatar);
-    }
+    final nowMikoAvatar = context.watch<SettingViewModel>().nowMikoAvatar;
     if (item.type == MessageType.left) {
       background = MyTheme.background;
+      if (item.name == '未知用户') {
+        avatar = Image.asset('assets/icon/未知用户.webp');
+      } else {
+        avatar = Image.asset('assets/icon/头像$nowMikoAvatar.webp');
+      }
     }
     if (item.type == MessageType.middle) {
       final text = item.message;
@@ -294,7 +298,7 @@ class _ChatListState extends State<ChatList> {
     }
     if (item.type == MessageType.image) {
       image = GestureDetector(
-          onTap: () {},
+          onTap: () => MyRoute.to(context, '/image_view', item.image),
           child: ClipRRect(
               borderRadius: BorderRadiusDirectional.circular(20),
               child: Image.asset(item.image, width: 195, height: 260)));
@@ -345,8 +349,7 @@ class _ChooseButtonState extends State<ChooseButton> {
         onPressed: () {
           final buttonMusic = context.read<SettingViewModel>().buttonMusic;
           if (buttonMusic) buttonPlayer.play();
-          Message item =
-              Message('', text, 'assets/icon/未知用户.webp', MessageType.right);
+          Message item = Message('', text, MessageType.right);
           model.addItem(item);
           model.changeShowChoose(false);
           model.changeJump(jump);

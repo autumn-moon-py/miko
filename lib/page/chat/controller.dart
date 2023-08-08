@@ -61,22 +61,18 @@ void notification(String title, String msg) {
 Future<void> sendLeft(ChatViewModel chatModel, SettingViewModel settingModel,
     String name, String msg) async {
   chatModel.changeTyping(true);
-  String avatar = 'assets/icon/头像${settingModel.nowMikoAvatar}.webp';
-  if (name == '未知用户') avatar = 'assets/icon/未知用户.webp';
   await typingTime(msg, settingModel.waitTyping);
   chatModel.changeTyping(false);
   if (name != '') chatModel.changeName(name);
-  Message message = Message(name, msg, avatar, MessageType.left);
+  Message message = Message(name, msg, MessageType.left);
   chatModel.addItem(message);
   if (chatModel.isPaused) notification('Miko', msg);
 }
 
 Future<void> sendImage(ChatViewModel chatModel, SettingViewModel settingModel,
     ImageViewModel imageModel, String image) async {
-  String avatar = 'assets/icon/头像${settingModel.nowMikoAvatar}.webp';
   String imagePath = 'assets/photo/$image.webp';
-  Message message =
-      Message('Miko', '', avatar, MessageType.image, image: imagePath);
+  Message message = Message('Miko', '', MessageType.image, image: imagePath);
   imageModel.lockImage(image);
   await sendInterval(settingModel.waitTyping);
   chatModel.addItem(message);
@@ -85,7 +81,7 @@ Future<void> sendImage(ChatViewModel chatModel, SettingViewModel settingModel,
 
 Future<void> sendMiddle(
     ChatViewModel chatModel, String msg, SettingViewModel settingModel) async {
-  Message message = Message('', msg, '', MessageType.middle);
+  Message message = Message('', msg, MessageType.middle);
   await sendInterval(settingModel.waitTyping);
   chatModel.addItem(message);
 }
@@ -94,8 +90,7 @@ Future<void> sendRight(
     ChatViewModel chatModel, SettingViewModel settingModel, String msg) async {
   User user = User();
   user.load();
-  Message message =
-      Message('', msg, '', MessageType.right, avatarUrl: user.avatar);
+  Message message = Message('', msg, MessageType.right, avatarUrl: user.avatar);
   await sendInterval(settingModel.waitTyping);
   chatModel.addItem(message);
 }

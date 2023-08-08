@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:miko/page/setting/setting_view_model.dart';
 import 'package:miko/theme/color.dart';
@@ -134,35 +135,41 @@ class _SettingBodyState extends State<SettingBody> {
       buildDefaultItem(
           leading: Icons.person,
           title: '玩家头像',
-          button: GestureDetector(
-              onTap: () {
-                String avatarUrl = '';
-                Get.dialog(AlertDialog(
-                    backgroundColor: MyTheme.foreground62,
-                    title: const Text('请输入QQ号',
-                        style: TextStyle(color: Colors.white)),
-                    content: TextField(onChanged: (value) {
+          onTap: () {
+            String avatarUrl = '';
+            Get.dialog(AlertDialog(
+                backgroundColor: MyTheme.foreground62,
+                title:
+                    const Text('请输入QQ号', style: TextStyle(color: Colors.white)),
+                content: TextField(
+                    style: MyTheme.narmalStyle,
+                    onChanged: (value) {
                       avatarUrl = 'http://q1.qlogo.cn/g?b=qq&nk=$value&s=100';
                     }),
-                    actions: [
-                      TextButton(
-                          onPressed: () {
-                            userModel.changeAvatarUrl('');
-                            Get.back();
-                          },
-                          child: const Text('清除')),
-                      TextButton(
-                          onPressed: () async {
-                            Get.back();
-                            if (avatarUrl.isEmpty) return;
-                            userModel.changeAvatarUrl(avatarUrl);
-                          },
-                          child: const Text('确定'))
-                    ]));
-              },
-              child: playAvatar.isEmpty
-                  ? Image.asset('assets/icon/未知用户.webp', width: 40)
-                  : ClipOval(child: Image.network(playAvatar, width: 40))))
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        userModel.changeAvatarUrl('');
+                        Get.back();
+                      },
+                      child: const Text('清除')),
+                  TextButton(
+                      onPressed: () async {
+                        Get.back();
+                        if (avatarUrl.isEmpty) return;
+                        userModel.changeAvatarUrl(avatarUrl);
+                      },
+                      child: const Text('确定'))
+                ]));
+          },
+          button: playAvatar.isEmpty
+              ? Image.asset('assets/icon/未知用户.webp', width: 40)
+              : ClipOval(
+                  child: Image.network(playAvatar, width: 35,
+                      errorBuilder: (context, error, stackTrace) {
+                  EasyLoading.showError('设置头像失败: $error');
+                  return Image.asset('assets/icon/未知用户.webp', width: 40);
+                })))
     ]);
   }
 
@@ -174,7 +181,7 @@ class _SettingBodyState extends State<SettingBody> {
           const Text('2.进入异常日志添加记录并填表'),
           const Text('3.红米系列后台配置改为无限制,不然每次进入都会询问省电策略'),
           const Text('4.别私信秋月'),
-          const Text('5.不建议在平台在线游玩,可以前往官网下载本地应用')
+          const Text('5.安卓不建议在平台在线游玩,可以前往官网下载本地应用')
         ]));
   }
 

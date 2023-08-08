@@ -97,7 +97,8 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
         onPressed: () {
           MyRoute.to(context, '/setting');
         },
-        icon: const Icon(Icons.settings, color: Colors.white, size: 30));
+        icon: Icon(Icons.settings,
+            color: Colors.white, size: MyTheme.narmalIconSize));
   }
 
   Widget _buildDrawer() {
@@ -112,8 +113,9 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
               onTap.call();
             },
             child: ListTile(
-                leading: Icon(leading, color: Colors.grey, size: 30),
-                title: Text(title, style: MyTheme.narmalStyle),
+                leading: Icon(leading,
+                    color: Colors.grey, size: MyTheme.bigIconSize),
+                title: Text(title, style: MyTheme.bigStyle),
                 trailing: const Icon(Icons.arrow_forward_ios,
                     color: Colors.grey, size: 20)));
       });
@@ -151,7 +153,8 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
         onPressed: () {
           jumpDayDialog(context);
         },
-        icon: const Icon(Icons.date_range, color: Colors.white, size: 30));
+        icon: Icon(Icons.date_range,
+            color: Colors.white, size: MyTheme.narmalIconSize));
   }
 
   @override
@@ -160,7 +163,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
     return HomeWidget(
         leadingIcon: Icons.menu,
         appbarColor: MyTheme.foreground,
-        leadingIconSize: 30,
+        leadingIconSize: MyTheme.narmalIconSize,
         drawer: _buildDrawer(),
         title: _buildTitle(),
         actions: [_buildJumpDayButton(), _buildSettingButton()],

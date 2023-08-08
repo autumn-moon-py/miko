@@ -87,7 +87,7 @@ class User {
   void loadMessage(List<String> messageList) {
     if (messageList.isEmpty) return;
     for (var json in messageList) {
-      Message message = Message('', '', '', MessageType.left);
+      Message message = Message('', '', MessageType.left);
       message.fromString(json);
       oldMessage.add(message);
     }

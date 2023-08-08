@@ -73,6 +73,11 @@ class _AboutPageState extends State<AboutPage> {
                 onTap: () =>
                     Utils.openWebSite('https://www.taptap.cn/app/378027')),
             buildDefaultItem(
+                leading: Icons.my_library_books_sharp,
+                title: '好游快爆',
+                onTap: () =>
+                    Utils.openWebSite('https://www.3839.com/a/156008.htm')),
+            buildDefaultItem(
                 leading: Icons.group,
                 title: 'Q群',
                 onTap: () => Utils.openWebSite(

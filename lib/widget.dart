@@ -84,8 +84,9 @@ Widget buildDefaultItem(
   return GestureDetector(
       onTap: () => onTap?.call(),
       child: ListTile(
-          leading: Icon(leading, color: Colors.grey, size: 30),
-          title: Text(title, style: MyTheme.narmalStyle),
+          leading:
+              Icon(leading, color: Colors.grey, size: MyTheme.narmalIconSize),
+          title: Text(title, style: MyTheme.bigStyle),
           trailing: button ??
               const Icon(Icons.arrow_forward_ios,
                   color: Colors.grey, size: 20)));

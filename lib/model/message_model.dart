@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:miko/model/dictionary_model.dart';
 import 'package:miko/page/chat/widget.dart';
 import 'package:miko/page/dictionary/dictionary_view_model.dart';
@@ -12,16 +13,19 @@ import 'package:provider/provider.dart';
 class Message {
   String name = '';
   String message = '';
-  String avatar = '';
   MessageType type = MessageType.left;
   late String image;
   late String avatarUrl;
 
-  Message(this.name, this.message, this.avatar, this.type,
+  Message(this.name, this.message, this.type,
       {this.image = '', this.avatarUrl = ''});
 
   void avatarCallback(BuildContext context) {
     if (type == MessageType.left) {
+      if (name == '未知用户') {
+        EasyLoading.showToast('暂未解锁');
+        return;
+      }
       MyRoute.to(context, '/trend');
     }
   }
@@ -43,7 +47,6 @@ class Message {
     Map messageMap = {
       'name': name,
       'message': message,
-      'avatar': avatar,
       'type': type.index,
       'image': image,
       'avatarUrl': avatarUrl
@@ -56,7 +59,6 @@ class Message {
     Map messageMap = jsonDecode(json);
     name = messageMap['name'];
     message = messageMap['message'];
-    avatar = messageMap['avatar'];
     type = MessageType.values[messageMap['type']];
     image = messageMap['image'];
     avatarUrl = messageMap['avatarUrl'];
