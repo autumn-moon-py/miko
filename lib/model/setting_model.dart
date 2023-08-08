@@ -11,6 +11,7 @@ class Setting {
   int nowMikoAvatar = 1;
   bool birthday = false;
   bool april = false;
+  bool oldBgm = false;
   late SharedPreferences prefs;
 
   Future<void> save() async {
@@ -25,6 +26,7 @@ class Setting {
     prefs.setBool('privacy', privacy);
     prefs.setBool('birthday', birthday);
     prefs.setBool('april', april);
+    prefs.setBool('oldBgm', oldBgm);
   }
 
   Future<void> load() async {
@@ -39,5 +41,6 @@ class Setting {
     privacy = prefs.getBool('privacy') ?? privacy;
     birthday = prefs.getBool('birthday') ?? birthday;
     april = prefs.getBool('april') ?? april;
+    oldBgm = prefs.getBool('oldBgm') ?? oldBgm;
   }
 }

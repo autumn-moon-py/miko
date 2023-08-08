@@ -24,6 +24,7 @@ class ChatViewModel with ChangeNotifier {
   int _resetLine = 0;
   String _chapter = '第一章';
   String _avatarUrl = '';
+  bool _isPaused = false;
   final user = User();
   final ScrollController chatController = ScrollController();
 
@@ -36,6 +37,13 @@ class ChatViewModel with ChangeNotifier {
     _chapter = user.chapter;
     debugPrint('读取聊天历史');
   }
+
+  void changeIsPaused(bool value) {
+    _isPaused = value;
+    notifyListeners();
+  }
+
+  bool get isPaused => _isPaused;
 
   void changeAvatarUrl(String avatarUrl) {
     _avatarUrl = avatarUrl;

@@ -1,11 +1,24 @@
 import 'package:flutter/foundation.dart';
 import 'package:miko/model/setting_model.dart';
+import 'package:miko/utils/app_utils.dart';
 
 class SettingViewModel with ChangeNotifier {
   final Setting _setting = Setting();
 
   Future<void> init() async {
     await _setting.load();
+  }
+
+  void changeOldBgm(bool value) {
+    _setting.oldBgm = value;
+    notifyListeners();
+    _setting.save();
+    if (value) {
+      bgmPlayer.setAsset('assets/music/oldBgm.ogg');
+    } else {
+      bgmPlayer.setAsset('assets/music/bgm.ogg');
+    }
+    if (_setting.bgm) bgmPlayer.play();
   }
 
   void changeNowMikoAvatar(int nowMikoAvatar) {
@@ -18,6 +31,11 @@ class SettingViewModel with ChangeNotifier {
     _setting.bgm = value;
     notifyListeners();
     _setting.save();
+    if (!value) {
+      bgmPlayer.pause();
+    } else {
+      bgmPlayer.play();
+    }
   }
 
   void changeButtonMusic(bool value) {
@@ -76,4 +94,5 @@ class SettingViewModel with ChangeNotifier {
   bool get privacy => _setting.privacy;
   bool get birthday => _setting.birthday;
   bool get april => _setting.april;
+  bool get oldBgm => _setting.oldBgm;
 }

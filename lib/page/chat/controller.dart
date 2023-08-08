@@ -11,6 +11,7 @@ import 'package:miko/page/trend/trend_view_model.dart';
 import 'package:miko/page/chat/widget.dart';
 import 'package:provider/provider.dart';
 
+import '../../utils/notification.dart';
 import '../dictionary/dictionary_view_model.dart';
 import '../image/image_view_model.dart';
 
@@ -53,6 +54,10 @@ Future<void> sendInterval(bool waitTyping) async {
   await Future.delayed(Duration(milliseconds: waitTyping ? 700 : 200));
 }
 
+void notification(String title, String msg) {
+  NotificationService().newNotification(title, msg, true);
+}
+
 Future<void> sendLeft(ChatViewModel chatModel, SettingViewModel settingModel,
     String name, String msg) async {
   chatModel.changeTyping(true);
@@ -63,6 +68,7 @@ Future<void> sendLeft(ChatViewModel chatModel, SettingViewModel settingModel,
   if (name != '') chatModel.changeName(name);
   Message message = Message(name, msg, avatar, MessageType.left);
   chatModel.addItem(message);
+  if (chatModel.isPaused) notification('Miko', msg);
 }
 
 Future<void> sendImage(ChatViewModel chatModel, SettingViewModel settingModel,
@@ -74,6 +80,7 @@ Future<void> sendImage(ChatViewModel chatModel, SettingViewModel settingModel,
   imageModel.lockImage(image);
   await sendInterval(settingModel.waitTyping);
   chatModel.addItem(message);
+  if (chatModel.isPaused) notification('Miko', '[图片]');
 }
 
 Future<void> sendMiddle(
@@ -103,6 +110,7 @@ Future<void> sendTrend(
   await sendMiddle(chatModel, '对方发布了一条新动态', settingModel);
   imageModel.lockImage(image);
   trendModel.addTrend(Trend(trend, image, DateTime.now()));
+  if (chatModel.isPaused) notification('Miko', '[动态]');
 }
 
 ///播放器

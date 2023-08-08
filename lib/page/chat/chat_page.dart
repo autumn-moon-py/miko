@@ -1,6 +1,7 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 import 'package:miko/page/chat/chat_view_model.dart';
+import 'package:miko/page/setting/setting_view_model.dart';
 import 'package:miko/theme/color.dart';
 import 'package:miko/utils/routes.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +19,7 @@ class ChatPage extends StatefulWidget {
   State<ChatPage> createState() => _ChatPageState();
 }
 
-class _ChatPageState extends State<ChatPage> {
+class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
@@ -32,6 +33,40 @@ class _ChatPageState extends State<ChatPage> {
       });
       debugPrint('聊天初始化');
     });
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    bgmPlayer.dispose();
+    buttonPlayer.dispose();
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    final chatModel = context.read<ChatViewModel>();
+    final playBgm = context.read<SettingViewModel>().bgm;
+    switch (state) {
+      case AppLifecycleState.resumed:
+        chatModel.changeIsPaused(false);
+        if (playBgm && !bgmPlayer.playing) bgmPlayer.play();
+        debugPrint("应用进入前台======");
+        break;
+      case AppLifecycleState.inactive:
+        debugPrint("应用处于闲置状态，这种状态的应用应该假设他们可能在任何时候暂停 切换到后台会触发======");
+        break;
+      case AppLifecycleState.detached:
+        debugPrint("当前页面即将退出======");
+        break;
+      case AppLifecycleState.paused:
+        chatModel.changeIsPaused(true);
+        if (bgmPlayer.playing) bgmPlayer.pause();
+        debugPrint("应用处于不可见状态 后台======");
+        break;
+    }
   }
 
   Widget _buildTitle() {

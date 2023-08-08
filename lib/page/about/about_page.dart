@@ -16,10 +16,11 @@ class AboutPage extends StatefulWidget {
 }
 
 class _AboutPageState extends State<AboutPage> {
-  String version = '1.0.0';
+  String version = '';
   @override
   void initState() {
     super.initState();
+    init();
   }
 
   void init() async {
@@ -65,16 +66,12 @@ class _AboutPageState extends State<AboutPage> {
             buildDefaultItem(
                 leading: Icons.my_library_books_sharp,
                 title: '官网',
-                onTap: () => Utils.openWebSite('https://www.subrecovery.top')),
+                onTap: () => Utils.openWebSite('https://app.subrecovery.top')),
             buildDefaultItem(
                 leading: Icons.my_library_books_sharp,
                 title: 'TapTap',
                 onTap: () =>
                     Utils.openWebSite('https://www.taptap.cn/app/378027')),
-            buildDefaultItem(
-                leading: Icons.upgrade,
-                title: '更新',
-                onTap: () => Utils.openWebSite('https://app.subrecovery.top')),
             buildDefaultItem(
                 leading: Icons.group,
                 title: 'Q群',

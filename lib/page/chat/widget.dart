@@ -8,6 +8,7 @@ import 'package:miko/page/dictionary/dictionary_view_model.dart';
 import 'package:miko/page/chat/controller.dart';
 import 'package:miko/page/setting/setting_view_model.dart';
 import 'package:miko/theme/color.dart';
+import 'package:miko/utils/app_utils.dart';
 import 'package:provider/provider.dart';
 
 import 'chat_view_model.dart';
@@ -342,6 +343,8 @@ class _ChooseButtonState extends State<ChooseButton> {
         : MediaQuery.of(context).size.width / 2 - 16;
     return TextButton(
         onPressed: () {
+          final buttonMusic = context.read<SettingViewModel>().buttonMusic;
+          if (buttonMusic) buttonPlayer.play();
           Message item =
               Message('', text, 'assets/icon/未知用户.webp', MessageType.right);
           model.addItem(item);

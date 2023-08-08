@@ -44,6 +44,7 @@ class _SettingBodyState extends State<SettingBody> {
     final model = context.read<SettingViewModel>();
     final bgm = context.watch<SettingViewModel>().bgm;
     final buttonMusic = context.watch<SettingViewModel>().buttonMusic;
+    final oldBgm = context.watch<SettingViewModel>().oldBgm;
     return buildCard(children: [
       buildDefaultItem(
           leading: Icons.music_note,
@@ -52,6 +53,14 @@ class _SettingBodyState extends State<SettingBody> {
               value: bgm,
               onChanged: (value) {
                 model.changeBgm(value);
+              })),
+      buildDefaultItem(
+          leading: Icons.music_note,
+          title: '旧版音乐',
+          button: Switch(
+              value: oldBgm,
+              onChanged: (value) {
+                model.changeOldBgm(value);
               })),
       buildDefaultItem(
           leading: Icons.music_note_outlined,
@@ -165,7 +174,7 @@ class _SettingBodyState extends State<SettingBody> {
           const Text('2.进入异常日志添加记录并填表'),
           const Text('3.红米系列后台配置改为无限制,不然每次进入都会询问省电策略'),
           const Text('4.别私信秋月'),
-          const Text('5.不建议在taptap游玩,可以前往关于页面点击更新下载本地应用')
+          const Text('5.不建议在平台在线游玩,可以前往官网下载本地应用')
         ]));
   }
 

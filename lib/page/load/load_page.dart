@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, unused_element
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,6 +6,7 @@ import 'package:miko/page/chat/chat_page.dart';
 import 'package:miko/page/debug/debug_view_model.dart';
 import 'package:miko/page/image/image_view_model.dart';
 import 'package:miko/page/setting/setting_view_model.dart';
+import 'package:miko/theme/color.dart';
 import 'package:provider/provider.dart';
 
 import '../chat/chat_view_model.dart';
@@ -62,7 +63,8 @@ class _LoadPageState extends State<LoadPage> {
 
   @override
   Widget build(BuildContext context) {
-    return _buildLoadWidget(
-        title: _buildTitle(), background: _buildBackground());
+    return Container(color: MyTheme.background51);
+    // return _buildLoadWidget(
+    //     title: _buildTitle(), background: _buildBackground());
   }
 }

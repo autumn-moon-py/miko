@@ -19,6 +19,9 @@ import 'package:url_launcher/url_launcher.dart';
 
 bool taptap = false;
 
+AudioPlayer bgmPlayer = AudioPlayer();
+AudioPlayer buttonPlayer = AudioPlayer();
+
 class Utils {
   ///初始化
   static Future<void> init(BuildContext context) async {
@@ -107,24 +110,11 @@ class Utils {
   ///后台运行设置
   static Future<void> setBackground() async {
     if (taptap) return;
-    if (kDebugMode) return;
-    Get.dialog(AlertDialog(title: const Text('游戏剧情播放器需要允许后台运行'), actions: [
-      TextButton(
-          onPressed: () {
-            Get.back();
-          },
-          child: const Text('禁止', style: TextStyle(color: Colors.grey))),
-      TextButton(
-          onPressed: () async {
-            bool success = await FlutterBackground.initialize(
-                androidConfig: const FlutterBackgroundAndroidConfig());
-            if (success) {
-              await FlutterBackground.enableBackgroundExecution();
-            }
-            Get.back();
-          },
-          child: const Text('允许'))
-    ]));
+    bool success = await FlutterBackground.initialize(
+        androidConfig: const FlutterBackgroundAndroidConfig());
+    if (success) {
+      await FlutterBackground.enableBackgroundExecution();
+    }
   }
 
   ///请求网络
@@ -142,9 +132,9 @@ class Utils {
 
   ///检查更新
   static Future<void> checkUpgrade() async {
-    final packageInfo = await PackageInfo.fromPlatform();
-    final version = packageInfo.version;
+    final version = await getVersion();
     final dio = Dio();
+    int statusCode = 200;
     try {
       final response =
           await dio.get('https://www.subrecovery.top/app/new/upgrade.json');
@@ -158,10 +148,11 @@ class Utils {
           await upgrade(result['version']);
         }
       } else {
-        EasyLoading.showError('检查更新失败,请自行确认是否为最新版');
+        statusCode = response.statusCode ?? 0;
+        EasyLoading.showError('检查更新失败,状态码: $statusCode');
       }
-    } catch (_) {
-      EasyLoading.showError('检查更新失败,请自行确认是否为最新版');
+    } catch (e) {
+      EasyLoading.showError('检查更新失败,异常：$e');
     }
   }
 
@@ -203,9 +194,12 @@ class Utils {
   ///初始化音频
   static void audioInit(BuildContext context) {
     if (kDebugMode) return;
-    AudioPlayer bgmPlayer = AudioPlayer();
-    AudioPlayer buttonPlayer = AudioPlayer();
-    bgmPlayer.setAsset('assets/music/bgm.ogg');
+    final oldBgm = context.read<SettingViewModel>().oldBgm;
+    if (oldBgm) {
+      bgmPlayer.setAsset('assets/music/oldBgm.ogg');
+    } else {
+      bgmPlayer.setAsset('assets/music/bgm.ogg');
+    }
     bgmPlayer.setLoopMode(LoopMode.one);
     bgmPlayer.setVolume(0.5);
     buttonPlayer.setAsset('assets/music/button.ogg');
