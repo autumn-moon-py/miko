@@ -177,8 +177,8 @@ class _SettingBodyState extends State<SettingBody> {
     return DefaultTextStyle(
         style: MyTheme.miniStyle,
         child: buildCard(padding: true, addLine: false, children: [
-          const Text('1.剧情不播放时,别急着退出,可以尝试双击顶部名称继续播放,还是无法播放看[2]'),
-          const Text('2.进入异常日志添加记录并填表'),
+          const Text('1.剧情不播放/Miko下线时间太久时,先[2],再双击顶部名称'),
+          const Text('2.进入异常日志添加记录并填异常反馈'),
           const Text('3.红米系列后台配置改为无限制,不然每次进入都会询问省电策略'),
           const Text('4.别私信秋月'),
           const Text('5.安卓不建议在平台在线游玩,可以前往官网下载本地应用')

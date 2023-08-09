@@ -33,7 +33,7 @@ class _DebugPageState extends State<DebugPage> {
     return Stack(children: [
       Container(color: MyTheme.background),
       const Center(
-          child: Text('提示：单击日志列表可复制到粘贴板',
+          child: Text('提示：单击日志列表可复制到粘贴板\r\n右上角手动添加记录',
               style: TextStyle(color: Colors.grey, fontSize: 20)))
     ]);
   }
