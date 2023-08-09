@@ -12,6 +12,7 @@ class Setting {
   bool birthday = false;
   bool april = false;
   bool oldBgm = false;
+  bool voice = true;
   late SharedPreferences prefs;
 
   Future<void> save() async {
@@ -27,6 +28,7 @@ class Setting {
     prefs.setBool('birthday', birthday);
     prefs.setBool('april', april);
     prefs.setBool('oldBgm', oldBgm);
+    prefs.setBool('voice', voice);
   }
 
   Future<void> load() async {
@@ -42,5 +44,6 @@ class Setting {
     birthday = prefs.getBool('birthday') ?? birthday;
     april = prefs.getBool('april') ?? april;
     oldBgm = prefs.getBool('oldBgm') ?? oldBgm;
+    voice = prefs.getBool('voice') ?? voice;
   }
 }

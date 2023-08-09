@@ -7,6 +7,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:miko/model/dictionary_model.dart';
 import 'package:miko/page/chat/widget.dart';
 import 'package:miko/page/dictionary/dictionary_view_model.dart';
+import 'package:miko/page/setting/setting_view_model.dart';
 import 'package:miko/utils/app_utils.dart';
 import 'package:miko/utils/routes.dart';
 import 'package:provider/provider.dart';
@@ -44,10 +45,12 @@ class Message {
   }
 
   void voiceCallback(BuildContext context, String msg) {
-    voicePlayer.setAsset('assets/music/$msg.mp3');
+    final voice = context.read<SettingViewModel>().voice;
+    voicePlayer.setAsset('assets/music/$msg.ogg');
     voicePlayer.setVolume(0.5);
     if (voicePlayer.playing) voicePlayer.pause();
-    if (!voicePlayer.playing) voicePlayer.play();
+    if (!voicePlayer.playing && voice) voicePlayer.play();
+    if (voice) EasyLoading.showToast('语音已关闭');
   }
 
   @override

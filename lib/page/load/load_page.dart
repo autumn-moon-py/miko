@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously, unused_element
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:miko/model/user_model.dart';
@@ -34,6 +35,9 @@ class _LoadPageState extends State<LoadPage> {
       await context.read<DebugViewModel>().init();
       await context.read<SettingViewModel>().init();
       bool first = await User().firstRun();
+      if (kDebugMode) {
+        Get.off(const ChatPage());
+      }
       if (first) {
         Get.off(const IntroducePage());
       } else {

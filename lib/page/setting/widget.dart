@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -46,6 +48,7 @@ class _SettingBodyState extends State<SettingBody> {
     final bgm = context.watch<SettingViewModel>().bgm;
     final buttonMusic = context.watch<SettingViewModel>().buttonMusic;
     final oldBgm = context.watch<SettingViewModel>().oldBgm;
+    final voice = context.watch<SettingViewModel>().voice;
     return buildCard(children: [
       buildDefaultItem(
           leading: Icons.music_note,
@@ -70,8 +73,40 @@ class _SettingBodyState extends State<SettingBody> {
               value: buttonMusic,
               onChanged: (value) {
                 model.changeButtonMusic(value);
-              }))
+              })),
+      buildDefaultItem(
+          leading: Icons.voice_chat,
+          title: '语音开关',
+          button: Switch(
+              value: voice,
+              onChanged: (value) {
+                model.changeVoice(value);
+                shuffixVoice(value);
+              })),
     ]);
+  }
+
+  void shuffixVoice(bool voice) {
+    if (!voice) {
+      if (voicePlayer.playing) voicePlayer.pause();
+      return;
+    }
+    final random = Random();
+    double probability = 0.3;
+    if (random.nextDouble() < probability) {
+      final randomVoice = random.nextInt(2);
+      if (randomVoice == 0) {
+        voicePlayer.setAsset('assets/music/听得见吗.ogg');
+      }
+      if (randomVoice == 1) {
+        voicePlayer.setAsset('assets/music/喂.ogg');
+      }
+      if (randomVoice == 2) {
+        voicePlayer.setAsset('assets/music/我在哦.ogg');
+      }
+      voicePlayer.setVolume(0.5);
+      if (!voicePlayer.playing) voicePlayer.play();
+    }
   }
 
   Widget _buildChatButton() {
