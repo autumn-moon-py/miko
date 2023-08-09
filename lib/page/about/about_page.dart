@@ -41,6 +41,12 @@ class _AboutPageState extends State<AboutPage> {
     return Container(color: MyTheme.background);
   }
 
+  void caidna() {
+    context.read<ImageViewModel>().lockAllImage();
+    context.read<DictionaryViewModel>().lockAllDic();
+    EasyLoading.showSuccess('你已触发彩蛋, 本次启动解锁全部词典和图鉴，下次进入重置为原解锁进度');
+  }
+
   Widget _buildBody() {
     return Container(
         margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -48,19 +54,27 @@ class _AboutPageState extends State<AboutPage> {
         child: Column(children: [
           const SizedBox(height: 10),
           GestureDetector(
-            onTap: () {
-              context.read<ImageViewModel>().lockAllImage();
-              context.read<DictionaryViewModel>().lockAllDic();
-              EasyLoading.showSuccess('你已触发彩蛋, 本次启动解锁全部词典和图鉴，下次进入重置为原解锁进度');
+            onDoubleTap: () {
+              // caidna();
             },
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Image.asset('assets/icon/icon.webp', width: 70)),
           ),
           const SizedBox(height: 5),
-          Text(version, style: MyTheme.bigStyle.copyWith(color: Colors.grey)),
+          GestureDetector(
+              onDoubleTap: () {
+                // caidna();
+              },
+              child: Text(version,
+                  style: MyTheme.bigStyle.copyWith(color: Colors.grey))),
           const SizedBox(height: 5),
-          Text('秋月', style: MyTheme.narmalStyle.copyWith(color: Colors.grey)),
+          GestureDetector(
+              onDoubleTap: () {
+                caidna();
+              },
+              child: Text('秋月',
+                  style: MyTheme.narmalStyle.copyWith(color: Colors.grey))),
           const SizedBox(height: 10),
           buildCard(children: [
             buildDefaultItem(

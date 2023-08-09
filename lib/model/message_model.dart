@@ -7,6 +7,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:miko/model/dictionary_model.dart';
 import 'package:miko/page/chat/widget.dart';
 import 'package:miko/page/dictionary/dictionary_view_model.dart';
+import 'package:miko/utils/app_utils.dart';
 import 'package:miko/utils/routes.dart';
 import 'package:provider/provider.dart';
 
@@ -40,6 +41,13 @@ class Message {
       }
     }
     MyRoute.to(context, '/dic_view', dictionary);
+  }
+
+  void voiceCallback(BuildContext context, String msg) {
+    voicePlayer.setAsset('assets/music/$msg.mp3');
+    voicePlayer.setVolume(0.5);
+    if (voicePlayer.playing) voicePlayer.pause();
+    if (!voicePlayer.playing) voicePlayer.play();
   }
 
   @override

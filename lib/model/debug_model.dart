@@ -13,10 +13,12 @@ class DebugInfo {
   String error = '';
   String version = '';
   String time = '';
+  String chapter = '';
 
   @override
   String toString() {
-    return jsonEncode([line, beJump, jump, tag, msg, error, version, time]);
+    return jsonEncode(
+        [line, beJump, jump, tag, msg, error, version, time, chapter]);
   }
 
   DebugInfo fromString(String json) {
@@ -30,12 +32,13 @@ class DebugInfo {
     debug.error = debugInfoList[5];
     debug.version = debugInfoList[6];
     debug.time = debugInfoList[7];
+    debug.chapter = debugInfoList[8];
     return debug;
   }
 
   void copy() {
     final debug =
-        '行: $line,分支: $beJump,跳转: $jump\r\n标签: $tag\r\n气泡: $msg\r\n异常: $error\r\n版本: $version\r\n时间: $time';
+        '行: $line,章节：$chapter,分支: $beJump,跳转: $jump\r\n标签: $tag\r\n气泡: $msg\r\n异常: $error\r\n版本: $version\r\n时间: $time';
     Clipboard.setData(ClipboardData(text: debug));
     EasyLoading.showToast('复制成功');
   }

@@ -75,6 +75,17 @@ Future<void> sendLeft(ChatViewModel chatModel, SettingViewModel settingModel,
   if (chatModel.isPaused) notification('Miko', msg);
 }
 
+Future<void> sendVoice(ChatViewModel chatModel, SettingViewModel settingModel,
+    String name, String msg) async {
+  chatModel.changeTyping(true);
+  await typingTime(msg, settingModel.waitTyping);
+  chatModel.changeTyping(false);
+  if (name != '') chatModel.changeName(name);
+  Message message = Message(name, msg, MessageType.voice);
+  chatModel.addItem(message);
+  if (chatModel.isPaused) notification('Miko', msg);
+}
+
 Future<void> sendImage(ChatViewModel chatModel, SettingViewModel settingModel,
     ImageViewModel imageModel, String image) async {
   String imagePath = 'assets/photo/$image.webp';
@@ -126,10 +137,10 @@ void storyPlayer(BuildContext ctx) async {
   String tag = ''; //单标签
   if (kDebugMode) {
     // chatModel.clearMessage();
-    // chatModel.changeLine(1835);
+    // chatModel.changeLine(294);
     // chatModel.changeJump(444);
     // chatModel.changeResetLine(1529);
-    //// chatModel.changeChap('第二章');
+    // chatModel.changeChap('番外一');
   }
   if (chatModel.story.isEmpty) {
     await chatModel.changeStory();
@@ -186,6 +197,7 @@ void storyPlayer(BuildContext ctx) async {
           await sendLeft(chatModel, settingModel, name, msg);
           continue;
         }
+
         if (tag == '右') {
           await sendRight(chatModel, settingModel, msg);
           continue;
@@ -206,6 +218,10 @@ void storyPlayer(BuildContext ctx) async {
       if (tagList.isNotEmpty) {
         if (tagList[0] == '无' && jump == 0) {
           chatModel.changeResetLine(line);
+          continue;
+        }
+        if (tagList[0] == '语音' && jump == 0) {
+          await sendVoice(chatModel, settingModel, name, msg);
           continue;
         }
         if (tagList[0] == '词典' && jump == 0) {
@@ -337,6 +353,7 @@ void storyPlayer(BuildContext ctx) async {
     debugInfo.tag = chatModel.story[debugInfo.line][2];
     debugInfo.time = DateTime.now().toString();
     debugInfo.version = await Utils.getVersion();
+    debugInfo.chapter = chatModel.chapter;
     ctx.read<DebugViewModel>().addItem(debugInfo);
   }
   debugPrint('退出播放');

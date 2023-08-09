@@ -21,6 +21,7 @@ bool taptap = false;
 
 AudioPlayer bgmPlayer = AudioPlayer();
 AudioPlayer buttonPlayer = AudioPlayer();
+AudioPlayer voicePlayer = AudioPlayer();
 
 class Utils {
   ///初始化

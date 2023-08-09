@@ -71,6 +71,7 @@ void jumpDayDialog(BuildContext context) {
       builder: (context) {
         final nowChapter = context.read<ChatViewModel>().chapter;
         return SimpleDialog(
+            title: Text('天数跳转', style: MyTheme.bigStyle),
             backgroundColor: MyTheme.background51,
             children: [jumpDayBody(context, days[nowChapter]!)]);
       });

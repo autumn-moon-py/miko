@@ -15,6 +15,13 @@ class User {
   List<Trend> oldTrend = [];
   late SharedPreferences prefs;
 
+  Future<bool> firstRun() async {
+    prefs = await SharedPreferences.getInstance();
+    bool first = prefs.containsKey('first');
+    if (!first) prefs.setBool('first', true);
+    return !first;
+  }
+
   Future<void> load() async {
     prefs = await SharedPreferences.getInstance();
     avatar = prefs.getString('avatar') ?? avatar;

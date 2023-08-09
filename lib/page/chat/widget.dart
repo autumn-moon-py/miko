@@ -79,7 +79,7 @@ class HomeWidget extends StatelessWidget {
   }
 }
 
-enum MessageType { left, image, middle, right }
+enum MessageType { left, image, middle, right, voice }
 
 class Bubble extends StatelessWidget {
   final String text;
@@ -88,6 +88,7 @@ class Bubble extends StatelessWidget {
   final Widget? image;
   final Function(BuildContext) avatarCallback;
   final Function(BuildContext, String) textCallback;
+  final Function(BuildContext, String)? voiceCallback;
   final TextStyle? textStyle;
   final TextStyle? dicStyle;
   final Color? backgroundColor;
@@ -117,7 +118,8 @@ class Bubble extends StatelessWidget {
       this.avatarSize,
       this.textColor,
       this.newUI = true,
-      required this.bubbleAnimation});
+      required this.bubbleAnimation,
+      this.voiceCallback});
   Widget _avatar(BuildContext context) {
     return GestureDetector(
         onTap: () => avatarCallback(context),
@@ -179,6 +181,28 @@ class Bubble extends StatelessWidget {
         child: findDic());
   }
 
+  Widget _voice(Function(BuildContext, String) callback, BuildContext context) {
+    double time = text.length / 4;
+    String showText = '${time.toStringAsFixed(1)}s';
+    return GestureDetector(
+        onTap: () {
+          callback.call(context, text);
+        },
+        child: Container(
+            margin: textMargin ?? const EdgeInsets.only(top: 0),
+            padding: textPadding ?? const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                color: backgroundColor ?? MyTheme.background,
+                borderRadius: const BorderRadius.all(Radius.circular(7))),
+            child: Row(children: [
+              Text(showText, style: MyTheme.narmalStyle),
+              const SizedBox(width: 5),
+              Icon(Icons.record_voice_over,
+                  color: Colors.white, size: MyTheme.narmalIconSize),
+              const SizedBox(width: 5)
+            ])));
+  }
+
   MainAxisAlignment _messageType(MessageType type) {
     if (type == MessageType.left || type == MessageType.image) {
       return MainAxisAlignment.start;
@@ -201,6 +225,9 @@ class Bubble extends StatelessWidget {
     if (type == MessageType.right) {
       return [_text(textCallback), _avatar(context)];
     }
+    if (type == MessageType.voice) {
+      return [_avatar(context), _voice(voiceCallback!, context)];
+    }
     return [];
   }
 
@@ -221,13 +248,12 @@ class Bubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _buildChild(
-      child: Padding(
-          padding: const EdgeInsets.only(bottom: 10),
-          child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: _messageType(type),
-              children: _children(type, context))),
-    );
+        child: Padding(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: _messageType(type),
+                children: _children(type, context))));
   }
 }
 
@@ -280,6 +306,9 @@ class _ChatListState extends State<ChatList> {
         avatar = Image.asset('assets/icon/头像$nowMikoAvatar.webp');
       }
     }
+    if (item.type == MessageType.voice) {
+      avatar = Image.asset('assets/icon/头像$nowMikoAvatar.webp');
+    }
     if (item.type == MessageType.middle) {
       final text = item.message;
       if (text == '对方已上线' || text == '切换对象中') {
@@ -316,6 +345,7 @@ class _ChatListState extends State<ChatList> {
         avatarCallback: item.avatarCallback,
         backgroundColor: background,
         textCallback: item.textCallback,
+        voiceCallback: item.voiceCallback,
         avatar: avatar,
         image: image,
         textColor: textColor,

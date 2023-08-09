@@ -36,7 +36,7 @@ class _SettingBodyState extends State<SettingBody> {
           title: '异常反馈',
           onTap: () {
             Utils.openWebSite(
-                'https://docs.qq.com/sheet/DVWNGYlF1amN4SmJp?tab=ss_y64xkc&viewId=fv1');
+                'https://docs.qq.com/form/page/DVVZJa1hQY3BtZnlw');
           })
     ]);
   }
@@ -175,14 +175,28 @@ class _SettingBodyState extends State<SettingBody> {
 
   Widget _buildTips() {
     return DefaultTextStyle(
-        style: MyTheme.miniStyle,
+        style: MyTheme.narmalStyle,
         child: buildCard(padding: true, addLine: false, children: [
           const Text('1.剧情不播放/Miko下线时间太久时,先[2],再双击顶部名称'),
           const Text('2.进入异常日志添加记录并填异常反馈'),
           const Text('3.红米系列后台配置改为无限制,不然每次进入都会询问省电策略'),
           const Text('4.别私信秋月'),
-          const Text('5.安卓不建议在平台在线游玩,可以前往官网下载本地应用')
+          const Text('5.不建议在平台在线游玩,可以前往官网下载本地应用'),
+          const Text('6.如有其它问题请前往Q群询问')
         ]));
+  }
+
+  Widget _buildNewImage() {
+    final model = context.read<SettingViewModel>();
+    final newIMage = context.watch<SettingViewModel>().newImage;
+    return buildCard(children: [
+      buildDefaultItem(
+          leading: Icons.photo,
+          title: 'AI图鉴',
+          button: Switch(
+              value: newIMage,
+              onChanged: (value) => model.changeNewImage(value)))
+    ]);
   }
 
   @override
@@ -191,9 +205,11 @@ class _SettingBodyState extends State<SettingBody> {
     return _buildBody(children: [
       _buildTips(),
       padding,
+      _buildDebugButton(),
+      padding,
       _buildAvatarButton(),
       padding,
-      _buildDebugButton(),
+      _buildNewImage(),
       padding,
       _buildMusicButton(),
       padding,

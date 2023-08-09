@@ -40,6 +40,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
   void dispose() {
     bgmPlayer.dispose();
     buttonPlayer.dispose();
+    voicePlayer.dispose();
     super.dispose();
     WidgetsBinding.instance.removeObserver(this);
   }
