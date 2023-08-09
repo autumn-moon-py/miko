@@ -13,12 +13,12 @@ class User {
   int playLine = 0;
   List<Message> oldMessage = [];
   List<Trend> oldTrend = [];
+  List<int> oldChoose = [];
   late SharedPreferences prefs;
 
   Future<bool> firstRun() async {
     prefs = await SharedPreferences.getInstance();
-    bool first = prefs.containsKey('first');
-    if (!first) prefs.setBool('first', true);
+    bool first = prefs.containsKey('avatar');
     return !first;
   }
 
@@ -29,6 +29,7 @@ class User {
     playLine = prefs.getInt('playLine') ?? playLine;
     chapter = prefs.getString('chapter') ?? chapter;
     loadMessage(prefs.getStringList('oldMessage') ?? []);
+    loadOldChoose(prefs.getStringList('oldChoose') ?? []);
   }
 
   Future<void> loadTrend() async {
@@ -62,6 +63,22 @@ class User {
     prefs.setString('chapter', chapter);
     prefs.setInt('playLine', playLine);
     prefs.setStringList('oldMessage', saveMessage());
+    prefs.setStringList('oldChoose', saveOldChoose());
+  }
+
+  List<String> saveOldChoose() {
+    List<String> oldChooseList = [];
+    for (var choose in oldChoose) {
+      oldChooseList.add(choose.toString());
+    }
+    return oldChooseList;
+  }
+
+  void loadOldChoose(List<String> list) {
+    if (list.isEmpty) return;
+    for (var item in list) {
+      oldChoose.add(int.parse(item));
+    }
   }
 
   Future<void> saveTrend() async {

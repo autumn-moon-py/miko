@@ -40,9 +40,8 @@ class _LoadPageState extends State<LoadPage> {
       }
       if (first) {
         Get.off(const IntroducePage());
-      } else {
-        Get.off(const ChatPage());
       }
+      Get.off(const ChatPage());
     });
   }
 
@@ -74,7 +73,11 @@ class _LoadPageState extends State<LoadPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(color: MyTheme.background51);
+    return GestureDetector(
+        onTap: () {
+          Get.off(const ChatPage());
+        },
+        child: Container(color: MyTheme.background51));
     // return _buildLoadWidget(
     //     title: _buildTitle(), background: _buildBackground());
   }

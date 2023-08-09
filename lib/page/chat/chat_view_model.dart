@@ -38,6 +38,19 @@ class ChatViewModel with ChangeNotifier {
     debugPrint('读取聊天历史');
   }
 
+  void addOldChooseItem(int line) {
+    if (oldChoose.length < 3) {
+      user.oldChoose.add(line);
+    }
+    if (oldChoose.length == 3) {
+      user.oldChoose.removeAt(0);
+      user.oldChoose.add(line);
+    }
+    user.save();
+  }
+
+  List<int> get oldChoose => user.oldChoose;
+
   void changeIsPaused(bool value) {
     _isPaused = value;
     notifyListeners();

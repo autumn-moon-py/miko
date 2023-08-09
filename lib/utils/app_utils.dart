@@ -17,7 +17,7 @@ import 'package:provider/provider.dart';
 import 'package:r_upgrade/r_upgrade.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-bool taptap = false;
+bool taptap = true;
 
 AudioPlayer bgmPlayer = AudioPlayer();
 AudioPlayer buttonPlayer = AudioPlayer();

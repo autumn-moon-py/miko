@@ -197,7 +197,6 @@ void storyPlayer(BuildContext ctx) async {
           await sendLeft(chatModel, settingModel, name, msg);
           continue;
         }
-
         if (tag == '右') {
           await sendRight(chatModel, settingModel, msg);
           continue;
@@ -229,9 +228,13 @@ void storyPlayer(BuildContext ctx) async {
           continue;
         }
         if (tagList[0] == 'BE' && jump == 0) {
-          chatModel.changeLine(chatModel.resetLine);
+          if (chatModel.oldChoose.isNotEmpty) {
+            chatModel.changeLine(chatModel.oldChoose[0]);
+          } else {
+            chatModel.changeLine(chatModel.resetLine);
+          }
           chatModel.clearMessage();
-          EasyLoading.showError('你已进入BE路线, 自动回溯到当天初始',
+          EasyLoading.showToast('你已进入BE路线, 自动回溯到三个选项前',
               duration: const Duration(seconds: 3));
           continue;
         }
@@ -283,6 +286,7 @@ void storyPlayer(BuildContext ctx) async {
           //右,选项,XX
           if (tagList[1] == '选项' && chatModel.leftChoose == '') {
             chatModel.changeLeftChoose(msg);
+            chatModel.addOldChooseItem(line);
             int chooseOneJump = int.parse(tagList[2]);
             chatModel.changeLeftJump(chooseOneJump);
             continue;
