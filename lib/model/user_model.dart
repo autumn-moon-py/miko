@@ -14,6 +14,7 @@ class User {
   List<Message> oldMessage = [];
   List<Trend> oldTrend = [];
   List<int> oldChoose = [];
+  int startTime = 0;
   late SharedPreferences prefs;
 
   Future<bool> firstRun() async {
@@ -30,6 +31,7 @@ class User {
     chapter = prefs.getString('chapter') ?? chapter;
     loadMessage(prefs.getStringList('oldMessage') ?? []);
     loadOldChoose(prefs.getStringList('oldChoose') ?? []);
+    startTime = prefs.getInt('startTime') ?? startTime;
   }
 
   Future<void> loadTrend() async {
@@ -64,6 +66,7 @@ class User {
     prefs.setInt('playLine', playLine);
     prefs.setStringList('oldMessage', saveMessage());
     prefs.setStringList('oldChoose', saveOldChoose());
+    prefs.setInt('startTime', startTime);
   }
 
   List<String> saveOldChoose() {

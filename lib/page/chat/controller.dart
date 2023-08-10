@@ -161,9 +161,10 @@ void storyPlayer(BuildContext ctx) async {
           continue;
         }
         if (DateTime.now().millisecondsSinceEpoch < chatModel.startTime) {
-          await Future.delayed(Duration(
-              milliseconds: (chatModel.startTime -
-                  DateTime.now().millisecondsSinceEpoch)));
+          int newTime =
+              chatModel.startTime - DateTime.now().millisecondsSinceEpoch;
+          chatModel.changeStartTime(newTime);
+          await Future.delayed(Duration(milliseconds: newTime));
           continue;
         }
       }
@@ -301,7 +302,7 @@ void storyPlayer(BuildContext ctx) async {
           }
         }
         if (tagList[0] == '右' && jump == 0) {
-          int jump1 = int.parse(tagList[2]);
+          int jump1 = int.parse(tagList[1]);
           chatModel.changeJump(jump1);
           await sendRight(chatModel, settingModel, msg);
           continue;

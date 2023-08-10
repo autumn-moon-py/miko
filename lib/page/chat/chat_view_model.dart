@@ -35,6 +35,7 @@ class ChatViewModel with ChangeNotifier {
     _name = user.name;
     _message.addAll(user.oldMessage);
     _chapter = user.chapter;
+    _startTime = user.startTime;
     debugPrint('读取聊天历史');
   }
 
@@ -174,7 +175,11 @@ class ChatViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void changeStartTime(int startTime) => _startTime = startTime;
+  void changeStartTime(int startTime) {
+    _startTime = startTime;
+    user.startTime = _startTime;
+    user.save();
+  }
 
   String get name => _name;
   List<Message> get message => _message;
