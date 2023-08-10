@@ -360,6 +360,7 @@ void storyPlayer(BuildContext ctx) async {
     debugInfo.version = await Utils.getVersion();
     debugInfo.chapter = chatModel.chapter;
     debugInfo.jpushID = await Utils.getJPushID();
+    debugInfo.startTime = chatModel.startTime;
     ctx.read<DebugViewModel>().addItem(debugInfo);
   }
   debugPrint('退出播放');
