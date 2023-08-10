@@ -9,6 +9,7 @@ import 'package:flutter_background/flutter_background.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:jpush_flutter/jpush_flutter.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:miko/page/setting/setting_view_model.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -22,6 +23,7 @@ bool taptap = true;
 AudioPlayer bgmPlayer = AudioPlayer();
 AudioPlayer buttonPlayer = AudioPlayer();
 AudioPlayer voicePlayer = AudioPlayer();
+JPush jpush = JPush();
 
 class Utils {
   ///初始化
@@ -33,6 +35,32 @@ class Utils {
     requestNotification();
     audioInit(context);
     privacyDialog(context);
+    jpushInit();
+  }
+
+  static Future<void> jpushInit() async {
+    if (taptap) return;
+    jpush.setup(appKey: '5858a0b6bb205b2d81e6c6bb');
+    jpush.addEventHandler(onReceiveNotification: (message) async {
+      // 收到消息时调用此方法
+      debugPrint('收到消息: $message');
+      jpush.setBadge(1);
+      final title = message['title'];
+      final body = message['alert'];
+      EasyLoading.showInfo('$title\r\n$body',
+          duration: const Duration(seconds: 10));
+    }, onOpenNotification: (message) async {
+      //点击通知栏消息
+      debugPrint('点击通知栏消息: $message');
+      final title = message['title'];
+      final body = message['alert'];
+      EasyLoading.showInfo('$title\r\n$body',
+          duration: const Duration(seconds: 10));
+    });
+  }
+
+  static Future<String> getJPushID() {
+    return jpush.getRegistrationID();
   }
 
   ///隐私政策
@@ -111,6 +139,7 @@ class Utils {
   ///后台运行设置
   static Future<void> setBackground() async {
     if (taptap) return;
+    if (kDebugMode) return;
     bool success = await FlutterBackground.initialize(
         androidConfig: const FlutterBackgroundAndroidConfig());
     if (success) {

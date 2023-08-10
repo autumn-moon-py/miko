@@ -42,12 +42,11 @@ class _DebugPageState extends State<DebugPage> {
     final line = debugInfo.line;
     final beJump = debugInfo.beJump;
     final jump = debugInfo.jump;
-    final tag = debugInfo.tag;
-    final msg = debugInfo.msg;
     final error = debugInfo.error;
     final version = debugInfo.version;
     final time = debugInfo.time;
     final chapter = debugInfo.chapter;
+    final jpushID = debugInfo.jpushID;
     final maxWidth = MediaQuery.of(context).size.width - 50;
     const style = TextStyle(color: Colors.white, fontSize: 15);
     return GestureDetector(
@@ -60,7 +59,7 @@ class _DebugPageState extends State<DebugPage> {
               ConstrainedBox(
                   constraints: BoxConstraints(maxWidth: maxWidth),
                   child: Text(
-                      '行: $line,章节：$chapter,分支: $beJump,跳转: $jump\r\n标签: $tag\r\n气泡: $msg\r\n异常: $error\r\n版本: $version\r\n时间: $time',
+                      '行: $line,章节：$chapter,分支: $beJump,跳转: $jump\r\n异常: $error\r\n版本: $version\r\n时间: $time\r\njpushID: $jpushID',
                       style: style))
             ])));
   }
@@ -86,11 +85,10 @@ class _DebugPageState extends State<DebugPage> {
               debugInfo.error = '反馈时额外备注';
               debugInfo.jump = chatModel.jump;
               debugInfo.line = chatModel.line;
-              debugInfo.msg = chatModel.story[chatModel.line][1];
-              debugInfo.tag = chatModel.story[chatModel.line][2];
               debugInfo.time = DateTime.now().toString();
               debugInfo.version = await Utils.getVersion();
               debugInfo.chapter = chatModel.chapter;
+              debugInfo.jpushID = await Utils.getJPushID();
               model.addItem(debugInfo);
               EasyLoading.showToast('成功添加日志');
             } catch (e) {

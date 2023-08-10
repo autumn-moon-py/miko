@@ -333,8 +333,10 @@ class _ChatListState extends State<ChatList> {
                   Image.asset('assets/icon/未知用户.webp'));
     }
     if (item.type == MessageType.image) {
+      avatar = Image.asset('assets/icon/头像$nowMikoAvatar.webp');
+      final name = item.image.split('/').last.split('.').first;
       image = GestureDetector(
-          onTap: () => MyRoute.to(context, '/image_view', item.image),
+          onTap: () => MyRoute.to(context, '/image_view', name),
           child: ClipRRect(
               borderRadius: BorderRadiusDirectional.circular(20),
               child: Image.asset(item.image, width: 195, height: 260)));

@@ -1,11 +1,13 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:miko/page/chat/chat_view_model.dart';
 import 'package:miko/page/setting/setting_view_model.dart';
 import 'package:miko/theme/color.dart';
 import 'package:miko/utils/routes.dart';
 import 'package:provider/provider.dart';
 
+import '../../model/user_model.dart';
 import '../../utils/app_utils.dart';
 import '../../utils/dialog_utils.dart';
 import '../../widget.dart';
@@ -23,7 +25,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       Utils.init(context);
       DialogUtils.init(context);
       storyPlayer(context);
@@ -31,6 +33,10 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
       Future.delayed(const Duration(milliseconds: 100), () {
         chatController.jumpTo(chatController.position.maxScrollExtent);
       });
+      bool first = await User().firstRun();
+      if (first) {
+        EasyLoading.showInfo('游戏介绍请看设置', duration: const Duration(seconds: 10));
+      }
       debugPrint('聊天初始化');
     });
     WidgetsBinding.instance.addObserver(this);

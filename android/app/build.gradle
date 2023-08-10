@@ -57,6 +57,15 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
+        ndk {
+            abiFilters 'armeabi-v7a','arm64-v8a'
+        }
+        manifestPlaceholders = [
+        applicationName: "android.app.Application",
+        JPUSH_PKGNAME : "com.autumnmoon.miko",
+        JPUSH_APPKEY : "5858a0b6bb205b2d81e6c6bb",
+        JPUSH_CHANNEL : "developer-default"
+        ]
     }
 
     signingConfigs {

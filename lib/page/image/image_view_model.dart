@@ -9,7 +9,7 @@ class ImageViewModel with ChangeNotifier {
 
   Future<void> init() async {
     _imageMap = await user.loadImage(_imageMap);
-    _imageMap;
+    errorLock();
   }
 
   void lockImage(String image) {
@@ -25,6 +25,32 @@ class ImageViewModel with ChangeNotifier {
       _imageMap[imageList1[i]] = true;
     }
     notifyListeners();
+  }
+
+  void errorLock() {
+    List<String> waitLock = [];
+    _imageMap.forEach((key, value) {
+      if (value == true && key.length == 5) {
+        waitLock.add(key);
+      }
+      if (key.length > 5) {
+        String wait = key;
+        if (_imageMap[wait]) {
+          waitLock.remove(wait.replaceAll('-n', ''));
+        }
+      }
+    });
+    if (waitLock.isEmpty) return;
+    for (var i = 0; i < waitLock.length; i++) {
+      for (var j = 0; j < imageList2.length; j++) {
+        final waitImage = waitLock[i];
+        final image = imageList2[j];
+        if (waitImage.length != image.length && image.startsWith(waitImage)) {
+          lockImage(imageList2[j]);
+          break;
+        }
+      }
+    }
   }
 
   ///旧图鉴

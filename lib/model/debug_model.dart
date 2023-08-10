@@ -8,37 +8,37 @@ class DebugInfo {
   int line = 0;
   int beJump = 0;
   int jump = 0;
-  String tag = '';
-  String msg = '';
   String error = '';
   String version = '';
   String time = '';
   String chapter = '';
+  String jpushID = '';
 
   @override
   String toString() {
     return jsonEncode(
-        [line, beJump, jump, tag, msg, error, version, time, chapter]);
+        [line, beJump, jump, error, version, time, chapter, jpushID]);
   }
 
   DebugInfo fromString(String json) {
     final debugInfoList = jsonDecode(json);
     DebugInfo debug = DebugInfo();
-    debug.line = debugInfoList[0];
-    debug.beJump = debugInfoList[1];
-    debug.jump = debugInfoList[2];
-    debug.tag = debugInfoList[3];
-    debug.msg = debugInfoList[4];
-    debug.error = debugInfoList[5];
-    debug.version = debugInfoList[6];
-    debug.time = debugInfoList[7];
-    debug.chapter = debugInfoList[8];
+    try {
+      debug.line = debugInfoList[0];
+      debug.beJump = debugInfoList[1];
+      debug.jump = debugInfoList[2];
+      debug.error = debugInfoList[3];
+      debug.version = debugInfoList[4];
+      debug.time = debugInfoList[5];
+      debug.chapter = debugInfoList[6];
+      debug.jpushID = debugInfoList[7];
+    } catch (_) {}
     return debug;
   }
 
   void copy() {
     final debug =
-        '行: $line,章节：$chapter,分支: $beJump,跳转: $jump\r\n标签: $tag\r\n气泡: $msg\r\n异常: $error\r\n版本: $version\r\n时间: $time';
+        '行: $line,章节：$chapter,分支: $beJump,跳转: $jump\r\n异常: $error\r\n版本: $version\r\n时间: $time\r\njpushID: $jpushID';
     Clipboard.setData(ClipboardData(text: debug));
     EasyLoading.showToast('复制成功');
   }

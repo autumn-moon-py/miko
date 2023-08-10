@@ -1,13 +1,10 @@
 // ignore_for_file: use_build_context_synchronously, unused_element
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:miko/model/user_model.dart';
 import 'package:miko/page/chat/chat_page.dart';
 import 'package:miko/page/debug/debug_view_model.dart';
 import 'package:miko/page/image/image_view_model.dart';
-import 'package:miko/page/introduce/introduce_page.dart';
 import 'package:miko/page/setting/setting_view_model.dart';
 import 'package:miko/theme/color.dart';
 import 'package:provider/provider.dart';
@@ -34,13 +31,7 @@ class _LoadPageState extends State<LoadPage> {
       await context.read<DictionaryViewModel>().init();
       await context.read<DebugViewModel>().init();
       await context.read<SettingViewModel>().init();
-      bool first = await User().firstRun();
-      if (kDebugMode) {
-        Get.off(const ChatPage());
-      }
-      if (first) {
-        Get.off(const IntroducePage());
-      }
+
       Get.off(const ChatPage());
     });
   }

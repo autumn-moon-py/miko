@@ -9,6 +9,11 @@ class TrendViewModel with ChangeNotifier {
   final user = User();
 
   void addTrend(Trend trend) {
+    for (var item in _trends) {
+      if (item.image == trend.image) {
+        return;
+      }
+    }
     _trends.add(trend);
     notifyListeners();
     user.oldTrend.add(trend);

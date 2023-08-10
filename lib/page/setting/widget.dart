@@ -211,7 +211,7 @@ class _SettingBodyState extends State<SettingBody> {
 
   Widget _buildTips() {
     return DefaultTextStyle(
-        style: MyTheme.narmalStyle,
+        style: MyTheme.bigStyle.copyWith(color: Colors.red),
         child: buildCard(padding: true, addLine: false, children: [
           const Text('1.剧情不播放/Miko下线时间太久时,先[2],再双击顶部名称'),
           const Text('2.进入异常日志添加记录并填异常反馈'),

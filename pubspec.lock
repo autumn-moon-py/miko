@@ -296,6 +296,14 @@ packages:
       url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub/"
     source: hosted
     version: "2.0.3"
+  jpush_flutter:
+    dependency: "direct main"
+    description:
+      name: jpush_flutter
+      sha256: a5f6b7f622a2c48cd1c6702598f80781dd7d1069bbb7177774a10cf0efbba313
+      url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub/"
+    source: hosted
+    version: "2.4.7"
   js:
     dependency: transitive
     description:

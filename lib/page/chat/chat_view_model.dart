@@ -39,10 +39,10 @@ class ChatViewModel with ChangeNotifier {
   }
 
   void addOldChooseItem(int line) {
-    if (oldChoose.length < 3) {
+    if (oldChoose.length < 5) {
       user.oldChoose.add(line);
     }
-    if (oldChoose.length == 3) {
+    if (oldChoose.length == 5) {
       user.oldChoose.removeAt(0);
       user.oldChoose.add(line);
     }
@@ -146,6 +146,7 @@ class ChatViewModel with ChangeNotifier {
 
   void clearMessage() {
     _message.clear();
+    debugPrint('清空聊天历史');
     notifyListeners();
   }
 

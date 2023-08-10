@@ -14,6 +14,11 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
+		<service android:name="xx.xx.XService" android:enabled="true" android:exported="false" android:process=":pushcore">
+			<intent-filter>
+				<action android:name="cn.jiguang.user.service.action" />
+			</intent-filter>
+		</service>
 		<meta-data android:name="flutterEmbedding" android:value="2" />
 	</application>
 </manifest>

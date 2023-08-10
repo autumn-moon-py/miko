@@ -137,10 +137,10 @@ void storyPlayer(BuildContext ctx) async {
   String tag = ''; //单标签
   if (kDebugMode) {
     // chatModel.clearMessage();
-    // chatModel.changeLine(294);
+    // chatModel.changeLine(1633);
     // chatModel.changeJump(444);
     // chatModel.changeResetLine(1529);
-    // chatModel.changeChap('番外一');
+    // chatModel.changeChap('第一章');
   }
   if (chatModel.story.isEmpty) {
     await chatModel.changeStory();
@@ -234,13 +234,15 @@ void storyPlayer(BuildContext ctx) async {
             chatModel.changeLine(chatModel.resetLine);
           }
           chatModel.clearMessage();
-          EasyLoading.showToast('你已进入BE路线, 自动回溯到三个选项前',
+          EasyLoading.showToast('你已进入BE路线, 自动回溯到五个选项前',
               duration: const Duration(seconds: 3));
           continue;
         }
         if (tagList[0] == '图鉴' && jump == 0) {
           if (msg.length == 5 && msg.substring(0, 1) != 'W') {
             await sendImage(chatModel, settingModel, imageModel, msg);
+          } else {
+            imageModel.lockImage(msg);
           }
           continue;
         }
@@ -353,11 +355,10 @@ void storyPlayer(BuildContext ctx) async {
     debugInfo.error = e.toString();
     debugInfo.jump = chatModel.jump;
     debugInfo.line = chatModel.line;
-    debugInfo.msg = chatModel.story[debugInfo.line][1];
-    debugInfo.tag = chatModel.story[debugInfo.line][2];
     debugInfo.time = DateTime.now().toString();
     debugInfo.version = await Utils.getVersion();
     debugInfo.chapter = chatModel.chapter;
+    debugInfo.jpushID = await Utils.getJPushID();
     ctx.read<DebugViewModel>().addItem(debugInfo);
   }
   debugPrint('退出播放');
