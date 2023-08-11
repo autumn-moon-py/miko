@@ -22,8 +22,8 @@ import '../dictionary/dictionary_view_model.dart';
 import '../image/image_view_model.dart';
 
 ///上下搜索
-bool upDownSearch(List tagList, int line, int jump, List story) {
-  bool needToNewLine = false;
+void upDownSearch(
+    List tagList, int line, int jump, List story, ChatViewModel chatModel) {
   for (int j = math.max(0, line - 150); j < line; j++) {
     List lines = story[j];
     String tags = lines[2];
@@ -35,18 +35,13 @@ bool upDownSearch(List tagList, int line, int jump, List story) {
           //左/中,分支XX
           int tlJp = int.parse(tlStr1.substring(2, tlStr1.length));
           if (tlJp == jump) {
-            line = j;
-            needToNewLine = true;
+            chatModel.changeLine(j);
             break;
           }
         }
       }
     }
   }
-  if (needToNewLine) {
-    return true;
-  }
-  return false;
 }
 
 ///打字等待时间
@@ -137,10 +132,11 @@ void storyPlayer(BuildContext ctx) async {
   String tag = ''; //单标签
   if (kDebugMode) {
     // chatModel.clearMessage();
-    // chatModel.changeLine(1633);
+    // chatModel.changeLine(258);
+    // chatModel.changeBeJump(368);
     // chatModel.changeJump(444);
     // chatModel.changeResetLine(1529);
-    // chatModel.changeChap('第一章');
+    // chatModel.changeChap('第二章');
   }
   if (chatModel.story.isEmpty) {
     await chatModel.changeStory();
@@ -266,9 +262,10 @@ void storyPlayer(BuildContext ctx) async {
               }
             } else if (jump == 0) {
               //左,XX
-              chatModel.changeJump(int.parse(tagList[1]));
+              int jump0 = int.parse(tagList[1]);
+              chatModel.changeJump(jump0);
               await sendLeft(chatModel, settingModel, name, msg);
-              if (upDownSearch(tagList, line, jump, chatModel.story)) continue;
+              upDownSearch(tagList, line, jump0, story, chatModel);
             }
           }
           if (tagList.length == 3) {
@@ -281,7 +278,7 @@ void storyPlayer(BuildContext ctx) async {
               chatModel.changeJump(jump0);
               chatModel.changeBeJump(0);
               await sendLeft(chatModel, settingModel, name, msg);
-              if (upDownSearch(tagList, line, jump, story)) continue;
+              upDownSearch(tagList, line, jump0, story, chatModel);
             }
           }
         }
@@ -331,7 +328,7 @@ void storyPlayer(BuildContext ctx) async {
               chatModel.changeJump(jump2);
               chatModel.changeBeJump(0);
               await sendMiddle(chatModel, msg, settingModel);
-              if (upDownSearch(tagList, line, jump, story)) continue;
+              upDownSearch(tagList, line, jump2, story, chatModel);
             }
           }
           if (tagList.length == 4 && jump == 0) {
@@ -339,7 +336,7 @@ void storyPlayer(BuildContext ctx) async {
             if (tagList[1] != 0) {
               int jump3 = int.parse(tagList[1]);
               chatModel.changeJump(jump3);
-              if (upDownSearch(tagList, line, jump, story)) continue;
+              upDownSearch(tagList, line, jump3, story, chatModel);
             }
             int startTime = DateTime.now().millisecondsSinceEpoch +
                 int.parse(tagList[3]) * 60000;

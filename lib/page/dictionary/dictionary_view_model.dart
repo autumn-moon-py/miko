@@ -68,7 +68,6 @@ class DictionaryViewModel with ChangeNotifier {
     '女贞',
     '威士忌酱烤肋排',
     '美的历史',
-    '42',
     '摩斯密码',
     '425A',
     '莫西莫西',
@@ -241,7 +240,6 @@ class DictionaryViewModel with ChangeNotifier {
       '意大利哲学家、文学家翁贝托艾柯(UmbertoEco)的著作，描述人类文明史上美学观点的演变史，涉及文学、艺术等各方面'
     ],
     '425A': ['第一章', 'false', '美国警察专用事件代码，425A指代Suspiciousperson可疑人员'],
-    '42': ['第一章', 'false', '生命，宇宙和万事万物的终极答案'],
     '摩斯密码': [
       '第一章',
       'false',
