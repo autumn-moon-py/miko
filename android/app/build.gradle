@@ -58,7 +58,7 @@ android {
         versionName flutterVersionName
         multiDexEnabled true
         ndk {
-            abiFilters 'armeabi-v7a','arm64-v8a','x86_64'
+            abiFilters 'armeabi-v7a','arm64-v8a'//,'x86_64'
         }
         manifestPlaceholders = [
         applicationName: "android.app.Application",
@@ -74,6 +74,8 @@ android {
            keyPassword keystoreProperties['keyPassword']
            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
            storePassword keystoreProperties['storePassword']
+           v1SigningEnabled true
+           v2SigningEnabled true
        }
    }
    buildTypes {

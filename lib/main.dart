@@ -18,7 +18,11 @@ void main() {
   SystemUiOverlayStyle systemUiOverlayStyle =
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent);
   SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
-  runApp(const MyApp());
+  try {
+    runApp(const MyApp());
+  } catch (e) {
+    EasyLoading.showError('程序异常：$e', duration: const Duration(seconds: 10));
+  }
 }
 
 class MyApp extends StatelessWidget {

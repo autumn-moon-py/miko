@@ -68,7 +68,11 @@ class _LoadPageState extends State<LoadPage> {
         onTap: () {
           Get.off(const ChatPage());
         },
-        child: Container(color: MyTheme.background51));
+        child: Container(
+            alignment: Alignment.center,
+            color: MyTheme.background51,
+            child: Text('如果里能一直看到我说明游戏异常了，单击我进入游戏',
+                style: MyTheme.narmalStyle.copyWith(color: Colors.grey))));
     // return _buildLoadWidget(
     //     title: _buildTitle(), background: _buildBackground());
   }

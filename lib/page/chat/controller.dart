@@ -1,8 +1,7 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, unused_local_variable
 
 import 'dart:math' as math;
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:miko/model/debug_model.dart';
@@ -130,14 +129,6 @@ void storyPlayer(BuildContext ctx) async {
   String msg = ''; //消息
   List tagList = []; //多标签
   String tag = ''; //单标签
-  if (kDebugMode) {
-    // chatModel.clearMessage();
-    // chatModel.changeLine(258);
-    // chatModel.changeBeJump(368);
-    // chatModel.changeJump(444);
-    // chatModel.changeResetLine(1529);
-    // chatModel.changeChap('第二章');
-  }
   if (chatModel.story.isEmpty) {
     await chatModel.changeStory();
   }
@@ -149,19 +140,25 @@ void storyPlayer(BuildContext ctx) async {
       }
       if (settingModel.waitOffline == false) {
         chatModel.changeStartTime(0);
+        continue;
       }
       if (settingModel.waitOffline && chatModel.startTime > 0) {
         debugPrint('已下线');
-        if (DateTime.now().millisecondsSinceEpoch > chatModel.startTime) {
+        final now = DateTime.now().millisecondsSinceEpoch;
+        if (now > chatModel.startTime) {
           chatModel.changeStartTime(0);
+          chatModel.changeLine(chatModel.line + 1);
           continue;
         }
-        if (DateTime.now().millisecondsSinceEpoch < chatModel.startTime) {
-          int newTime =
-              chatModel.startTime - DateTime.now().millisecondsSinceEpoch;
-          chatModel.changeStartTime(newTime);
-          await Future.delayed(Duration(milliseconds: newTime));
-          continue;
+        if (now < chatModel.startTime) {
+          final start =
+              DateTime.fromMillisecondsSinceEpoch(chatModel.startTime);
+          int newTime = chatModel.startTime - now;
+          final show = (newTime / 60000).ceil();
+          EasyLoading.showToast('预计$show分钟后上线');
+          await Future.delayed(Duration(minutes: show), () {
+            storyPlayer(ctx);
+          });
         }
       }
       List lineInfo = chatModel.story[chatModel.line];
@@ -225,13 +222,13 @@ void storyPlayer(BuildContext ctx) async {
           continue;
         }
         if (tagList[0] == 'BE' && jump == 0) {
-          if (chatModel.oldChoose.isNotEmpty) {
+          if (chatModel.oldChoose.length >= 5) {
             chatModel.changeLine(chatModel.oldChoose[0]);
           } else {
             chatModel.changeLine(chatModel.resetLine);
           }
           chatModel.clearMessage();
-          EasyLoading.showToast('你已进入BE路线, 自动回溯到五个选项前',
+          EasyLoading.showToast('你已进入BE路线, 自动回溯',
               duration: const Duration(seconds: 3));
           continue;
         }
@@ -338,12 +335,20 @@ void storyPlayer(BuildContext ctx) async {
               chatModel.changeJump(jump3);
               upDownSearch(tagList, line, jump3, story, chatModel);
             }
-            int startTime = DateTime.now().millisecondsSinceEpoch +
-                int.parse(tagList[3]) * 60000;
+            final waitTime = int.parse(tagList[3]);
+            final now = DateTime.now().millisecondsSinceEpoch;
+            int startTime = now + waitTime * 60000;
             chatModel.changeStartTime(startTime);
-            continue;
+            final show = DateTime.fromMillisecondsSinceEpoch(startTime);
+            if (waitTime >= 660) EasyLoading.showToast('预计上线时间: $show');
+            await Future.delayed(Duration(minutes: waitTime), () {
+              storyPlayer(ctx);
+            });
           }
         }
+      }
+      if (jump != 0 && line == chatModel.story.length - 1) {
+        chatModel.changeLine(0);
       }
     } while (chatModel.line < chatModel.story.length);
   } catch (e) {

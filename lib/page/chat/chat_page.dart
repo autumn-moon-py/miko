@@ -1,4 +1,5 @@
 import 'package:blur/blur.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:miko/page/chat/chat_view_model.dart';
@@ -28,8 +29,19 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       Utils.init(context);
       DialogUtils.init(context);
-      storyPlayer(context);
       final chatController = context.read<ChatViewModel>().chatController;
+      if (kDebugMode) {
+        // ignore: unused_local_variable
+        final chatModel = context.read<ChatViewModel>();
+        // chatModel.clearMessage();
+        // chatModel.changeLine(99);
+        // chatModel.changeStartTime(0);
+        // chatModel.changeBeJump(368);
+        // chatModel.changeJump(444);
+        // chatModel.changeResetLine(1529);
+        // chatModel.changeChap('第一章');
+      }
+      storyPlayer(context);
       Future.delayed(const Duration(milliseconds: 100), () {
         chatController.jumpTo(chatController.position.maxScrollExtent);
       });
