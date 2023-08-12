@@ -33,6 +33,7 @@ class ChatViewModel with ChangeNotifier {
     _avatarUrl = user.avatar;
     _line = user.playLine;
     _name = user.name;
+    _resetLine = user.resetLine;
     _message.addAll(user.oldMessage);
     _chapter = user.chapter;
     _startTime = user.startTime;
@@ -102,7 +103,11 @@ class ChatViewModel with ChangeNotifier {
 
   int get rightJump => _rightJump;
 
-  void changeResetLine(int resetLine) => _resetLine = resetLine;
+  void changeResetLine(int resetLine) {
+    _resetLine = resetLine;
+    user.resetLine = _resetLine;
+    user.save();
+  }
 
   void changeChap(String chapter) => _chapter = chapter;
 

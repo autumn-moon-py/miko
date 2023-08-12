@@ -2,7 +2,6 @@ import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:miko/page/dictionary/dictionary_view_model.dart';
 import 'package:miko/page/chat/controller.dart';
@@ -265,44 +264,14 @@ class TitleWidget extends StatefulWidget {
 }
 
 class _TitleWidgetState extends State<TitleWidget> {
-  String _name = '对方输入中.';
-  bool _typing = false;
-
-  init() async {
-    do {
-      await wait();
-      if (_name == '对方输入中.') {
-        _name = '对方输入中..';
-        setState(() {});
-        continue;
-      }
-      if (_name == '对方输入中..') {
-        _name = '对方输入中...';
-        setState(() {});
-        continue;
-      }
-      if (_name == '对方输入中...') {
-        _name = '对方输入中.';
-        setState(() {});
-        continue;
-      }
-      if (!_typing) break;
-    } while (_typing);
-  }
-
-  Future<void> wait() async {
-    await Future.delayed(const Duration(seconds: 5));
-  }
+  final String _name = '对方输入中...';
 
   Widget _buildChild() {
-    debugPrint('构建标题');
     final typing = context.watch<ChatViewModel>().typing;
     final name = context.watch<ChatViewModel>().name;
-    _typing = typing;
-    init();
+
     return GestureDetector(
         onTap: () {
-          EasyLoading.showToast('开始播放');
           storyPlayer(context);
         },
         child: Text(typing ? _name : name, style: MyTheme.bigStyle));

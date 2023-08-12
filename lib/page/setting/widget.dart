@@ -213,7 +213,7 @@ class _SettingBodyState extends State<SettingBody> {
     return DefaultTextStyle(
         style: MyTheme.bigStyle.copyWith(color: Colors.red),
         child: buildCard(padding: true, addLine: false, children: [
-          const Text('1.剧情不播放/Miko下线时间太久时,先[2],再双击顶部名称'),
+          const Text('1.剧情不播放/Miko下线时间太久时,先[2],再单击顶部名称'),
           const Text('2.进入异常日志添加记录并填异常反馈'),
           const Text('3.红米系列后台配置改为无限制,不然每次进入都会询问省电策略'),
           const Text('4.别私信秋月'),

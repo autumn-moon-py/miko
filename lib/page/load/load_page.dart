@@ -31,7 +31,6 @@ class _LoadPageState extends State<LoadPage> {
       await context.read<DictionaryViewModel>().init();
       await context.read<DebugViewModel>().init();
       await context.read<SettingViewModel>().init();
-
       Get.off(const ChatPage());
     });
   }

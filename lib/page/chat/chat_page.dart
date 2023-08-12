@@ -1,8 +1,9 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get/get.dart';
 import 'package:miko/page/chat/chat_view_model.dart';
+import 'package:miko/page/introduce/introduce_page.dart';
 import 'package:miko/page/setting/setting_view_model.dart';
 import 'package:miko/theme/color.dart';
 import 'package:miko/utils/routes.dart';
@@ -34,7 +35,8 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
         // ignore: unused_local_variable
         final chatModel = context.read<ChatViewModel>();
         // chatModel.clearMessage();
-        // chatModel.changeLine(99);
+        // chatModel.changeLine(466);
+        // chatModel.changeLine(808);
         // chatModel.changeStartTime(0);
         // chatModel.changeBeJump(368);
         // chatModel.changeJump(444);
@@ -47,7 +49,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
       });
       bool first = await User().firstRun();
       if (first) {
-        EasyLoading.showInfo('游戏介绍请看设置', duration: const Duration(seconds: 10));
+        Get.to(const IntroducePage());
       }
       debugPrint('聊天初始化');
     });

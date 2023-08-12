@@ -138,7 +138,7 @@ void storyPlayer(BuildContext ctx) async {
         debugPrint('有选项');
         break;
       }
-      if (settingModel.waitOffline == false) {
+      if (!settingModel.waitOffline && chatModel.startTime > 0) {
         chatModel.changeStartTime(0);
         continue;
       }
@@ -147,7 +147,6 @@ void storyPlayer(BuildContext ctx) async {
         final now = DateTime.now().millisecondsSinceEpoch;
         if (now > chatModel.startTime) {
           chatModel.changeStartTime(0);
-          chatModel.changeLine(chatModel.line + 1);
           continue;
         }
         if (now < chatModel.startTime) {
@@ -155,10 +154,13 @@ void storyPlayer(BuildContext ctx) async {
               DateTime.fromMillisecondsSinceEpoch(chatModel.startTime);
           int newTime = chatModel.startTime - now;
           final show = (newTime / 60000).ceil();
-          EasyLoading.showToast('预计$show分钟后上线');
-          await Future.delayed(Duration(minutes: show), () {
-            storyPlayer(ctx);
-          });
+          if (show > 60) {
+            EasyLoading.showToast('预计$show分钟后上线');
+          } else {
+            EasyLoading.showToast('对方暂未上线');
+          }
+          await Future.delayed(Duration(minutes: show));
+          continue;
         }
       }
       List lineInfo = chatModel.story[chatModel.line];
@@ -222,11 +224,13 @@ void storyPlayer(BuildContext ctx) async {
           continue;
         }
         if (tagList[0] == 'BE' && jump == 0) {
-          if (chatModel.oldChoose.length >= 5) {
-            chatModel.changeLine(chatModel.oldChoose[0]);
-          } else {
-            chatModel.changeLine(chatModel.resetLine);
-          }
+          // if (chatModel.oldChoose.length >= 5) {
+          //   chatModel.changeLine(chatModel.oldChoose[0]);
+          // } else {
+          //   chatModel.changeLine(chatModel.resetLine);
+          // }
+          final resetLine = ctx.read<ChatViewModel>().resetLine;
+          chatModel.changeLine(resetLine);
           chatModel.clearMessage();
           EasyLoading.showToast('你已进入BE路线, 自动回溯',
               duration: const Duration(seconds: 3));
@@ -341,9 +345,10 @@ void storyPlayer(BuildContext ctx) async {
             chatModel.changeStartTime(startTime);
             final show = DateTime.fromMillisecondsSinceEpoch(startTime);
             if (waitTime >= 660) EasyLoading.showToast('预计上线时间: $show');
-            await Future.delayed(Duration(minutes: waitTime), () {
-              storyPlayer(ctx);
-            });
+            if (settingModel.waitOffline) {
+              await Future.delayed(Duration(minutes: waitTime));
+            }
+            continue;
           }
         }
       }
