@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miko/page/introduce/introduce_page.dart';
 import 'package:miko/page/setting/setting_view_model.dart';
@@ -211,14 +212,15 @@ class _SettingBodyState extends State<SettingBody> {
 
   Widget _buildTips() {
     return DefaultTextStyle(
-        style: MyTheme.bigStyle.copyWith(color: Colors.red),
+        style: TextStyle(color: Colors.yellow, fontSize: 70.sp),
         child: buildCard(padding: true, addLine: false, children: [
-          const Text('1.剧情不播放/Miko下线时间太久时,先[2],再单击顶部名称'),
-          const Text('2.进入异常日志添加记录并填异常反馈'),
-          const Text('3.红米系列后台配置改为无限制,不然每次进入都会询问省电策略'),
-          const Text('4.别私信秋月'),
-          const Text('5.不建议在平台在线游玩,可以前往官网下载本地应用'),
-          const Text('6.如有其它问题请前往Q群询问')
+          const Text('剧情不播放/Miko下线时间太久时,先[3],再单击顶部名称'),
+          const Text('不要多次点击名称触发播放，会跳过部分剧情但不影响游玩'),
+          const Text('进入异常日志添加记录并填异常反馈'),
+          const Text('红米系列后台配置改为无限制,不然每次进入都会询问省电策略'),
+          const Text('别私信秋月'),
+          const Text('不建议在平台在线游玩,可以前往官网下载本地应用'),
+          const Text('如有其它问题请前往Q群询问')
         ]));
   }
 

@@ -98,9 +98,13 @@ class _AboutPageState extends State<AboutPage> {
                     'http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=HwflPNcfx2rhVytyseGN3H0mFco-c-dk&authKey=sBbYcY9JUM5ngMdwEVm9vnrEj%2FfCmqfzBfo4W%2B4LbgaWH6jLiezKB2uvo3J%2FJpha&noverify=0&group_code=673105016')),
             buildDefaultItem(
                 leading: Icons.emoji_food_beverage_rounded,
-                title: '投喂',
+                title: '投喂 for 秋月',
                 onTap: () =>
-                    Utils.openWebSite('https://afdian.net/a/subrecovery'))
+                    Utils.openWebSite('https://afdian.net/a/subrecovery')),
+            buildDefaultItem(
+                leading: Icons.emoji_food_beverage_rounded,
+                title: '赞助 for Light',
+                onTap: () => Utils.openWebSite('https://miko.pw/donate.html'))
           ])
         ]));
   }

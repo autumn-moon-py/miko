@@ -272,7 +272,7 @@ class _TitleWidgetState extends State<TitleWidget> {
 
     return GestureDetector(
         onTap: () {
-          storyPlayer(context);
+          // storyPlayer(context);
         },
         child: Text(typing ? _name : name, style: MyTheme.bigStyle));
   }

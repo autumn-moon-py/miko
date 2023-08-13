@@ -147,6 +147,7 @@ void storyPlayer(BuildContext ctx) async {
         final now = DateTime.now().millisecondsSinceEpoch;
         if (now > chatModel.startTime) {
           chatModel.changeStartTime(0);
+          chatModel.changeLine(chatModel.line + 1);
           continue;
         }
         if (now < chatModel.startTime) {
@@ -229,11 +230,13 @@ void storyPlayer(BuildContext ctx) async {
           // } else {
           //   chatModel.changeLine(chatModel.resetLine);
           // }
-          final resetLine = ctx.read<ChatViewModel>().resetLine;
-          chatModel.changeLine(resetLine);
-          chatModel.clearMessage();
-          EasyLoading.showToast('你已进入BE路线, 自动回溯',
-              duration: const Duration(seconds: 3));
+          // final resetLine = ctx.read<ChatViewModel>().resetLine;
+          // chatModel.changeLine(resetLine);
+          // chatModel.clearMessage();
+          // EasyLoading.showToast('你已进入BE路线, 自动回溯',
+          //     duration: const Duration(seconds: 3));
+          await sendMiddle(
+              chatModel, '你已进入BE路线，请自行点击设置旁边的按钮选择回溯时间', settingModel);
           continue;
         }
         if (tagList[0] == '图鉴' && jump == 0) {
@@ -352,10 +355,11 @@ void storyPlayer(BuildContext ctx) async {
           }
         }
       }
-      if (jump != 0 && line == chatModel.story.length - 1) {
+      if (jump != 0 && line == chatModel.story.length) {
         chatModel.changeLine(0);
+        continue;
       }
-    } while (chatModel.line < chatModel.story.length);
+    } while (chatModel.line <= chatModel.story.length);
   } catch (e) {
     EasyLoading.showError('捕获到异常，请前往异常日志查看');
     DebugInfo debugInfo = DebugInfo();

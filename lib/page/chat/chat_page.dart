@@ -35,11 +35,11 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
         // ignore: unused_local_variable
         final chatModel = context.read<ChatViewModel>();
         // chatModel.clearMessage();
-        // chatModel.changeLine(466);
-        // chatModel.changeLine(808);
+        // chatModel.changeLine(459);
+        // chatModel.changeLine(41);
         // chatModel.changeStartTime(0);
         // chatModel.changeBeJump(368);
-        // chatModel.changeJump(444);
+        // chatModel.changeJump(328);
         // chatModel.changeResetLine(1529);
         // chatModel.changeChap('第一章');
       }
