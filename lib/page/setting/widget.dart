@@ -214,7 +214,7 @@ class _SettingBodyState extends State<SettingBody> {
     return DefaultTextStyle(
         style: TextStyle(color: Colors.yellow, fontSize: 70.sp),
         child: buildCard(padding: true, addLine: false, children: [
-          const Text('剧情不播放/Miko下线时间太久时,先[3],再单击顶部名称'),
+          const Text('剧情不播放/Miko下线时间太久时,双击击顶部名称,再[3]'),
           const Text('不要多次点击名称触发播放，会跳过部分剧情但不影响游玩'),
           const Text('进入异常日志添加记录并填异常反馈'),
           const Text('红米系列后台配置改为无限制,不然每次进入都会询问省电策略'),

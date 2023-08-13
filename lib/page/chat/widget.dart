@@ -271,8 +271,8 @@ class _TitleWidgetState extends State<TitleWidget> {
     final name = context.watch<ChatViewModel>().name;
 
     return GestureDetector(
-        onTap: () {
-          // storyPlayer(context);
+        onDoubleTap: () {
+          storyPlayer(context);
         },
         child: Text(typing ? _name : name, style: MyTheme.bigStyle));
   }

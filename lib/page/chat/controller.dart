@@ -155,11 +155,7 @@ void storyPlayer(BuildContext ctx) async {
               DateTime.fromMillisecondsSinceEpoch(chatModel.startTime);
           int newTime = chatModel.startTime - now;
           final show = (newTime / 60000).ceil();
-          if (show > 60) {
-            EasyLoading.showToast('预计$show分钟后上线');
-          } else {
-            EasyLoading.showToast('对方暂未上线');
-          }
+          EasyLoading.showToast('预计$show分钟后上线');
           await Future.delayed(Duration(minutes: show));
           continue;
         }
@@ -358,6 +354,9 @@ void storyPlayer(BuildContext ctx) async {
       if (jump != 0 && line == chatModel.story.length) {
         chatModel.changeLine(0);
         continue;
+      }
+      if (line > chatModel.story.length) {
+        break;
       }
     } while (chatModel.line <= chatModel.story.length);
   } catch (e) {
