@@ -7,10 +7,7 @@
         {
             "name": "miko",
             "request": "launch",
-            "type": "dart",
-            "args": [
-                "-vv"
-            ]
+            "type": "dart","args": ["-vv"]
         }
     ]
 }

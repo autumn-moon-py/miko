@@ -9,6 +9,7 @@ class ImageViewModel with ChangeNotifier {
 
   Future<void> init() async {
     _imageMap = await user.loadImage(_imageMap);
+    errorLock();
   }
 
   void lockImage(String image) {

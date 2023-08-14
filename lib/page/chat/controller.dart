@@ -355,9 +355,6 @@ void storyPlayer(BuildContext ctx) async {
         chatModel.changeLine(0);
         continue;
       }
-      if (line > chatModel.story.length) {
-        break;
-      }
     } while (chatModel.line <= chatModel.story.length);
   } catch (e) {
     EasyLoading.showError('捕获到异常，请前往异常日志查看');
