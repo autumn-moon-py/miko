@@ -293,7 +293,7 @@ class ChatList extends StatefulWidget {
 class _ChatListState extends State<ChatList> {
   Widget _bodyItemBuilder(List<Message> data, int index, BuildContext context) {
     Message item = data[index];
-    double maxWidth = MediaQuery.of(context).size.width * 0.73;
+    double maxWidth = MediaQuery.of(context).size.width * 0.8;
     Widget? avatar;
     Color? textColor;
     Color? background;

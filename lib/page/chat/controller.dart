@@ -163,6 +163,9 @@ void storyPlayer(BuildContext ctx) async {
       List lineInfo = chatModel.story[chatModel.line];
       if (chatModel.line < chatModel.story.length - 1) {
         chatModel.changeLine(chatModel.line + 1);
+      } else {
+        //通关退出
+        break;
       }
       //空行继续
       if (lineInfo[2] == '') continue;
@@ -353,11 +356,7 @@ void storyPlayer(BuildContext ctx) async {
           }
         }
       }
-      if (jump != 0 && line == chatModel.story.length) {
-        chatModel.changeLine(0);
-        continue;
-      }
-    } while (chatModel.line <= chatModel.story.length);
+    } while (chatModel.line < chatModel.story.length);
   } catch (e) {
     EasyLoading.showError('捕获到异常，请前往异常日志查看');
     DebugInfo debugInfo = DebugInfo();
