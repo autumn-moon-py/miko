@@ -33,12 +33,12 @@ class ImageViewModel with ChangeNotifier {
       if (value == true && key.length == 5) {
         waitLock.add(key);
       }
-      if (key.length > 5) {
-        String wait = key;
-        if (_imageMap[wait]) {
-          waitLock.remove(wait.replaceAll('-n', ''));
-        }
-      }
+      // if (key.length > 5) {
+      //   String wait = key;
+      //   if (_imageMap[wait]) {
+      //     waitLock.remove(wait.replaceAll('-n', ''));
+      //   }
+      // }
     });
     if (waitLock.isEmpty) return;
     for (var i = 0; i < waitLock.length; i++) {
