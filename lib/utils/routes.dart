@@ -33,4 +33,10 @@ class MyRoute {
   static void back(BuildContext context) {
     Navigator.of(context).pop(context);
   }
+
+  //跳转到指定页面无法返回
+  static void off(BuildContext context, String name, [Object? arg]) {
+    Navigator.pushNamedAndRemoveUntil(context, name, (route) => false,
+        arguments: arg);
+  }
 }

@@ -7,6 +7,7 @@ import 'package:miko/page/debug/debug_view_model.dart';
 import 'package:miko/page/image/image_view_model.dart';
 import 'package:miko/page/setting/setting_view_model.dart';
 import 'package:miko/theme/color.dart';
+import 'package:miko/utils/routes.dart';
 import 'package:provider/provider.dart';
 
 import '../chat/chat_view_model.dart';
@@ -31,7 +32,7 @@ class _LoadPageState extends State<LoadPage> {
       await context.read<DictionaryViewModel>().init();
       await context.read<DebugViewModel>().init();
       await context.read<SettingViewModel>().init();
-      Get.off(const ChatPage());
+      MyRoute.off(context, '/chat');
     });
   }
 

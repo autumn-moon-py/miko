@@ -213,13 +213,14 @@ class _SettingBodyState extends State<SettingBody> {
     return DefaultTextStyle(
         style: MyTheme.narmalStyle.copyWith(color: Colors.yellow),
         child: buildCard(padding: true, addLine: false, children: [
-          const Text('1.剧情不播放/Miko下线时间太久时，先反馈，再双击顶部名称'),
+          const Text('1.剧情不播放，先反馈，再双击顶部名称'),
           const Text('2.不要多次点击名称触发播放，会跳过部分剧情可能不影响游玩'),
           const Text('3.进入异常日志添加记录并填异常反馈'),
           const Text('4.红米系列后台配置改为无限制,不然每次进入都会询问省电策略'),
           const Text('5.别私信秋月'),
           const Text('6.不建议在平台在线游玩,可以前往官网下载本地应用'),
-          const Text('7.如有其它问题请前往Q群询问')
+          const Text('7.如有其它问题请前往Q群询问'),
+          const Text('8.如果检测更新失败则自行前往Q群文件查看是否有新版本')
         ]));
   }
 

@@ -35,12 +35,12 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
         // ignore: unused_local_variable
         final chatModel = context.read<ChatViewModel>();
         // chatModel.clearMessage();
-        // chatModel.changeLine(1128);
+        // chatModel.changeLine(28);
         // chatModel.changeStartTime(0);
         // chatModel.changeBeJump(368);
-        // chatModel.changeJump(783);
+        // chatModel.changeJump(328);
         // chatModel.changeResetLine(1529);
-        // chatModel.changeChap('第三章');
+        // chatModel.changeChap('番外二');
       }
       storyPlayer(context);
       Future.delayed(const Duration(milliseconds: 100), () {
