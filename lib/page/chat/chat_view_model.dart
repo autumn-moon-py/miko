@@ -33,6 +33,7 @@ class ChatViewModel with ChangeNotifier {
     _avatarUrl = user.avatar;
     _line = user.playLine;
     _name = user.name;
+    _jump = user.jump;
     _resetLine = user.resetLine;
     _message.addAll(user.oldMessage);
     _chapter = user.chapter;
@@ -113,7 +114,11 @@ class ChatViewModel with ChangeNotifier {
 
   int get resetLine => _resetLine;
 
-  void changeJump(int jump) => _jump = jump;
+  void changeJump(int jump) {
+    _jump = jump;
+    user.jump = _jump;
+    user.save();
+  }
 
   int get jump => _jump;
 
@@ -139,6 +144,7 @@ class ChatViewModel with ChangeNotifier {
   }
 
   void addItem(Message item) {
+    if (checkMessage(item)) return;
     _message.add(item);
     notifyListeners();
     user.playLine = _line;
@@ -148,6 +154,12 @@ class ChatViewModel with ChangeNotifier {
     Future.delayed(const Duration(milliseconds: 100), () {
       chatController.jumpTo(chatController.position.maxScrollExtent);
     });
+  }
+
+  bool checkMessage(Message item) {
+    if (_message.isEmpty) return false;
+    if (_message.last.message == item.message) return true;
+    return false;
   }
 
   void clearMessage() {

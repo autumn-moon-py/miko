@@ -2,6 +2,7 @@
 
 import 'dart:math' as math;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:miko/model/debug_model.dart';
@@ -51,7 +52,8 @@ Future<void> typingTime(String msg, bool waitTyping) async {
 
 ///发送间隔
 Future<void> sendInterval(bool waitTyping) async {
-  await Future.delayed(Duration(milliseconds: waitTyping ? 700 : 200));
+  int wait = kDebugMode ? 0 : 200;
+  await Future.delayed(Duration(milliseconds: waitTyping ? 700 : wait));
 }
 
 void notification(String title, String msg) {
@@ -119,13 +121,35 @@ Future<void> sendTrend(
   if (chatModel.isPaused) notification('Miko', '[动态]');
 }
 
+void debugPlayer(ChatViewModel chatModel) {
+  final choose1 = chatModel.leftChoose;
+  final jump1 = chatModel.leftJump;
+  final choose2 = chatModel.rightChoose;
+  final jump2 = chatModel.rightJump;
+  late int jump;
+  late String text;
+  final random = math.Random().nextInt(2);
+  if (random == 0) {
+    jump = jump1;
+    text = choose1;
+  } else {
+    jump = jump2;
+    text = choose2;
+  }
+  Message item = Message('', text, MessageType.right);
+  chatModel.addItem(item);
+  chatModel.changeShowChoose(false);
+  chatModel.changeJump(jump);
+}
+
 ///播放器
 void storyPlayer(BuildContext ctx) async {
-  ChatViewModel chatModel = ctx.read<ChatViewModel>();
-  SettingViewModel settingModel = ctx.read<SettingViewModel>();
-  ImageViewModel imageModel = ctx.read<ImageViewModel>();
-  TrendViewModel trendModel = ctx.read<TrendViewModel>();
-  DictionaryViewModel dictionaryModel = ctx.read<DictionaryViewModel>();
+  final chatModel = ctx.read<ChatViewModel>();
+  final settingModel = ctx.read<SettingViewModel>();
+  final imageModel = ctx.read<ImageViewModel>();
+  final trendModel = ctx.read<TrendViewModel>();
+  final dictionaryModel = ctx.read<DictionaryViewModel>();
+  final debugModel = ctx.read<DebugViewModel>();
   String msg = ''; //消息
   List tagList = []; //多标签
   String tag = ''; //单标签
@@ -161,6 +185,21 @@ void storyPlayer(BuildContext ctx) async {
         }
       }
       List lineInfo = chatModel.story[chatModel.line];
+      // if (chatModel.line == chatModel.story.length - 1) {
+      //   final nowChapter = chatModel.chapter;
+      //   int index = chapterList.indexOf(nowChapter);
+      //   if (index == chapterList.length - 1) {
+      //     index = 0;
+      //   } else {
+      //     index++;
+      //   }
+      //   final nextChapter = chapterList[index];
+      //   chatModel.changeChap(nextChapter);
+      //   await chatModel.changeStory();
+      //   chatModel.clearMessage();
+      //   chatModel.changeLine(0);
+      //   continue;
+      // }
       if (chatModel.line < chatModel.story.length - 1) {
         chatModel.changeLine(chatModel.line + 1);
       } else {
@@ -226,18 +265,10 @@ void storyPlayer(BuildContext ctx) async {
           continue;
         }
         if (tagList[0] == 'BE' && jump == 0) {
-          // if (chatModel.oldChoose.length >= 5) {
-          //   chatModel.changeLine(chatModel.oldChoose[0]);
-          // } else {
-          //   chatModel.changeLine(chatModel.resetLine);
-          // }
-          EasyLoading.showToast('你已进入BE路线, 自动回溯',
-              duration: const Duration(seconds: 3));
-          final resetLine = ctx.read<ChatViewModel>().resetLine;
+          await sendMiddle(chatModel, '你已进入BE路线, 开始自动回溯', settingModel);
+          final resetLine = chatModel.resetLine;
           chatModel.clearMessage();
           chatModel.changeLine(resetLine);
-          // await sendMiddle(
-          //     chatModel, '你已进入BE路线，请自行点击设置旁边的按钮选择回溯时间', settingModel);
           continue;
         }
         if (tagList[0] == '图鉴' && jump == 0) {
@@ -300,6 +331,10 @@ void storyPlayer(BuildContext ctx) async {
             chatModel.changeRightChoose(msg);
             int chooseTwoJump = int.parse(tagList[2]);
             chatModel.changeRightJump(chooseTwoJump);
+            // if (kDebugMode) {
+            //   debugPlayer(chatModel);
+            //   continue;
+            // }
             break;
           }
         }
@@ -369,7 +404,7 @@ void storyPlayer(BuildContext ctx) async {
     debugInfo.chapter = chatModel.chapter;
     debugInfo.jpushID = await Utils.getJPushID();
     debugInfo.startTime = chatModel.startTime;
-    ctx.read<DebugViewModel>().addItem(debugInfo);
+    debugModel.addItem(debugInfo);
   }
   debugPrint('退出播放');
 }

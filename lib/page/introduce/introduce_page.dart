@@ -96,7 +96,9 @@ class _IntroducePageState extends State<IntroducePage> {
                 width: 1.sw / 1.5,
                 color: Colors.black.withAlpha(150),
                 padding: const EdgeInsets.all(10),
-                child: Text(tipList[index], style: MyTheme.narmalStyle))));
+                child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    child: Text(tipList[index], style: MyTheme.bigStyle)))));
   }
 
   @override

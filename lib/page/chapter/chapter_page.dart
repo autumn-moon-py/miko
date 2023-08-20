@@ -5,6 +5,18 @@ import 'package:miko/theme/color.dart';
 import 'package:miko/utils/routes.dart';
 import 'package:provider/provider.dart';
 
+const chapterList = [
+  '第一章',
+  '番外一',
+  '第二章',
+  '番外二',
+  '第三章',
+  '番外三',
+  '第四章',
+  '第五章',
+  '第六章'
+];
+
 class ChapterPage extends StatelessWidget {
   const ChapterPage({super.key});
 
@@ -63,18 +75,6 @@ class ChapterPage extends StatelessWidget {
   }
 
   Widget _buildBody() {
-    const chapterList = [
-      '第一章',
-      '番外一',
-      '第二章',
-      '番外二',
-      '第三章',
-      '番外三',
-      '第四章',
-      '第五章',
-      '第六章'
-    ];
-
     return ListView.builder(
         itemCount: chapterList.length,
         physics: const BouncingScrollPhysics(),

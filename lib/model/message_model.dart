@@ -50,7 +50,7 @@ class Message {
     voicePlayer.setVolume(0.5);
     if (voicePlayer.playing) voicePlayer.pause();
     if (!voicePlayer.playing && voice) voicePlayer.play();
-    if (voice) EasyLoading.showToast('语音已关闭');
+    if (!voice) EasyLoading.showToast('语音已关闭');
   }
 
   @override

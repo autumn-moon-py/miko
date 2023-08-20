@@ -12,12 +12,14 @@ class ImageViewModel with ChangeNotifier {
     errorLock();
   }
 
-  void lockImage(String image) {
+  void lockImage(String image, {bool no = true}) {
     _imageMap[image] = true;
     notifyListeners();
     user.saveImage(_imageMap);
-    EasyLoading.showToast('已解锁图鉴：$image',
-        toastPosition: EasyLoadingToastPosition.bottom);
+    if (no) {
+      EasyLoading.showToast('已解锁图鉴：$image',
+          toastPosition: EasyLoadingToastPosition.bottom);
+    }
   }
 
   void lockAllImage() {
@@ -33,12 +35,6 @@ class ImageViewModel with ChangeNotifier {
       if (value == true && key.length == 5) {
         waitLock.add(key);
       }
-      // if (key.length > 5) {
-      //   String wait = key;
-      //   if (_imageMap[wait]) {
-      //     waitLock.remove(wait.replaceAll('-n', ''));
-      //   }
-      // }
     });
     if (waitLock.isEmpty) return;
     for (var i = 0; i < waitLock.length; i++) {
@@ -46,7 +42,7 @@ class ImageViewModel with ChangeNotifier {
         final waitImage = waitLock[i];
         final image = imageList2[j];
         if (waitImage.length != image.length && image.startsWith(waitImage)) {
-          lockImage(imageList2[j]);
+          lockImage(imageList2[j], no: false);
           break;
         }
       }
