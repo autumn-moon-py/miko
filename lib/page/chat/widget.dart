@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:miko/page/dictionary/dictionary_view_model.dart';
 import 'package:miko/page/chat/controller.dart';
@@ -301,16 +302,22 @@ class _ChatListState extends State<ChatList> {
     bool newUI = true;
     final bubbleAnimation = context.watch<SettingViewModel>().bubbleAnimation;
     final nowMikoAvatar = context.watch<SettingViewModel>().nowMikoAvatar;
+    if (item.type != MessageType.right) {
+      if (item.name != '未知用户') {
+        avatar = GestureDetector(
+            onTap: () => MyRoute.to(context, '/trend'),
+            child: Image.asset('assets/icon/头像$nowMikoAvatar.webp'));
+      }
+    }
     if (item.type == MessageType.left) {
       background = MyTheme.background;
       if (item.name == '未知用户') {
-        avatar = Image.asset('assets/icon/未知用户.webp');
-      } else {
-        avatar = Image.asset('assets/icon/头像$nowMikoAvatar.webp');
+        avatar = GestureDetector(
+            onTap: () {
+              EasyLoading.showToast('未解锁');
+            },
+            child: Image.asset('assets/icon/未知用户.webp'));
       }
-    }
-    if (item.type == MessageType.voice) {
-      avatar = Image.asset('assets/icon/头像$nowMikoAvatar.webp');
     }
     if (item.type == MessageType.middle) {
       final text = item.message;
@@ -336,7 +343,6 @@ class _ChatListState extends State<ChatList> {
                   Image.asset('assets/icon/未知用户.webp'));
     }
     if (item.type == MessageType.image) {
-      avatar = Image.asset('assets/icon/头像$nowMikoAvatar.webp');
       final name = item.image.split('/').last.split('.').first;
       image = GestureDetector(
           onTap: () => MyRoute.to(context, '/image_view', name),

@@ -97,6 +97,7 @@ class _TrednBodyState extends State<TrednBody> {
     return ListView.builder(
         controller: scrollController,
         shrinkWrap: true,
+        reverse: true,
         padding: const EdgeInsets.only(left: 10, bottom: 20),
         physics: const BouncingScrollPhysics(),
         itemCount: trends.length,

@@ -242,7 +242,7 @@ class _SettingBodyState extends State<SettingBody> {
           title: 'AI图鉴',
           button: Switch(
               value: newIMage,
-              onChanged: (value) => model.changeNewImage(value)))
+              onChanged: (value) => model.changeNewImage(value, context)))
     ]);
   }
 

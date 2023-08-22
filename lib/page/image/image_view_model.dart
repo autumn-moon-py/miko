@@ -23,9 +23,9 @@ class ImageViewModel with ChangeNotifier {
   }
 
   void lockAllImage() {
-    for (var i = 0; i < imageList1.length; i++) {
-      _imageMap[imageList1[i]] = true;
-    }
+    _imageMap.forEach((key, value) {
+      if (key != '0') _imageMap[key] = true;
+    });
     notifyListeners();
   }
 
