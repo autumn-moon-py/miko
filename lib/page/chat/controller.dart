@@ -169,7 +169,7 @@ void storyPlayer(BuildContext ctx) async {
       if (settingModel.waitOffline && chatModel.startTime > 0) {
         debugPrint('已下线');
         final now = DateTime.now().millisecondsSinceEpoch;
-        if (now > chatModel.startTime) {
+        if (now >= chatModel.startTime) {
           chatModel.changeStartTime(0);
           chatModel.changeLine(chatModel.line + 1);
           continue;
@@ -180,7 +180,7 @@ void storyPlayer(BuildContext ctx) async {
           int newTime = chatModel.startTime - now;
           final show = (newTime / 60000).ceil();
           EasyLoading.showToast('预计$show分钟后上线');
-          await Future.delayed(Duration(minutes: show));
+          await Future.delayed(Duration(milliseconds: newTime));
           continue;
         }
       }
@@ -266,6 +266,7 @@ void storyPlayer(BuildContext ctx) async {
         }
         if (tagList[0] == 'BE' && jump == 0) {
           await sendMiddle(chatModel, '你已进入BE路线, 开始自动回溯', settingModel);
+          await Future.delayed(const Duration(seconds: 3));
           final resetLine = chatModel.resetLine;
           chatModel.clearMessage();
           chatModel.changeLine(resetLine);
@@ -382,11 +383,6 @@ void storyPlayer(BuildContext ctx) async {
             final now = DateTime.now().millisecondsSinceEpoch;
             int startTime = now + waitTime * 60000;
             chatModel.changeStartTime(startTime);
-            final show = DateTime.fromMillisecondsSinceEpoch(startTime);
-            if (waitTime >= 660) EasyLoading.showToast('预计上线时间: $show');
-            if (settingModel.waitOffline) {
-              await Future.delayed(Duration(minutes: waitTime));
-            }
             continue;
           }
         }

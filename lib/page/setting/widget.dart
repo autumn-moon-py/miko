@@ -220,7 +220,8 @@ class _SettingBodyState extends State<SettingBody> {
           const Text('5.别私信秋月'),
           const Text('6.不建议在平台在线游玩,可以前往官网下载本地应用'),
           const Text('7.如有其它问题请前往Q群询问'),
-          const Text('8.如果检测更新失败则自行前往Q群文件查看是否有新版本')
+          const Text('8.如果检测更新失败则自行前往Q群文件查看是否有新版本'),
+          const Text('9.强烈建议应用锁后台避免上线时间刷新')
         ]));
   }
 
