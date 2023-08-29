@@ -373,6 +373,7 @@ void storyPlayer(BuildContext ctx) async {
             }
           }
           if (tagList.length == 4 && jump == 0) {
+            chatModel.changeLine(line);
             //中,XX,等待,XX
             if (tagList[1] != 0) {
               int jump3 = int.parse(tagList[1]);

@@ -126,7 +126,11 @@ class ChatViewModel with ChangeNotifier {
 
   int get beJump => _beJump;
 
-  void changeLine(int line) => _line = line;
+  void changeLine(int line) {
+    user.playLine = line;
+    _line = line;
+    user.save();
+  }
 
   int get line => _line;
 
