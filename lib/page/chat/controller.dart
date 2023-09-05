@@ -179,7 +179,7 @@ void storyPlayer(BuildContext ctx) async {
               DateTime.fromMillisecondsSinceEpoch(chatModel.startTime);
           int newTime = chatModel.startTime - now;
           final show = (newTime / 60000).ceil();
-          EasyLoading.showToast('预计$show分钟后上线');
+          // EasyLoading.showToast('预计$show分钟后上线');
           await Future.delayed(Duration(milliseconds: newTime));
           continue;
         }

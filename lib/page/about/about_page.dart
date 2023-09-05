@@ -95,7 +95,7 @@ class _AboutPageState extends State<AboutPage> {
                 leading: Icons.group,
                 title: 'Q群',
                 onTap: () => Utils.openWebSite(
-                    'http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=HwflPNcfx2rhVytyseGN3H0mFco-c-dk&authKey=sBbYcY9JUM5ngMdwEVm9vnrEj%2FfCmqfzBfo4W%2B4LbgaWH6jLiezKB2uvo3J%2FJpha&noverify=0&group_code=673105016')),
+                    'http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=YdaGALK-Q2Vtxbt4qWF0PNE5g5EbwmvL&authKey=u8BR9XuOVSYJQYrt%2BwqCLUhjgX%2BF62WvZFucvLONYzm70asn4kSEBgAHmOO%2F3kTn&noverify=0&group_code=387118416')),
             buildDefaultItem(
                 leading: Icons.emoji_food_beverage_rounded,
                 title: '投喂 for 秋月',
