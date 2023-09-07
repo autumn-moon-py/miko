@@ -47,7 +47,7 @@ class TrendTop extends StatelessWidget {
     return Stack(children: [
       cilpWidget(
           width: 1080,
-          height: 500,
+          height: 520,
           yOffset: -1200,
           child: Blur(
               colorOpacity: 0.1,

@@ -132,14 +132,14 @@ class _SettingBodyState extends State<SettingBody> {
               onChanged: (value) {
                 model.changeWaitOffline(value);
               })),
-      buildDefaultItem(
-          leading: Icons.animation,
-          title: '气泡动画',
-          button: Switch(
-              value: bubbleAnimation,
-              onChanged: (value) {
-                model.changeBubbleAnimation(value);
-              }))
+      // buildDefaultItem(
+      //     leading: Icons.animation,
+      //     title: '气泡动画',
+      //     button: Switch(
+      //         value: bubbleAnimation,
+      //         onChanged: (value) {
+      //           model.changeBubbleAnimation(value);
+      //         }))
     ]);
   }
 
@@ -211,7 +211,7 @@ class _SettingBodyState extends State<SettingBody> {
 
   Widget _buildTips() {
     return DefaultTextStyle(
-        style: MyTheme.narmalStyle.copyWith(color: Colors.yellow),
+        style: MyTheme.miniStyle.copyWith(color: Colors.yellow),
         child: buildCard(padding: true, addLine: false, children: [
           // const Text('1.剧情不播放，先反馈，再双击顶部名称'),
           // const Text('2.不要多次点击名称触发播放，会跳过部分剧情可能不影响游玩'),

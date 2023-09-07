@@ -1,11 +1,10 @@
 name: miko
 description: A new Flutter project.
 publish_to: "none"
-version: 1.2.4
+version: 1.2.5
 environment:
   sdk: ">=3.0.6 <4.0.0"
 
-# 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
 dependencies:
   flutter:
     sdk: flutter
