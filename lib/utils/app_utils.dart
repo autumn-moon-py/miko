@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -151,13 +150,7 @@ class Utils {
   static Future<void> checkConnect() async {
     if (taptap) return;
     if (kDebugMode) return;
-    final connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.none) {
-      EasyLoading.showInfo('当前无网络,会影响检查更新',
-          duration: const Duration(seconds: 5));
-    } else {
-      checkUpgrade();
-    }
+    checkUpgrade();
   }
 
   ///检查更新

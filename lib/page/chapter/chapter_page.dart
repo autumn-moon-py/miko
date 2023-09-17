@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miko/page/chat/chat_view_model.dart';
 import 'package:miko/theme/color.dart';
@@ -61,7 +62,7 @@ class ChapterPage extends StatelessWidget {
                 _changeChapter(chapterName, context);
               },
               child: Image.asset('assets/chapter/$chapterName.webp',
-                  width: double.infinity));
+                  width: 1.sw, fit: BoxFit.fitWidth));
         }));
   }
 

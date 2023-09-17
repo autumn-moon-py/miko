@@ -86,6 +86,8 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
         if (bgmPlayer.playing) bgmPlayer.pause();
         debugPrint("应用处于不可见状态 后台======");
         break;
+      case AppLifecycleState.hidden:
+        break;
     }
   }
 

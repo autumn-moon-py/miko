@@ -542,8 +542,11 @@ class _ChooseButtonState extends State<ChooseButton> {
             child: newUI
                 ? Column(mainAxisSize: MainAxisSize.max, children: [
                     button(leftChoose, leftJump, context),
+                    const SizedBox(height: 3),
                     Container(height: 1, color: Colors.grey),
-                    button(rightChoose, rightJump, context)
+                    const SizedBox(height: 2),
+                    button(rightChoose, rightJump, context),
+                    const SizedBox(height: 2)
                   ])
                 : Row(mainAxisSize: MainAxisSize.max, children: [
                     button(leftChoose, leftJump, context),

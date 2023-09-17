@@ -114,7 +114,6 @@ class _SettingBodyState extends State<SettingBody> {
     final model = context.read<SettingViewModel>();
     final waitTyping = context.watch<SettingViewModel>().waitTyping;
     final waitOffline = context.watch<SettingViewModel>().waitOffline;
-    final bubbleAnimation = context.watch<SettingViewModel>().bubbleAnimation;
     return buildCard(children: [
       buildDefaultItem(
           leading: Icons.keyboard,
