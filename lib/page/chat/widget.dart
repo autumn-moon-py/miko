@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miko/page/chat/controller.dart';
 import 'package:miko/page/setting/setting_view_model.dart';
@@ -443,8 +444,9 @@ class _ChatListState extends State<ChatList> {
       }
       if (text == '对方已下线' || text == '信息未送达' || text == '对方账号不存在或已注销') {
         textColor = Colors.red;
+      } else {
+        textColor = Colors.white;
       }
-      // textColor = const Color.fromARGB(255, 206, 206, 206);
       final middlestyle = textstyle.copyWith(color: textColor);
       bubble = MiddleBubble(text: text, textstyle: middlestyle);
     }
@@ -474,7 +476,7 @@ class _ChatListState extends State<ChatList> {
     final chatController = context.read<ChatViewModel>().chatController;
     return ListView.builder(
         controller: chatController,
-        padding: const EdgeInsets.symmetric(vertical: 10),
+        padding: EdgeInsets.symmetric(vertical: 10.h),
         physics: const BouncingScrollPhysics(),
         itemCount: message.length,
         itemBuilder: (ctx, index) => _bodyItemBuilder(message, index, ctx));
@@ -489,13 +491,8 @@ class ChooseButton extends StatefulWidget {
 }
 
 class _ChooseButtonState extends State<ChooseButton> {
-  bool newUI = true;
-
   Widget button(String text, int jump, BuildContext context) {
     final model = context.read<ChatViewModel>();
-    final buttonWidth = newUI
-        ? MediaQuery.of(context).size.width
-        : MediaQuery.of(context).size.width / 2 - 16;
     return TextButton(
         onPressed: () {
           final showChoose = context.read<ChatViewModel>().showChoose;
@@ -509,15 +506,9 @@ class _ChooseButtonState extends State<ChooseButton> {
           storyPlayer(context);
         },
         child: Container(
-            width: buttonWidth,
-            height: newUI ? 35 : 50,
+            width: 1.sw - 20.w,
             alignment: Alignment.center,
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            decoration: newUI
-                ? const BoxDecoration()
-                : const BoxDecoration(
-                    color: Colors.blueAccent,
-                    borderRadius: BorderRadius.all(Radius.circular(5))),
+            decoration: const BoxDecoration(),
             child: Text(text, style: MyTheme.narmalStyle)));
   }
 
@@ -535,23 +526,15 @@ class _ChooseButtonState extends State<ChooseButton> {
     final rightJump = context.select((ChatViewModel model) => model.rightJump);
     return !showChoose
         ? const SizedBox()
-        : Container(
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.symmetric(vertical: newUI ? 0 : 5),
-            color: newUI ? MyTheme.foreground62 : Colors.black,
-            child: newUI
-                ? Column(mainAxisSize: MainAxisSize.max, children: [
-                    button(leftChoose, leftJump, context),
-                    const SizedBox(height: 3),
-                    Container(height: 1, color: Colors.grey),
-                    const SizedBox(height: 2),
-                    button(rightChoose, rightJump, context),
-                    const SizedBox(height: 2)
-                  ])
-                : Row(mainAxisSize: MainAxisSize.max, children: [
-                    button(leftChoose, leftJump, context),
-                    button(rightChoose, rightJump, context)
-                  ]));
+        : ConstrainedBox(
+            constraints: BoxConstraints(minWidth: 1.sw, maxWidth: 1.sw),
+            child: Container(
+                color: MyTheme.foreground62,
+                child: Column(mainAxisSize: MainAxisSize.max, children: [
+                  button(leftChoose, leftJump, context),
+                  Container(height: 1, color: Colors.grey),
+                  button(rightChoose, rightJump, context)
+                ])));
   }
 }
 
@@ -587,8 +570,8 @@ class _ToLastState extends State<ToLast> {
         ? const SizedBox()
         : Stack(children: [
             Positioned(
-                right: 5,
-                bottom: showChoose ? 120 : 20,
+                right: 5.w,
+                bottom: showChoose ? 120.h : 20.h,
                 child: GestureDetector(
                     onTap: () {
                       final chatScroller =
@@ -600,7 +583,7 @@ class _ToLastState extends State<ToLast> {
                     },
                     child: ClipOval(
                         child: Container(
-                            padding: const EdgeInsets.all(5),
+                            padding: EdgeInsets.all(5.r),
                             color: MyTheme.foreground62,
                             child: const Icon(Icons.arrow_downward,
                                 color: Colors.white)))))

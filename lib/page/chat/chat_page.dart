@@ -1,6 +1,7 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miko/page/chat/chat_view_model.dart';
 import 'package:miko/page/introduce/introduce_page.dart';
@@ -34,8 +35,8 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
       if (kDebugMode) {
         // ignore: unused_local_variable
         final chatModel = context.read<ChatViewModel>();
-        chatModel.clearMessage();
-        // chatModel.changeLine(294);
+        // chatModel.clearMessage();
+        // chatModel.changeLine(446);
         // chatModel.changeStartTime(0);
         // chatModel.changeBeJump(368);
         // chatModel.changeJump(328);
@@ -188,7 +189,12 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
         leadingIconSize: MyTheme.narmalIconSize,
         drawer: _buildDrawer(),
         title: _buildTitle(),
-        actions: [_buildJumpDayButton(), _buildSettingButton()],
+        actions: [
+          _buildJumpDayButton(),
+          SizedBox(width: 10.w),
+          _buildSettingButton(),
+          SizedBox(width: 10.w)
+        ],
         body: _buildBody(),
         toLast: const ToLast(),
         background: _buildBackground(),

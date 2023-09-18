@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -17,7 +18,7 @@ import 'package:provider/provider.dart';
 import 'package:r_upgrade/r_upgrade.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-bool taptap = true;
+bool taptap = false;
 
 AudioPlayer bgmPlayer = AudioPlayer();
 AudioPlayer buttonPlayer = AudioPlayer();
@@ -38,7 +39,7 @@ class Utils {
   }
 
   static Future<void> jpushInit() async {
-    if (taptap) return;
+    if (taptap || Platform.isWindows) return;
     jpush.setup(appKey: '5858a0b6bb205b2d81e6c6bb');
     jpush.addEventHandler(onReceiveNotification: (message) async {
       // 收到消息时调用此方法
@@ -59,6 +60,7 @@ class Utils {
   }
 
   static Future<String> getJPushID() {
+    if (Platform.isWindows) return Future.value('');
     return jpush.getRegistrationID();
   }
 

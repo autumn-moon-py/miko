@@ -1,5 +1,6 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:miko/utils/routes.dart';
 import 'package:provider/provider.dart';
 
@@ -124,8 +125,7 @@ class TrendItem extends StatelessWidget {
                 const Text('Miko',
                     style: TextStyle(color: Colors.grey, fontSize: 15)),
                 ConstrainedBox(
-                  constraints: BoxConstraints(
-                      maxWidth: MediaQuery.of(context).size.width / 2),
+                  constraints: BoxConstraints(maxWidth: 0.8.sw),
                   child: Text(trend.trend,
                       softWrap: true,
                       textAlign: TextAlign.left,

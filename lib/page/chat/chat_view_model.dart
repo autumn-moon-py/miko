@@ -100,6 +100,7 @@ class ChatViewModel with ChangeNotifier {
   void changeRightJump(int jump) {
     _rightJump = jump;
     _showChoose = true;
+    changeShowChoose(showChoose);
   }
 
   int get rightJump => _rightJump;
@@ -176,6 +177,10 @@ class ChatViewModel with ChangeNotifier {
     if (!showChoose) {
       _leftChoose = '';
       _rightChoose = '';
+    }
+    if (showChoose) {
+      user.playLine = _line - 2;
+      user.save();
     }
     _showChoose = showChoose;
     notifyListeners();
