@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -20,13 +22,17 @@ Future<void> main() async {
   SystemUiOverlayStyle systemUiOverlayStyle =
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent);
   SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
-  await windowManager.ensureInitialized();
-  WindowOptions windowOptions = const WindowOptions(
-      size: Size(500, 800), center: true, titleBarStyle: TitleBarStyle.hidden);
-  windowManager.waitUntilReadyToShow(windowOptions, () async {
-    await windowManager.show();
-    await windowManager.focus();
-  });
+  if (Platform.isWindows) {
+    await windowManager.ensureInitialized();
+    WindowOptions windowOptions = const WindowOptions(
+        size: Size(500, 800),
+        center: true,
+        titleBarStyle: TitleBarStyle.hidden);
+    windowManager.waitUntilReadyToShow(windowOptions, () async {
+      await windowManager.show();
+      await windowManager.focus();
+    });
+  }
   runApp(const MyApp());
 }
 

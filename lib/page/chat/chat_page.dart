@@ -2,9 +2,7 @@ import 'package:blur/blur.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:miko/page/chat/chat_view_model.dart';
-import 'package:miko/page/introduce/introduce_page.dart';
 import 'package:miko/page/setting/setting_view_model.dart';
 import 'package:miko/theme/color.dart';
 import 'package:miko/utils/routes.dart';
@@ -49,7 +47,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
       });
       bool first = await User().firstRun();
       if (first) {
-        Get.to(const IntroducePage());
+        // Get.to(const IntroducePage());
       }
       debugPrint('聊天初始化');
     });
