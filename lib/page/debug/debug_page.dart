@@ -90,7 +90,6 @@ class _DebugPageState extends State<DebugPage> {
               debugInfo.time = DateTime.now().toString();
               debugInfo.version = await Utils.getVersion();
               debugInfo.chapter = chatModel.chapter;
-              debugInfo.jpushID = await Utils.getJPushID();
               debugInfo.startTime = chatModel.startTime;
               model.addItem(debugInfo);
               EasyLoading.showToast('成功添加日志');

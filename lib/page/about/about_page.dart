@@ -83,6 +83,10 @@ class _AboutPageState extends State<AboutPage> {
                 onTap: () => Utils.openWebSite('https://app.subrecovery.top')),
             buildDefaultItem(
                 leading: Icons.my_library_books_sharp,
+                title: '秋月博客',
+                onTap: () => Utils.openWebSite('https://www.subrecovery.top')),
+            buildDefaultItem(
+                leading: Icons.my_library_books_sharp,
                 title: 'TapTap',
                 onTap: () =>
                     Utils.openWebSite('https://www.taptap.cn/app/378027')),

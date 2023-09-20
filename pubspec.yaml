@@ -1,7 +1,7 @@
 name: miko
 description: A new Flutter project.
 publish_to: "none"
-version: 1.2.8
+version: 1.2.9
 environment:
   sdk: ">=3.0.6 <4.0.0"
 
@@ -27,7 +27,7 @@ dependencies:
   r_upgrade: ^0.4.2
   just_audio: ^0.9.34
   flutter_screenutil: ^5.8.4
-  jpush_flutter: ^2.4.7
+  window_manager: ^0.3.6
 
 dev_dependencies:
   flutter_test:

@@ -12,6 +12,7 @@ import 'package:miko/utils/app_utils.dart';
 import 'package:miko/utils/routes.dart';
 import 'package:provider/provider.dart';
 
+import '../../widget.dart';
 import '../dictionary/dictionary_view_model.dart';
 import 'chat_view_model.dart';
 import '../../model/message_model.dart';
@@ -230,9 +231,20 @@ class MiddleBubble extends Bubble {
   const MiddleBubble(
       {super.key, required String text, required TextStyle textstyle})
       : super(text: text, textStyle: textstyle);
+
+  void _showJumpDayDialog(BuildContext context) {
+    if (text!.contains('BE')) jumpDayDialog(context);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return _buildChild([_text()], MainAxisAlignment.center);
+    return _buildChild([
+      GestureDetector(
+          onTap: () {
+            _showJumpDayDialog(context);
+          },
+          child: _text())
+    ], MainAxisAlignment.center);
   }
 }
 
@@ -444,6 +456,9 @@ class _ChatListState extends State<ChatList> {
       }
       if (text == '对方已下线' || text == '信息未送达' || text == '对方账号不存在或已注销') {
         textColor = Colors.red;
+      }
+      if (text.contains('BE')) {
+        textColor = Colors.blue;
       } else {
         textColor = Colors.white;
       }

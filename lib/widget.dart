@@ -51,6 +51,7 @@ void jumpDayDialog(BuildContext context) {
         child: Container(
             width: 250,
             height: 55,
+            margin: const EdgeInsets.only(bottom: 10),
             decoration: BoxDecoration(
                 color: MyTheme.foreground62,
                 borderRadius: const BorderRadius.all(Radius.circular(5.0))),
@@ -71,7 +72,9 @@ void jumpDayDialog(BuildContext context) {
       builder: (context) {
         final nowChapter = context.read<ChatViewModel>().chapter;
         return SimpleDialog(
-            title: Text('天数跳转', style: MyTheme.bigStyle),
+            title: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [Text('天数跳转', style: MyTheme.bigStyle)]),
             backgroundColor: MyTheme.background51,
             children: [jumpDayBody(context, days[nowChapter]!)]);
       });
@@ -80,6 +83,7 @@ void jumpDayDialog(BuildContext context) {
 Widget buildDefaultItem(
     {required IconData leading,
     required String title,
+    String? subTitle,
     Widget? button,
     Function? onTap}) {
   return GestureDetector(
@@ -88,6 +92,10 @@ Widget buildDefaultItem(
           leading:
               Icon(leading, color: Colors.grey, size: MyTheme.narmalIconSize),
           title: Text(title, style: MyTheme.bigStyle),
+          subtitle: subTitle == null
+              ? null
+              : Text(subTitle,
+                  style: MyTheme.narmalStyle.copyWith(fontSize: 12)),
           trailing: button ??
               const Icon(Icons.arrow_forward_ios,
                   color: Colors.grey, size: 20)));

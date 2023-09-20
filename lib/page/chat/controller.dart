@@ -265,12 +265,15 @@ void storyPlayer(BuildContext ctx) async {
           continue;
         }
         if (tagList[0] == 'BE' && jump == 0) {
-          await sendMiddle(chatModel, '你已进入BE路线, 开始自动回溯', settingModel);
-          await Future.delayed(const Duration(seconds: 3));
-          final resetLine = chatModel.resetLine;
-          chatModel.clearMessage();
-          chatModel.changeLine(resetLine);
-          continue;
+          await sendMiddle(chatModel, '你已进入BE路线, 点击我选择跳转某天', settingModel);
+          // await Future.delayed(const Duration(seconds: 3));
+          // final resetLine = chatModel.resetLine;
+          // chatModel.clearMessage();
+          // chatModel.changeLine(resetLine);
+          final now = DateTime.now().millisecondsSinceEpoch;
+          int startTime = now + 600000000 * 60000;
+          chatModel.changeStartTime(startTime);
+          break;
         }
         if (tagList[0] == '图鉴' && jump == 0) {
           if (msg.length == 5 && msg.substring(0, 1) != 'W') {
@@ -399,7 +402,6 @@ void storyPlayer(BuildContext ctx) async {
     debugInfo.time = DateTime.now().toString();
     debugInfo.version = await Utils.getVersion();
     debugInfo.chapter = chatModel.chapter;
-    debugInfo.jpushID = await Utils.getJPushID();
     debugInfo.startTime = chatModel.startTime;
     debugModel.addItem(debugInfo);
   }
