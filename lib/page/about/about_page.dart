@@ -33,7 +33,11 @@ class _AboutPageState extends State<AboutPage> {
         appBar: AppBar(
             centerTitle: true,
             backgroundColor: MyTheme.foreground,
-            title: Text('关于异次元通讯', style: MyTheme.bigStyle)),
+            title: GestureDetector(
+                onDoubleTap: () {
+                  caidna();
+                },
+                child: Text('关于异次元通讯', style: MyTheme.bigStyle))),
         body: Stack(children: [background, body]));
   }
 
@@ -69,12 +73,6 @@ class _AboutPageState extends State<AboutPage> {
               child: Text(version,
                   style: MyTheme.bigStyle.copyWith(color: Colors.grey))),
           const SizedBox(height: 5),
-          GestureDetector(
-              onDoubleTap: () {
-                caidna();
-              },
-              child: Text('秋月',
-                  style: MyTheme.narmalStyle.copyWith(color: Colors.grey))),
           const SizedBox(height: 10),
           buildCard(children: [
             buildDefaultItem(
@@ -99,16 +97,7 @@ class _AboutPageState extends State<AboutPage> {
                 leading: Icons.group,
                 title: 'Q群',
                 onTap: () => Utils.openWebSite(
-                    'http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=YdaGALK-Q2Vtxbt4qWF0PNE5g5EbwmvL&authKey=u8BR9XuOVSYJQYrt%2BwqCLUhjgX%2BF62WvZFucvLONYzm70asn4kSEBgAHmOO%2F3kTn&noverify=0&group_code=387118416')),
-            buildDefaultItem(
-                leading: Icons.emoji_food_beverage_rounded,
-                title: '投喂 for 秋月',
-                onTap: () =>
-                    Utils.openWebSite('https://afdian.net/a/subrecovery')),
-            buildDefaultItem(
-                leading: Icons.emoji_food_beverage_rounded,
-                title: '赞助 for Light',
-                onTap: () => Utils.openWebSite('https://miko.pw/donate.html'))
+                    'http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=YdaGALK-Q2Vtxbt4qWF0PNE5g5EbwmvL&authKey=u8BR9XuOVSYJQYrt%2BwqCLUhjgX%2BF62WvZFucvLONYzm70asn4kSEBgAHmOO%2F3kTn&noverify=0&group_code=387118416'))
           ])
         ]));
   }

@@ -4,8 +4,7 @@
         "name": "Flutter",
         "type": "dart",
         "request": "launch",
-        "program": "lib/main.dart",
-        "args": ["-vv"]
+        "program": "lib/main.dart"
     }
     ]
 }
