@@ -1,3 +1,4 @@
+import 'package:chinese_lunar_calendar/chinese_lunar_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:miko/page/setting/setting_view_model.dart';
@@ -10,6 +11,7 @@ class DialogUtils {
   static void init(BuildContext context) {
     showApril(context);
     showBirthday(context);
+    showMidAutumn(context);
   }
 
   static Widget whiteBackground({required List<Widget> children}) {
@@ -53,27 +55,37 @@ class DialogUtils {
                   width: 250, fit: BoxFit.cover)));
     });
     final downloadImage = Builder(builder: (context) {
-      return Container(
-          padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              gradient: const LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  stops: [
-                    0,
-                    1
-                  ],
-                  colors: [
-                    Color.fromRGBO(78, 116, 223, 1),
-                    Color.fromRGBO(48, 92, 206, 1)
-                  ])),
-          child: Text(button,
-              style: const TextStyle(color: Colors.white, fontSize: 25)));
+      return GestureDetector(
+        onTap: () {
+          MyRoute.back(context);
+          onTapButton.call();
+        },
+        child: Container(
+            padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                gradient: const LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    stops: [
+                      0,
+                      1
+                    ],
+                    colors: [
+                      Color.fromRGBO(78, 116, 223, 1),
+                      Color.fromRGBO(48, 92, 206, 1)
+                    ])),
+            child: Text(button,
+                style: const TextStyle(color: Colors.white, fontSize: 25))),
+      );
     });
     final cancel = Builder(builder: (context) {
-      return Text(cancelText,
-          style: const TextStyle(color: Colors.grey, fontSize: 20));
+      return GestureDetector(
+          onTap: () {
+            MyRoute.back(context);
+          },
+          child: Text(cancelText,
+              style: const TextStyle(color: Colors.grey, fontSize: 20)));
     });
     Get.dialog(whiteBackground(children: [
       title,
@@ -96,7 +108,6 @@ class DialogUtils {
     }
     final show = context.read<SettingViewModel>().birthday;
     if (now.month == 4 && now.day == 5 && !show) {
-      context.read<SettingViewModel>().changeBirthday(true);
       const image = 'birthday';
       dialogUtils(
           titleText: '生日快乐!',
@@ -104,6 +115,7 @@ class DialogUtils {
           image: image,
           button: '下载贺图',
           onTapButton: () {
+            context.read<SettingViewModel>().changeBirthday(true);
             closeDialog(onClose: () => Utils.downloadImage(image));
           },
           cancelText: '以后再说');
@@ -118,7 +130,6 @@ class DialogUtils {
     }
     final show = context.read<SettingViewModel>().april;
     if (now.month == 04 && now.day == 01 && !show) {
-      context.read<SettingViewModel>().changeApril(true);
       const image = 'april';
       dialogUtils(
           titleText: 'Miko公仔限时开放预售',
@@ -126,9 +137,34 @@ class DialogUtils {
           image: image,
           button: '前往预购',
           onTapButton: () {
+            context.read<SettingViewModel>().changeApril(true);
             closeDialog(
                 onClose: () => Utils.openWebSite(
                     'https://www.bilibili.com/blackboard/activity-mikoapril.html'));
+          },
+          cancelText: '以后再说');
+    }
+  }
+
+  ///中秋节弹窗
+  static Future<void> showMidAutumn(BuildContext context) async {
+    final lunarCalendar = LunarCalendar(utcDateTime: DateTime.now());
+    final month = lunarCalendar.lunarDate.month;
+    final day = lunarCalendar.lunarDate.day - 1;
+    if (month != 8 && day != 15) {
+      context.read<SettingViewModel>().changeMidAutumn(false);
+    }
+    final show = context.read<SettingViewModel>().midAutumn;
+    if (month == 8 && day == 15 && !show) {
+      const image = 'mid_autumn';
+      dialogUtils(
+          titleText: '中秋节快乐！',
+          subtitle: '你有回家跟家人团圆吗？',
+          image: image,
+          button: '下载贺图',
+          onTapButton: () {
+            context.read<SettingViewModel>().changeMidAutumn(true);
+            closeDialog(onClose: () => Utils.downloadImage(image));
           },
           cancelText: '以后再说');
     }

@@ -93,6 +93,11 @@ class SettingViewModel with ChangeNotifier {
     _setting.save();
   }
 
+  void changeMidAutumn(bool value) {
+    _setting.midAutumn = value;
+    _setting.save();
+  }
+
   int get nowMikoAvatar => _setting.nowMikoAvatar;
   bool get bgm => _setting.bgm;
   bool get buttonMusic => _setting.buttonMusic;
@@ -105,4 +110,5 @@ class SettingViewModel with ChangeNotifier {
   bool get april => _setting.april;
   bool get oldBgm => _setting.oldBgm;
   bool get voice => _setting.voice;
+  bool get midAutumn => _setting.midAutumn;
 }

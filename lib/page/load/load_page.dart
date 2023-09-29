@@ -1,12 +1,9 @@
 // ignore_for_file: use_build_context_synchronously, unused_element
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:miko/page/chat/chat_page.dart';
 import 'package:miko/page/debug/debug_view_model.dart';
 import 'package:miko/page/image/image_view_model.dart';
 import 'package:miko/page/setting/setting_view_model.dart';
-import 'package:miko/theme/color.dart';
 import 'package:miko/utils/routes.dart';
 import 'package:provider/provider.dart';
 
@@ -64,16 +61,16 @@ class _LoadPageState extends State<LoadPage> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: () {
-          Get.off(const ChatPage());
-        },
-        child: Container(
-            alignment: Alignment.center,
-            color: MyTheme.background51,
-            child: Text('如果里能一直看到我说明游戏异常了，单击我进入游戏',
-                style: MyTheme.narmalStyle.copyWith(color: Colors.grey))));
-    // return _buildLoadWidget(
-    //     title: _buildTitle(), background: _buildBackground());
+    // return GestureDetector(
+    //     onTap: () {
+    //       Get.off(const ChatPage());
+    //     },
+    //     child: Container(
+    //         alignment: Alignment.center,
+    //         color: MyTheme.background51,
+    //         child: Text('如果里能一直看到我说明游戏异常了，单击我进入游戏',
+    //             style: MyTheme.narmalStyle.copyWith(color: Colors.grey))));
+    return _buildLoadWidget(
+        title: _buildTitle(), background: _buildBackground());
   }
 }

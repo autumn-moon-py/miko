@@ -11,6 +11,7 @@ class Setting {
   int nowMikoAvatar = 1;
   bool birthday = false;
   bool april = false;
+  bool midAutumn = false;
   bool oldBgm = false;
   bool voice = true;
   late SharedPreferences prefs;
@@ -29,6 +30,7 @@ class Setting {
     prefs.setBool('april', april);
     prefs.setBool('oldBgm', oldBgm);
     prefs.setBool('voice', voice);
+    prefs.setBool('midAutumn', midAutumn);
   }
 
   Future<void> load() async {
@@ -45,5 +47,6 @@ class Setting {
     april = prefs.getBool('april') ?? april;
     oldBgm = prefs.getBool('oldBgm') ?? oldBgm;
     voice = prefs.getBool('voice') ?? voice;
+    midAutumn = prefs.getBool('midAutumn') ?? midAutumn;
   }
 }
