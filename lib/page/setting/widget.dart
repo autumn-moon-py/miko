@@ -222,19 +222,6 @@ class _SettingBodyState extends State<SettingBody> {
     ]);
   }
 
-  Widget _buildNewImage() {
-    final model = context.read<SettingViewModel>();
-    final newIMage = context.watch<SettingViewModel>().newImage;
-    return buildCard(children: [
-      buildDefaultItem(
-          leading: Icons.photo,
-          title: 'AI图鉴',
-          button: Switch(
-              value: newIMage,
-              onChanged: (value) => model.changeNewImage(value, context)))
-    ]);
-  }
-
   @override
   Widget build(BuildContext context) {
     Widget padding = const SizedBox(height: 15);
@@ -246,8 +233,6 @@ class _SettingBodyState extends State<SettingBody> {
       _buildDebugButton(),
       padding,
       _buildAvatarButton(),
-      padding,
-      _buildNewImage(),
       padding,
       _buildMusicButton(),
       padding,

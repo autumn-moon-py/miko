@@ -266,10 +266,6 @@ void storyPlayer(BuildContext ctx) async {
         }
         if (tagList[0] == 'BE' && jump == 0) {
           await sendMiddle(chatModel, '你已进入BE路线, 点击我选择跳转某天', settingModel);
-          // await Future.delayed(const Duration(seconds: 3));
-          // final resetLine = chatModel.resetLine;
-          // chatModel.clearMessage();
-          // chatModel.changeLine(resetLine);
           final now = DateTime.now().millisecondsSinceEpoch;
           int startTime = now + 600000000 * 60000;
           chatModel.changeStartTime(startTime);

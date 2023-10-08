@@ -35,7 +35,7 @@ class _AboutPageState extends State<AboutPage> {
             backgroundColor: MyTheme.foreground,
             title: GestureDetector(
                 onDoubleTap: () {
-                  caidna();
+                  // caidna();
                 },
                 child: Text('关于异次元通讯', style: MyTheme.bigStyle))),
         body: Stack(children: [background, body]));
@@ -68,7 +68,7 @@ class _AboutPageState extends State<AboutPage> {
           const SizedBox(height: 5),
           GestureDetector(
               onDoubleTap: () {
-                // caidna();
+                caidna();
               },
               child: Text(version,
                   style: MyTheme.bigStyle.copyWith(color: Colors.grey))),
@@ -79,10 +79,6 @@ class _AboutPageState extends State<AboutPage> {
                 leading: Icons.my_library_books_sharp,
                 title: '官网',
                 onTap: () => Utils.openWebSite('https://app.subrecovery.top')),
-            buildDefaultItem(
-                leading: Icons.my_library_books_sharp,
-                title: '秋月博客',
-                onTap: () => Utils.openWebSite('https://www.subrecovery.top')),
             buildDefaultItem(
                 leading: Icons.my_library_books_sharp,
                 title: 'TapTap',

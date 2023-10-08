@@ -1,6 +1,5 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
-import 'package:miko/page/setting/setting_view_model.dart';
 import 'package:miko/theme/color.dart';
 import 'package:miko/utils/app_utils.dart';
 import 'package:miko/utils/routes.dart';
@@ -98,16 +97,13 @@ class _ImageBodyState extends State<ImageBody> {
 
   Widget _buildAll() {
     List<String> data = [];
-    final imageList1 = context.read<ImageViewModel>().imageList1;
-    final imageList2 = context.read<ImageViewModel>().imageList2;
-    final newImage = context.watch<SettingViewModel>().newImage;
-    data = newImage ? imageList2 : imageList1;
+    final imageList = context.read<ImageViewModel>().imageList;
+    data = imageList;
     List<String> first = [];
     List<String> other1 = [];
     List<String> second = [];
     List<String> other2 = [];
     List<String> third = [];
-    List<String> other3 = [];
     List<String> fourth = [];
     List<String> fifth = [];
     List<String> sixth = [];
@@ -128,9 +124,6 @@ class _ImageBodyState extends State<ImageBody> {
       }
       if (item.contains('S3')) {
         third.add(item);
-      }
-      if (item.contains('E3')) {
-        other3.add(item);
       }
       if (item.contains('S4')) {
         fourth.add(item);
@@ -154,7 +147,6 @@ class _ImageBodyState extends State<ImageBody> {
           _buildChapterImage('第二章', second),
           _buildChapterImage('番外二', other2),
           _buildChapterImage('第三章', third),
-          _buildChapterImage('番外三', other3),
           _buildChapterImage('第四章', fourth),
           _buildChapterImage('第五章', fifth),
           _buildChapterImage('第六章', sixth),
@@ -190,7 +182,8 @@ class ImageView extends StatelessWidget {
           Container(color: MyTheme.background),
           Center(
               child: InteractiveViewer(
-                  child: Image.asset('assets/photo/$imageName.webp')))
+                  child: Image.asset('assets/photo/$imageName.webp',
+                      width: double.infinity, fit: BoxFit.fitWidth)))
         ]));
   }
 }

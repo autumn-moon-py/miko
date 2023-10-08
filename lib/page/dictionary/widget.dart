@@ -88,7 +88,6 @@ class _DictionaryBodyState extends State<DictionaryBody> {
     List<Dictionary> second = [];
     List<Dictionary> other2 = [];
     List<Dictionary> third = [];
-    List<Dictionary> other3 = [];
     List<Dictionary> fourth = [];
     List<Dictionary> fifth = [];
     List<Dictionary> sixth = [];
@@ -100,7 +99,6 @@ class _DictionaryBodyState extends State<DictionaryBody> {
       if (chapter == '第二章') second.add(item);
       if (chapter == '番外二') other2.add(item);
       if (chapter == '第三章') third.add(item);
-      if (chapter == '番外三') other3.add(item);
       if (chapter == '第四章') fourth.add(item);
       if (chapter == '第五章') fifth.add(item);
       if (chapter == '第六章') sixth.add(item);
@@ -115,7 +113,6 @@ class _DictionaryBodyState extends State<DictionaryBody> {
           _buildChapterDic('第二章', second),
           _buildChapterDic('番外二', other2),
           _buildChapterDic('第三章', third),
-          _buildChapterDic('番外三', other3),
           _buildChapterDic('第四章', fourth),
           _buildChapterDic('第五章', fifth),
           _buildChapterDic('第六章', sixth),

@@ -15,7 +15,7 @@ import 'package:provider/provider.dart';
 import 'package:r_upgrade/r_upgrade.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-bool taptap = false;
+bool taptap = true;
 
 AudioPlayer bgmPlayer = AudioPlayer();
 AudioPlayer buttonPlayer = AudioPlayer();
@@ -50,7 +50,7 @@ class Utils {
           TextButton(
               onPressed: () {
                 final url = Uri.parse(
-                    'https://www.subrecovery.top/2023/07/10/%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96');
+                    'https://www.subrecovery.top/2023/09/13/%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96');
                 launchUrl(url, mode: LaunchMode.externalNonBrowserApplication);
               },
               child: const Text('隐私政策')),

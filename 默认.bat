@@ -1,1 +1,2 @@
 python narmal.py
+pause

@@ -56,8 +56,12 @@ class User {
     prefs = await SharedPreferences.getInstance();
     final dicList = prefs.getStringList('dictionaryMap') ?? [];
     for (var item in dicList) {
-      List dic = item.split(':');
-      dictionaryMap[dic[0]][1] = dic[1];
+      try {
+        List dic = item.split(':');
+        dictionaryMap[dic[0]][1] = dic[1];
+      } catch (_) {
+        continue;
+      }
     }
     return dictionaryMap;
   }

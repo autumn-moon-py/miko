@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miko/model/setting_model.dart';
-import 'package:miko/page/image/image_view_model.dart';
 import 'package:miko/utils/app_utils.dart';
-import 'package:provider/provider.dart';
 
 class SettingViewModel with ChangeNotifier {
   final Setting _setting = Setting();
@@ -48,7 +46,6 @@ class SettingViewModel with ChangeNotifier {
 
   void changeNewImage(bool value, BuildContext context) {
     _setting.newImage = value;
-    context.read<ImageViewModel>().errorLock();
     notifyListeners();
     _setting.save();
   }

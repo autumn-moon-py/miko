@@ -48,7 +48,7 @@ class _LoadPageState extends State<LoadPage> {
     return SizedBox(
         width: double.infinity,
         height: double.infinity,
-        child: Image.asset('assets/photo/S1-05-n.webp', fit: BoxFit.cover));
+        child: Image.asset('assets/photo/S1-01-n.webp', fit: BoxFit.cover));
   }
 
   Widget _buildTitle() {
@@ -61,15 +61,6 @@ class _LoadPageState extends State<LoadPage> {
 
   @override
   Widget build(BuildContext context) {
-    // return GestureDetector(
-    //     onTap: () {
-    //       Get.off(const ChatPage());
-    //     },
-    //     child: Container(
-    //         alignment: Alignment.center,
-    //         color: MyTheme.background51,
-    //         child: Text('如果里能一直看到我说明游戏异常了，单击我进入游戏',
-    //             style: MyTheme.narmalStyle.copyWith(color: Colors.grey))));
     return _buildLoadWidget(
         title: _buildTitle(), background: _buildBackground());
   }
