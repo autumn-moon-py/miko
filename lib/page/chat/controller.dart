@@ -158,6 +158,10 @@ void storyPlayer(BuildContext ctx) async {
   }
   try {
     do {
+      if (chatModel.be) {
+        debugPrint('BE');
+        break;
+      }
       if (chatModel.leftChoose != '' && chatModel.rightChoose != '') {
         debugPrint('有选项');
         break;
@@ -266,9 +270,6 @@ void storyPlayer(BuildContext ctx) async {
         }
         if (tagList[0] == 'BE' && jump == 0) {
           await sendMiddle(chatModel, '你已进入BE路线, 点击我选择跳转某天', settingModel);
-          final now = DateTime.now().millisecondsSinceEpoch;
-          int startTime = now + 600000000 * 60000;
-          chatModel.changeStartTime(startTime);
           break;
         }
         if (tagList[0] == '图鉴' && jump == 0) {

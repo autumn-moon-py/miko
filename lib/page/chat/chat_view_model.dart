@@ -41,6 +41,13 @@ class ChatViewModel with ChangeNotifier {
     debugPrint('读取聊天历史');
   }
 
+  bool get be => user.be;
+
+  void changeBe(bool be) {
+    user.be = be;
+    user.save();
+  }
+
   void addOldChooseItem(int line) {
     if (oldChoose.length < 5) {
       user.oldChoose.add(line);
