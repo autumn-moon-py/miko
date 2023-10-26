@@ -46,7 +46,6 @@ class _DebugPageState extends State<DebugPage> {
     final version = debugInfo.version;
     final time = debugInfo.time;
     final chapter = debugInfo.chapter;
-    final jpushID = debugInfo.jpushID;
     final startTime =
         DateTime.fromMillisecondsSinceEpoch(debugInfo.startTime).toString();
     final maxWidth = MediaQuery.of(context).size.width - 50;
@@ -61,7 +60,7 @@ class _DebugPageState extends State<DebugPage> {
               ConstrainedBox(
                   constraints: BoxConstraints(maxWidth: maxWidth),
                   child: Text(
-                      '行: $line,章节：$chapter,分支: $beJump,跳转: $jump\r\n异常: $error\r\n版本: $version\r\n时间: $time\r\njpushID: $jpushID\r\n等待时间: $startTime',
+                      '行: $line,章节：$chapter,分支: $beJump,跳转: $jump\r\n异常: $error\r\n版本: $version\r\n时间: $time\r\n等待时间: $startTime',
                       style: style))
             ])));
   }

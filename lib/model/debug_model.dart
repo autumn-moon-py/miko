@@ -12,7 +12,6 @@ class DebugInfo {
   String version = '';
   String time = '';
   String chapter = '';
-  String jpushID = '';
   int startTime = 0;
 
   @override
@@ -25,7 +24,6 @@ class DebugInfo {
       'version': version,
       'time': time,
       'chapter': chapter,
-      'jpushID': jpushID,
       'startTime': startTime
     });
   }
@@ -40,7 +38,6 @@ class DebugInfo {
     debug.version = debugInfoList['version'];
     debug.time = debugInfoList['time'];
     debug.chapter = debugInfoList['chapter'];
-    debug.jpushID = debugInfoList['jpushID'];
     debug.startTime = debugInfoList['startTime'];
     return debug;
   }
@@ -49,7 +46,7 @@ class DebugInfo {
     final startTimeString =
         DateTime.fromMillisecondsSinceEpoch(startTime).toString();
     final debug =
-        '行: $line,章节：$chapter,分支: $beJump,跳转: $jump\r\n异常: $error\r\n版本: $version\r\n时间: $time\r\njpushID: $jpushID\r\n等待时间: $startTimeString';
+        '行: $line,章节：$chapter,分支: $beJump,跳转: $jump\r\n异常: $error\r\n版本: $version\r\n时间: $time\r\n等待时间: $startTimeString';
     Clipboard.setData(ClipboardData(text: debug));
     EasyLoading.showToast('复制成功');
   }

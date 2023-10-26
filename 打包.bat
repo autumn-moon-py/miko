@@ -1,25 +1,27 @@
 @echo off
-setlocal
+:: BatchGotAdmin (Run as Admin code starts)
+REM --> Check for permissions
+>nul 2>&1 "%SYSTEMROOT%\system32\cacls.exe" "%SYSTEMROOT%\system32\config\system"
 
-REM 设置要复制到剪贴板的文本
-set "text=flutter build apk --no-tree-shake-icons -vv --obfuscate --split-debug-info=debuginfo"
+REM --> If error flag set, we do not have admin.
+if '%errorlevel%' NEQ '0' (
+    echo Requesting administrative privileges...
+    goto UACPrompt
+) else ( goto gotAdmin )
 
-REM 将文本复制到剪贴板
-echo %text% | clip
+:UACPrompt
+    echo Set UAC = CreateObject^("Shell.Application"^) > "%temp%\getadmin.vbs"
+    echo UAC.ShellExecute "%~s0", "", "", "runas", 1 >> "%temp%\getadmin.vbs"
 
-:: 获取脚本所在目录
-set "script_dir=%~dp0"
+    "%temp%\getadmin.vbs"
+    exit /B
 
-:: 创建一个VBS脚本来请求管理员权限
-set "elevate_vbs=%temp%\elevate.vbs"
-echo Set UAC = CreateObject^("Shell.Application"^)>"%elevate_vbs%"
-echo UAC.ShellExecute "cmd.exe", "/k cd /d ""%script_dir%""", "", "runas", 1 >>"%elevate_vbs%"
+:gotAdmin
+    if exist "%temp%\getadmin.vbs" ( del "%temp%\getadmin.vbs" )
+    pushd "%CD%"
+    CD /D "%~dp0"
+:: BatchGotAdmin (Run as Admin code ends)
 
-:: 运行VBS脚本以获取管理员权限
-cscript "%elevate_vbs%"
-
-:: 删除临时VBS脚本文件
-del "%elevate_vbs%"
-
-
-
+:: Your command here:
+flutter build apk --no-tree-shake-icons -vv --obfuscate --split-debug-info=debuginfo
+pause
