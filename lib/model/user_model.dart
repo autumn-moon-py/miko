@@ -26,6 +26,11 @@ class User {
     return !first;
   }
 
+  void changeBe(bool be) {
+    this.be = be;
+    save();
+  }
+
   Future<void> load() async {
     prefs = await SharedPreferences.getInstance();
     avatar = prefs.getString('avatar') ?? avatar;
