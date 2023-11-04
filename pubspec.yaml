@@ -1,0 +1,46 @@
+name: miko
+description: A new Flutter project.
+publish_to: "none"
+version: 1.3.5
+environment:
+  sdk: ">=3.0.6 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  provider: ^6.0.5
+  csv: ^5.0.2
+  shared_preferences: ^2.2.0
+  flutter_easyloading: ^3.0.5
+  get: ^4.6.5
+  cached_network_image: ^3.2.3
+  blur: ^3.1.0
+  permission_handler: ^11.0.0
+  image_gallery_saver: ^2.0.3
+  url_launcher: ^6.1.14
+  dio: ^5.0.0
+  flutter_local_notifications: ^15.1.0+1
+  flutter_background: ^1.2.0
+  package_info_plus: ^4.1.0
+  r_upgrade: ^0.4.2
+  just_audio: ^0.9.34
+  flutter_screenutil: ^5.8.4
+  window_manager: ^0.3.6
+  chinese_lunar_calendar: ^0.0.13
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.2
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
+    - assets/images/
+    - assets/photo/
+    - assets/dictionary/
+    - assets/chapter/
+    - assets/icon/
+    - assets/story/
+    - assets/music/
