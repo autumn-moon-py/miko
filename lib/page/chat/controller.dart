@@ -175,6 +175,7 @@ void storyPlayer(BuildContext ctx) async {
         final now = DateTime.now().millisecondsSinceEpoch;
         if (now >= chatModel.startTime) {
           chatModel.changeStartTime(0);
+          continue;
         }
         if (now < chatModel.startTime) {
           final start =

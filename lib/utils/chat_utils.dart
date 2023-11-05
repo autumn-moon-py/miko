@@ -7,5 +7,6 @@ Future<List> loadCVS(String chapter) async {
   final rawData = await rootBundle.loadString(
     "assets/story/$chapter.csv",
   );
-  return const CsvToListConverter().convert(rawData, eol: '\r\n');
+  final result = const CsvToListConverter().convert(rawData, eol: '\n');
+  return result;
 }

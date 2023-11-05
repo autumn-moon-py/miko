@@ -34,12 +34,12 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
         // ignore: unused_local_variable
         final chatModel = context.read<ChatViewModel>();
         // chatModel.clearMessage();
-        // chatModel.changeLine(790);
+        // chatModel.changeLine(346);
         // chatModel.changeStartTime(0);
         // chatModel.changeBeJump(368);
         // chatModel.changeJump(328);
         // chatModel.changeResetLine(1529);
-        // chatModel.changeChap('番外一');
+        // chatModel.changeChap('第一章');
       }
       storyPlayer(context);
       Future.delayed(const Duration(milliseconds: 100), () {
@@ -72,6 +72,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
       case AppLifecycleState.resumed:
         chatModel.changeIsPaused(false);
         if (playBgm && !bgmPlayer.playing) bgmPlayer.play();
+        setState(() {});
         debugPrint("应用进入前台======");
         break;
       case AppLifecycleState.inactive:

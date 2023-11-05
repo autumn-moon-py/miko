@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -79,6 +80,7 @@ class Utils {
 
   ///请求通知
   static Future<void> requestNotification() async {
+    if (Platform.isMacOS) return;
     final notificationStatus = await Permission.notification.status;
     if (notificationStatus.isDenied) {
       await Permission.notification.request();
