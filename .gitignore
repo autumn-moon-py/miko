@@ -1,6 +1,10 @@
 # Miscellaneous
 *.class
 *.log
+<<<<<<< HEAD
+=======
+*.zip
+>>>>>>> origin/main
 *.pyc
 *.swp
 .DS_Store

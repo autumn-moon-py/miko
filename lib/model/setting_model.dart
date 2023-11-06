@@ -14,7 +14,10 @@ class Setting {
   bool midAutumn = false;
   bool oldBgm = false;
   bool voice = true;
+<<<<<<< HEAD
   bool beLater = false;
+=======
+>>>>>>> origin/main
   late SharedPreferences prefs;
 
   Future<void> save() async {
@@ -32,7 +35,10 @@ class Setting {
     prefs.setBool('oldBgm', oldBgm);
     prefs.setBool('voice', voice);
     prefs.setBool('midAutumn', midAutumn);
+<<<<<<< HEAD
     prefs.setBool('beLater', beLater);
+=======
+>>>>>>> origin/main
   }
 
   Future<void> load() async {
@@ -50,6 +56,9 @@ class Setting {
     oldBgm = prefs.getBool('oldBgm') ?? oldBgm;
     voice = prefs.getBool('voice') ?? voice;
     midAutumn = prefs.getBool('midAutumn') ?? midAutumn;
+<<<<<<< HEAD
     beLater = prefs.getBool('beLater') ?? beLater;
+=======
+>>>>>>> origin/main
   }
 }

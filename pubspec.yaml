@@ -1,7 +1,11 @@
 name: miko
 description: A new Flutter project.
 publish_to: "none"
+<<<<<<< HEAD
 version: 1.3.8
+=======
+version: 1.3.7
+>>>>>>> origin/main
 environment:
   sdk: ">=3.0.6 <4.0.0"
 
@@ -9,7 +13,11 @@ dependencies:
   flutter:
     sdk: flutter
   provider: ^6.0.5
+<<<<<<< HEAD
   csv: ^5.0.2
+=======
+  csv: ^5.1.1
+>>>>>>> origin/main
   shared_preferences: ^2.2.0
   flutter_easyloading: ^3.0.5
   get: ^4.6.5
