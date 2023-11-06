@@ -3,10 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
-<<<<<<< HEAD
-=======
-import 'package:miko/page/introduce/introduce_page.dart';
->>>>>>> origin/main
 import 'package:miko/page/setting/setting_view_model.dart';
 import 'package:miko/theme/color.dart';
 import 'package:miko/utils/app_utils.dart';
@@ -117,10 +113,7 @@ class _SettingBodyState extends State<SettingBody> {
     final model = context.read<SettingViewModel>();
     final waitTyping = context.watch<SettingViewModel>().waitTyping;
     final waitOffline = context.watch<SettingViewModel>().waitOffline;
-<<<<<<< HEAD
     final beLater = context.watch<SettingViewModel>().belater;
-=======
->>>>>>> origin/main
     return buildCard(children: [
       buildDefaultItem(
           leading: Icons.keyboard,
@@ -137,7 +130,6 @@ class _SettingBodyState extends State<SettingBody> {
               value: waitOffline,
               onChanged: (value) {
                 model.changeWaitOffline(value);
-<<<<<<< HEAD
               })),
       buildDefaultItem(
           leading: Icons.storage,
@@ -146,8 +138,6 @@ class _SettingBodyState extends State<SettingBody> {
               value: beLater,
               onChanged: (value) {
                 model.changeBeLater(value);
-=======
->>>>>>> origin/main
               }))
     ]);
   }
@@ -231,42 +221,19 @@ class _SettingBodyState extends State<SettingBody> {
         ]));
   }
 
-<<<<<<< HEAD
-=======
-  Widget _buildIntroduceButton() {
-    return buildCard(children: [
-      buildDefaultItem(
-          leading: Icons.start,
-          title: '游戏介绍',
-          onTap: () => Get.to(const IntroducePage()))
-    ]);
-  }
-
->>>>>>> origin/main
   @override
   Widget build(BuildContext context) {
     Widget padding = const SizedBox(height: 15);
     return _buildBody(children: [
       _buildTips(),
       padding,
-<<<<<<< HEAD
       _buildChatButton(),
-=======
-      _buildIntroduceButton(),
->>>>>>> origin/main
       padding,
       _buildDebugButton(),
       padding,
       _buildAvatarButton(),
       padding,
-<<<<<<< HEAD
       _buildMusicButton()
-=======
-      _buildMusicButton(),
-      padding,
-      _buildChatButton(),
-      padding
->>>>>>> origin/main
     ]);
   }
 }

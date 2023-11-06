@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-=======
-// ignore_for_file: use_build_context_synchronously
-
->>>>>>> origin/main
 import 'package:flutter/material.dart';
 import 'package:miko/page/chat/controller.dart';
 import 'package:miko/utils/chat_utils.dart';
@@ -44,16 +39,6 @@ class ChatViewModel with ChangeNotifier {
     debugPrint('读取聊天历史');
   }
 
-<<<<<<< HEAD
-=======
-  bool get be => user.be;
-
-  void changeBe(bool be) {
-    user.be = be;
-    user.save();
-  }
-
->>>>>>> origin/main
   void addOldChooseItem(int line) {
     if (oldChoose.length < 5) {
       user.oldChoose.add(line);

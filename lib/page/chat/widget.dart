@@ -634,10 +634,6 @@ void jumpDayDialog(BuildContext context) {
           model.changeRightChoose('');
           model.changeShowChoose(false);
           model.changeStartTime(0);
-<<<<<<< HEAD
-=======
-          model.changeBe(false);
->>>>>>> origin/main
           storyPlayer(context);
           MyRoute.back(context);
         },

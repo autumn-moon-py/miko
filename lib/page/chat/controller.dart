@@ -158,13 +158,6 @@ void storyPlayer(BuildContext ctx) async {
   }
   try {
     do {
-<<<<<<< HEAD
-=======
-      if (chatModel.be) {
-        debugPrint('BE');
-        break;
-      }
->>>>>>> origin/main
       if (chatModel.leftChoose != '' && chatModel.rightChoose != '') {
         debugPrint('有选项');
         break;
@@ -271,7 +264,6 @@ void storyPlayer(BuildContext ctx) async {
           continue;
         }
         if (tagList[0] == 'BE' && jump == 0) {
-<<<<<<< HEAD
           if (settingModel.belater) {
             await sendMiddle(chatModel, '你已进入BE路线, 点击我选择跳转某天', settingModel);
             break;
@@ -279,10 +271,6 @@ void storyPlayer(BuildContext ctx) async {
             await sendMiddle(chatModel, 'BE路线自动跳出', settingModel);
             continue;
           }
-=======
-          await sendMiddle(chatModel, '你已进入BE路线, 点击我选择跳转某天', settingModel);
-          break;
->>>>>>> origin/main
         }
         if (tagList[0] == '图鉴' && jump == 0) {
           if (msg.length == 5 && msg.substring(0, 1) != 'W') {
