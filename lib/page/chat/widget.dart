@@ -513,6 +513,7 @@ class _ChooseButtonState extends State<ChooseButton> {
           if (!showChoose) return;
           final buttonMusic = context.read<SettingViewModel>().buttonMusic;
           if (buttonMusic) buttonPlayer.play();
+          buttonPlayer.seek(Duration.zero);
           Message item = Message('', text, MessageType.right);
           model.addItem(item);
           model.changeShowChoose(false);
@@ -633,7 +634,6 @@ void jumpDayDialog(BuildContext context) {
           model.changeRightChoose('');
           model.changeShowChoose(false);
           model.changeStartTime(0);
-          model.changeBe(false);
           storyPlayer(context);
           MyRoute.back(context);
         },

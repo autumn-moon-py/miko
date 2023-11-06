@@ -37,7 +37,7 @@ class _AboutPageState extends State<AboutPage> {
                 onDoubleTap: () {
                   // caidna();
                 },
-                child: Text('关于异次元通讯', style: MyTheme.bigStyle))),
+                child: Text('关于异次元通讯-次元复苏', style: MyTheme.bigStyle))),
         body: Stack(children: [background, body]));
   }
 

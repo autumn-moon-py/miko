@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -64,6 +65,8 @@ class Utils {
               onPressed: () {
                 context.read<SettingViewModel>().changePrivacy(true);
                 Get.back();
+                EasyLoading.showInfo('不建议在taptap在线游玩，请前往官网下载',
+                    duration: const Duration(seconds: 10));
               },
               child: const Text('同意'))
         ]));
@@ -77,6 +80,7 @@ class Utils {
 
   ///请求通知
   static Future<void> requestNotification() async {
+    if (Platform.isMacOS) return;
     final notificationStatus = await Permission.notification.status;
     if (notificationStatus.isDenied) {
       await Permission.notification.request();

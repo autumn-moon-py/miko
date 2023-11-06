@@ -158,10 +158,6 @@ void storyPlayer(BuildContext ctx) async {
   }
   try {
     do {
-      if (chatModel.be) {
-        debugPrint('BE');
-        break;
-      }
       if (chatModel.leftChoose != '' && chatModel.rightChoose != '') {
         debugPrint('有选项');
         break;
@@ -175,7 +171,6 @@ void storyPlayer(BuildContext ctx) async {
         final now = DateTime.now().millisecondsSinceEpoch;
         if (now >= chatModel.startTime) {
           chatModel.changeStartTime(0);
-          chatModel.changeLine(chatModel.line + 1);
           continue;
         }
         if (now < chatModel.startTime) {
@@ -269,8 +264,13 @@ void storyPlayer(BuildContext ctx) async {
           continue;
         }
         if (tagList[0] == 'BE' && jump == 0) {
-          await sendMiddle(chatModel, '你已进入BE路线, 点击我选择跳转某天', settingModel);
-          break;
+          if (settingModel.belater) {
+            await sendMiddle(chatModel, '你已进入BE路线, 点击我选择跳转某天', settingModel);
+            break;
+          } else {
+            await sendMiddle(chatModel, 'BE路线自动跳出', settingModel);
+            continue;
+          }
         }
         if (tagList[0] == '图鉴' && jump == 0) {
           if (msg.length == 5 && msg.substring(0, 1) != 'W') {

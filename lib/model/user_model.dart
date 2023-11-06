@@ -17,18 +17,12 @@ class User {
   int startTime = 0;
   int resetLine = 0;
   int jump = 0;
-  bool be = false;
   late SharedPreferences prefs;
 
   Future<bool> firstRun() async {
     prefs = await SharedPreferences.getInstance();
     bool first = prefs.containsKey('avatar');
     return !first;
-  }
-
-  void changeBe(bool be) {
-    this.be = be;
-    save();
   }
 
   Future<void> load() async {
@@ -42,7 +36,6 @@ class User {
     startTime = prefs.getInt('startTime') ?? startTime;
     resetLine = prefs.getInt('resetLine') ?? resetLine;
     jump = prefs.getInt('jump') ?? jump;
-    be = prefs.getBool('be') ?? be;
   }
 
   Future<void> loadTrend() async {
@@ -84,7 +77,6 @@ class User {
     prefs.setInt('startTime', startTime);
     prefs.setInt('resetLine', resetLine);
     prefs.setInt('jump', jump);
-    prefs.setBool('be', be);
   }
 
   List<String> saveOldChoose() {

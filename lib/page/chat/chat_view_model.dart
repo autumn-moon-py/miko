@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
 import 'package:miko/page/chat/controller.dart';
 import 'package:miko/utils/chat_utils.dart';
@@ -39,13 +37,6 @@ class ChatViewModel with ChangeNotifier {
     _chapter = user.chapter;
     _startTime = user.startTime;
     debugPrint('读取聊天历史');
-  }
-
-  bool get be => user.be;
-
-  void changeBe(bool be) {
-    user.be = be;
-    user.save();
   }
 
   void addOldChooseItem(int line) {

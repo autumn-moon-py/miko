@@ -35,7 +35,6 @@ class ChapterPage extends StatelessWidget {
                 child: const Text("确定",
                     style: TextStyle(color: Colors.lightBlue, fontSize: 20)),
                 onPressed: () {
-                  model.changeBe(false);
                   model.changeChapter(chapterName, context);
                   Get.back();
                   Get.back();

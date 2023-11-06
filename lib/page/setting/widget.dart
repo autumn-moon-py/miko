@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
-import 'package:miko/page/introduce/introduce_page.dart';
 import 'package:miko/page/setting/setting_view_model.dart';
 import 'package:miko/theme/color.dart';
 import 'package:miko/utils/app_utils.dart';
@@ -114,6 +113,7 @@ class _SettingBodyState extends State<SettingBody> {
     final model = context.read<SettingViewModel>();
     final waitTyping = context.watch<SettingViewModel>().waitTyping;
     final waitOffline = context.watch<SettingViewModel>().waitOffline;
+    final beLater = context.watch<SettingViewModel>().belater;
     return buildCard(children: [
       buildDefaultItem(
           leading: Icons.keyboard,
@@ -130,6 +130,14 @@ class _SettingBodyState extends State<SettingBody> {
               value: waitOffline,
               onChanged: (value) {
                 model.changeWaitOffline(value);
+              })),
+      buildDefaultItem(
+          leading: Icons.storage,
+          title: 'BE自动跳过',
+          button: Switch(
+              value: beLater,
+              onChanged: (value) {
+                model.changeBeLater(value);
               }))
     ]);
   }
@@ -213,31 +221,19 @@ class _SettingBodyState extends State<SettingBody> {
         ]));
   }
 
-  Widget _buildIntroduceButton() {
-    return buildCard(children: [
-      buildDefaultItem(
-          leading: Icons.start,
-          title: '游戏介绍',
-          onTap: () => Get.to(const IntroducePage()))
-    ]);
-  }
-
   @override
   Widget build(BuildContext context) {
     Widget padding = const SizedBox(height: 15);
     return _buildBody(children: [
       _buildTips(),
       padding,
-      _buildIntroduceButton(),
+      _buildChatButton(),
       padding,
       _buildDebugButton(),
       padding,
       _buildAvatarButton(),
       padding,
-      _buildMusicButton(),
-      padding,
-      _buildChatButton(),
-      padding
+      _buildMusicButton()
     ]);
   }
 }

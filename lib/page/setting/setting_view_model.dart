@@ -5,8 +5,16 @@ import 'package:miko/utils/app_utils.dart';
 class SettingViewModel with ChangeNotifier {
   final Setting _setting = Setting();
 
+  bool get belater => _setting.beLater;
+
   Future<void> init() async {
     await _setting.load();
+  }
+
+  void changeBeLater(bool value) {
+    _setting.beLater = value;
+    notifyListeners();
+    _setting.save();
   }
 
   void changeOldBgm(bool value) {
