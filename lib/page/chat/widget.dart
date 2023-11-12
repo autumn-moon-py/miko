@@ -505,10 +505,14 @@ class ChooseButton extends StatefulWidget {
 }
 
 class _ChooseButtonState extends State<ChooseButton> {
+  bool isTap = false;
+
   Widget button(String text, int jump, BuildContext context) {
     final model = context.read<ChatViewModel>();
     return TextButton(
-        onPressed: () {
+        onPressed: () async {
+          if (isTap) return;
+          isTap = true;
           final showChoose = context.read<ChatViewModel>().showChoose;
           if (!showChoose) return;
           final buttonMusic = context.read<SettingViewModel>().buttonMusic;
@@ -518,6 +522,9 @@ class _ChooseButtonState extends State<ChooseButton> {
           model.addItem(item);
           model.changeShowChoose(false);
           model.changeJump(jump);
+          await Future.delayed(const Duration(milliseconds: 10));
+          isTap = false;
+          // ignore: use_build_context_synchronously
           storyPlayer(context);
         },
         child: Container(
