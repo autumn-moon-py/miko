@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:miko/page/chat/controller.dart';
 import 'package:miko/utils/chat_utils.dart';
