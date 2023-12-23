@@ -119,6 +119,9 @@ Future<void> sendTrend(
   imageModel.lockImage(image);
   trendModel.addTrend(Trend(trend, image, DateTime.now()));
   if (chatModel.isPaused) notification('Miko', '[动态]');
+  if (trendModel.trends.length == 1) {
+    EasyLoading.showInfo("点击Miko头像进入动态页", duration: const Duration(seconds: 5));
+  }
 }
 
 void debugPlayer(ChatViewModel chatModel) {

@@ -114,10 +114,18 @@ class _SettingBodyState extends State<SettingBody> {
     final waitTyping = context.watch<SettingViewModel>().waitTyping;
     final waitOffline = context.watch<SettingViewModel>().waitOffline;
     final beLater = context.watch<SettingViewModel>().belater;
+    final tips = [
+      "开：对方发消息会模拟打字等待一段时间\n关：不模拟打字时间直接发送",
+      "开：在系统提示对方已下线时需要等待随机时间\n关：对方下线后立刻上线回复",
+      "BE：Bed Ending（坏结局）\n开：进入BE后会自动跳出继续后续剧情\n关：进入BE后需要重开当天剧本"
+    ];
+    void showTip(int index) =>
+        EasyLoading.showInfo(tips[index], duration: const Duration(seconds: 5));
     return buildCard(children: [
       buildDefaultItem(
           leading: Icons.keyboard,
           title: '打字时间',
+          onTap: () => showTip(0),
           button: Switch(
               value: waitTyping,
               onChanged: (value) {
@@ -126,6 +134,7 @@ class _SettingBodyState extends State<SettingBody> {
       buildDefaultItem(
           leading: Icons.timelapse,
           title: '下线时间',
+          onTap: () => showTip(1),
           button: Switch(
               value: waitOffline,
               onChanged: (value) {
@@ -134,6 +143,7 @@ class _SettingBodyState extends State<SettingBody> {
       buildDefaultItem(
           leading: Icons.storage,
           title: 'BE自动跳过',
+          onTap: () => showTip(2),
           button: Switch(
               value: beLater,
               onChanged: (value) {
@@ -217,7 +227,9 @@ class _SettingBodyState extends State<SettingBody> {
           const Text('2.进入异常日志添加记录复制记录再点开异常反馈填表'),
           const Text('3.别私信秋月'),
           const Text('4.不建议在平台在线游玩,可以前往官网（菜单-关于）下载本地应用'),
-          const Text('5.如有其它问题请前往Q群询问')
+          const Text('5.如有其它问题请前往Q群询问'),
+          const Text('6.动态页点击Miko头像进入'),
+          const Text('7.下方按钮点击中间会弹出提示'),
         ]));
   }
 

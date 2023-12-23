@@ -1,6 +1,7 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:miko/theme/color.dart';
 import 'package:miko/utils/routes.dart';
 import 'package:provider/provider.dart';
 
@@ -122,22 +123,27 @@ class TrendItem extends StatelessWidget {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                const Text('Miko',
-                    style: TextStyle(color: Colors.grey, fontSize: 15)),
+                Text('Miko',
+                    style:
+                        MyTheme.narmalStyle.copyWith(color: Colors.blueGrey)),
+                const SizedBox(height: 5),
                 ConstrainedBox(
                   constraints: BoxConstraints(maxWidth: 0.8.sw),
                   child: Text(trend.trend,
                       softWrap: true,
                       textAlign: TextAlign.left,
-                      style:
-                          const TextStyle(color: Colors.white, fontSize: 20)),
+                      style: MyTheme.narmalStyle),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 5),
                 GestureDetector(
                     onTap: () =>
                         MyRoute.to(context, '/image_view', trend.image),
                     child: Image.asset('assets/photo/${trend.image}.webp',
-                        width: 150, fit: BoxFit.cover))
+                        width: 150, fit: BoxFit.cover)),
+                const SizedBox(height: 5),
+                Text(
+                    "${trend.time.month}月${trend.time.day}日 ${trend.time.hour}:${trend.time.minute}",
+                    style: const TextStyle(fontSize: 13, color: Colors.grey))
               ]))
         ]));
   }
