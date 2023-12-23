@@ -12,6 +12,7 @@ class DialogUtils {
     showApril(context);
     showBirthday(context);
     showMidAutumn(context);
+    showChristmas(context);
   }
 
   static Widget whiteBackground({required List<Widget> children}) {
@@ -164,6 +165,28 @@ class DialogUtils {
           button: '下载贺图',
           onTapButton: () {
             context.read<SettingViewModel>().changeMidAutumn(true);
+            closeDialog(onClose: () => Utils.downloadImage(image));
+          },
+          cancelText: '以后再说');
+    }
+  }
+
+  ///圣诞节弹窗
+  static Future<void> showChristmas(BuildContext context) async {
+    DateTime now = DateTime.now();
+    if (now.month != 12 && now.day != 25) {
+      context.read<SettingViewModel>().changeChristmas(false);
+    }
+    final show = context.read<SettingViewModel>().christmas;
+    if (now.month == 12 && now.day == 25 && !show) {
+      const image = 'christmas';
+      dialogUtils(
+          titleText: '圣诞节快乐！',
+          subtitle: '我在和小艾姐过圣诞，你呢？',
+          image: image,
+          button: '下载贺图',
+          onTapButton: () {
+            context.read<SettingViewModel>().changeChristmas(true);
             closeDialog(onClose: () => Utils.downloadImage(image));
           },
           cancelText: '以后再说');

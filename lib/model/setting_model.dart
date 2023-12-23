@@ -12,6 +12,7 @@ class Setting {
   bool birthday = false;
   bool april = false;
   bool midAutumn = false;
+  bool christmas = false;
   bool oldBgm = false;
   bool voice = true;
   bool beLater = false;
@@ -33,6 +34,7 @@ class Setting {
     prefs.setBool('voice', voice);
     prefs.setBool('midAutumn', midAutumn);
     prefs.setBool('beLater', beLater);
+    prefs.setBool('christmas', christmas);
   }
 
   Future<void> load() async {
@@ -51,5 +53,6 @@ class Setting {
     voice = prefs.getBool('voice') ?? voice;
     midAutumn = prefs.getBool('midAutumn') ?? midAutumn;
     beLater = prefs.getBool('beLater') ?? beLater;
+    christmas = prefs.getBool('christmas') ?? christmas;
   }
 }
