@@ -15,7 +15,8 @@ class Setting {
   bool christmas = false;
   bool oldBgm = false;
   bool voice = true;
-  bool beLater = false;
+  bool beLater = true;
+  bool autoUnLock = true;
   late SharedPreferences prefs;
 
   Future<void> save() async {
@@ -35,6 +36,7 @@ class Setting {
     prefs.setBool('midAutumn', midAutumn);
     prefs.setBool('beLater', beLater);
     prefs.setBool('christmas', christmas);
+    prefs.setBool('autoUnLock', autoUnLock);
   }
 
   Future<void> load() async {
@@ -54,5 +56,6 @@ class Setting {
     midAutumn = prefs.getBool('midAutumn') ?? midAutumn;
     beLater = prefs.getBool('beLater') ?? beLater;
     christmas = prefs.getBool('christmas') ?? christmas;
+    autoUnLock = prefs.getBool('autoUnLock') ?? autoUnLock;
   }
 }

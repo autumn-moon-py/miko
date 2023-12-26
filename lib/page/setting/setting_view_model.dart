@@ -108,6 +108,11 @@ class SettingViewModel with ChangeNotifier {
     _setting.save();
   }
 
+  void changeAutoUnlock(bool value) {
+    _setting.autoUnLock = value;
+    _setting.save();
+  }
+
   int get nowMikoAvatar => _setting.nowMikoAvatar;
   bool get bgm => _setting.bgm;
   bool get buttonMusic => _setting.buttonMusic;
@@ -122,4 +127,5 @@ class SettingViewModel with ChangeNotifier {
   bool get voice => _setting.voice;
   bool get midAutumn => _setting.midAutumn;
   bool get christmas => _setting.christmas;
+  bool get autoUnLock => _setting.autoUnLock;
 }

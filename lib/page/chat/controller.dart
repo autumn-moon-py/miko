@@ -205,6 +205,12 @@ void storyPlayer(BuildContext ctx) async {
       if (chatModel.line < chatModel.story.length - 1) {
         chatModel.changeLine(chatModel.line + 1);
       } else {
+        if (settingModel.autoUnLock) {
+          final chapter = chatModel.chapter;
+          dictionaryModel.lockChapterDictionary(chapter);
+          imageModel.lockChapterImage(chapter);
+          EasyLoading.showToast('自动解锁本章节剩余图鉴词典');
+        }
         //通关退出
         break;
       }

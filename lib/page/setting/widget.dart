@@ -114,10 +114,12 @@ class _SettingBodyState extends State<SettingBody> {
     final waitTyping = context.watch<SettingViewModel>().waitTyping;
     final waitOffline = context.watch<SettingViewModel>().waitOffline;
     final beLater = context.watch<SettingViewModel>().belater;
+    final autoUnLock = context.watch<SettingViewModel>().autoUnLock;
     final tips = [
       "开：对方发消息会模拟打字等待一段时间\n关：不模拟打字时间直接发送",
       "开：在系统提示对方已下线时需要等待随机时间\n关：对方下线后立刻上线回复",
-      "BE：Bed Ending（坏结局）\n开：进入BE后会自动跳出继续后续剧情\n关：进入BE后需要重开当天剧本"
+      "BE：Bed Ending（坏结局）\n开：进入BE后会自动跳出继续后续剧情\n关：进入BE后需要重开当天剧本",
+      "开：到达章节末尾自动解锁本章节未解锁图鉴和词典"
     ];
     void showTip(int index) =>
         EasyLoading.showInfo(tips[index], duration: const Duration(seconds: 5));
@@ -142,12 +144,21 @@ class _SettingBodyState extends State<SettingBody> {
               })),
       buildDefaultItem(
           leading: Icons.storage,
-          title: 'BE自动跳过',
+          title: 'BE自动跳出',
           onTap: () => showTip(2),
           button: Switch(
               value: beLater,
               onChanged: (value) {
                 model.changeBeLater(value);
+              })),
+      buildDefaultItem(
+          leading: Icons.lock,
+          title: '自动解锁',
+          onTap: () => showTip(3),
+          button: Switch(
+              value: autoUnLock,
+              onChanged: (value) {
+                model.changeAutoUnlock(value);
               }))
     ]);
   }

@@ -28,6 +28,24 @@ class ImageViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  void lockChapterImage(String chapter) {
+    const chapterToImage = {
+      "第一章": "S1",
+      "第二章": "S2",
+      "第三章": "S3",
+      "第四章": "S4",
+      "第五章": "S5",
+      "第六章": "S6"
+    };
+    _imageMap.forEach((key, value) {
+      if (key.startsWith(chapterToImage[chapter] ?? '')) {
+        _imageMap[key] = true;
+      }
+    });
+    notifyListeners();
+    user.saveImage(_imageMap);
+  }
+
   List<String> imageList = [
     'S1-01',
     'S1-02',

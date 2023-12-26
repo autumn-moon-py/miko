@@ -8,7 +8,6 @@ import 'package:miko/theme/color.dart';
 import 'package:miko/utils/routes.dart';
 import 'package:provider/provider.dart';
 
-import '../../model/user_model.dart';
 import '../../utils/app_utils.dart';
 import '../../utils/dialog_utils.dart';
 import '../../widget.dart';
@@ -34,21 +33,17 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
         // ignore: unused_local_variable
         final chatModel = context.read<ChatViewModel>();
         // chatModel.clearMessage();
-        // chatModel.changeLine(133);
+        // chatModel.changeLine(1621);
         // chatModel.changeStartTime(0);
         // chatModel.changeBeJump(104);
         // chatModel.changeJump(0);
-        // chatModel.changeResetLine(1529);
-        // chatModel.changeChap('第六章');
+        // chatModel.changeResetLine(1621);
+        // chatModel.changeChap('第一章');
       }
       storyPlayer(context);
       Future.delayed(const Duration(milliseconds: 100), () {
         chatController.jumpTo(chatController.position.maxScrollExtent);
       });
-      bool first = await User().firstRun();
-      if (first) {
-        // Get.to(const IntroducePage());
-      }
       debugPrint('聊天初始化');
     });
     WidgetsBinding.instance.addObserver(this);

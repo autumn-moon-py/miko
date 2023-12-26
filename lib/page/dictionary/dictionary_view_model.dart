@@ -50,6 +50,17 @@ class DictionaryViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  void lockChapterDictionary(String chapter) {
+    for (var item in _dictionaryModelList) {
+      if (item.chapter == chapter) {
+        item.lock = true;
+        _dictionaryMap[item.name][1] = 'true';
+      }
+    }
+    notifyListeners();
+    user.saveDic(_dictionaryMap);
+  }
+
   ///词典列表
   List dictionaryList = [
     '软件',
