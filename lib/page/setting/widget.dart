@@ -27,6 +27,7 @@ class _SettingBodyState extends State<SettingBody> {
         children: children);
   }
 
+  // ignore: unused_element
   Widget _buildDebugButton() {
     return buildCard(children: [
       buildDefaultItem(
@@ -251,8 +252,8 @@ class _SettingBodyState extends State<SettingBody> {
       _buildTips(),
       padding,
       _buildChatButton(),
-      padding,
-      _buildDebugButton(),
+      // padding,
+      // _buildDebugButton(),
       padding,
       _buildAvatarButton(),
       padding,

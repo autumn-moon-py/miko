@@ -46,7 +46,7 @@ class Utils {
         titlePadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         title: const Text('隐私政策'),
         content: const Text(
-            '本应用不会收集您的任何信息，也不会上传您的任何信息，如果您同意本应用的隐私政策，请点击同意按钮，否则请点击不同意按钮'),
+            '本应用不会收集您的任何信息，也不会上传您的任何信息，如果您同意本应用的隐私政策，请点击同意按钮，否则请点击不同意按钮，不建议在线游玩，请去官网下载本地版'),
         actions: [
           TextButton(
               onPressed: () {
