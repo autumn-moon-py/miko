@@ -235,13 +235,11 @@ class _SettingBodyState extends State<SettingBody> {
     return DefaultTextStyle(
         style: MyTheme.miniStyle.copyWith(color: Colors.yellow),
         child: buildCard(padding: true, addLine: false, children: [
-          const Text('1.剧情不播放时，请反馈，看[2]'),
-          const Text('2.进入异常日志添加记录复制记录再点开异常反馈填表'),
-          const Text('3.别私信秋月'),
-          const Text('4.不建议在平台在线游玩,可以前往官网（菜单-关于）下载本地应用'),
-          const Text('5.如有其它问题请前往Q群询问'),
-          const Text('6.动态页点击Miko头像进入'),
-          const Text('7.下方按钮点击中间会弹出提示'),
+          // const Text('剧情不播放时，请反馈，看[2]'),
+          // const Text('进入异常日志添加记录复制记录再点开异常反馈填表'),
+          if (taptap) const Text('不建议在平台在线游玩,可以前往官网（菜单-关于）下载本地应用'),
+          const Text('如有其它问题请前往Q群询问'),
+          const Text('下方按钮点击中间会弹出提示')
         ]));
   }
 

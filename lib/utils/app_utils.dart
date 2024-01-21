@@ -46,12 +46,12 @@ class Utils {
         titlePadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         title: const Text('隐私政策'),
         content: const Text(
-            '本应用不会收集您的任何信息，也不会上传您的任何信息，如果您同意本应用的隐私政策，请点击同意按钮，否则请点击不同意按钮，不建议在线游玩，请去官网下载本地版'),
+            '本应用不会收集您的任何信息，也不会上传您的任何信息，如果您同意本应用的隐私政策，请点击同意按钮，否则请点击不同意按钮'),
         actions: [
           TextButton(
               onPressed: () {
                 final url = Uri.parse(
-                    'https://www.subrecovery.top/2023/09/13/%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96');
+                    'https://www.subrecovery.top/#/post?name=privacy');
                 launchUrl(url, mode: LaunchMode.externalNonBrowserApplication);
               },
               child: const Text('隐私政策')),
@@ -65,8 +65,6 @@ class Utils {
               onPressed: () {
                 context.read<SettingViewModel>().changePrivacy(true);
                 Get.back();
-                EasyLoading.showInfo('不建议在taptap在线游玩，请前往官网下载',
-                    duration: const Duration(seconds: 10));
               },
               child: const Text('同意'))
         ]));
@@ -80,7 +78,7 @@ class Utils {
 
   ///请求通知
   static Future<void> requestNotification() async {
-    if (Platform.isMacOS) return;
+    if (Platform.isMacOS && taptap) return;
     final notificationStatus = await Permission.notification.status;
     if (notificationStatus.isDenied) {
       await Permission.notification.request();
@@ -89,8 +87,7 @@ class Utils {
 
   ///请求权限
   static Future<void> requestPermission() async {
-    if (taptap) return;
-    if (kDebugMode) return;
+    if (taptap && kDebugMode) return;
     final installPackagesStatus =
         await Permission.requestInstallPackages.status;
     if (installPackagesStatus.isDenied) {
@@ -112,8 +109,7 @@ class Utils {
 
   ///后台运行设置
   static Future<void> setBackground() async {
-    if (taptap) return;
-    if (kDebugMode) return;
+    if (taptap && kDebugMode) return;
     bool success = await FlutterBackground.initialize(
         androidConfig: const FlutterBackgroundAndroidConfig());
     if (success) {
@@ -123,8 +119,7 @@ class Utils {
 
   ///请求网络
   static Future<void> checkConnect() async {
-    if (taptap) return;
-    if (kDebugMode) return;
+    if (taptap && kDebugMode) return;
     checkUpgrade();
   }
 
