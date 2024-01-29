@@ -29,6 +29,7 @@ class ImageViewModel with ChangeNotifier {
   }
 
   void lockChapterImage(String chapter) {
+    if (chapter.startsWith('番外')) return;
     const chapterToImage = {
       "第一章": "S1",
       "第二章": "S2",
