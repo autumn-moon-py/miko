@@ -37,7 +37,7 @@ class Utils {
   ///隐私政策
   static Future<void> privacyDialog(BuildContext context) async {
     if (!taptap) return;
-    if (kDebugMode) return;
+    if (kDebugMode || Platform.isWindows) return;
     final privacy = context.read<SettingViewModel>().privacy;
     if (privacy) return;
     Get.dialog(AlertDialog(
@@ -78,7 +78,7 @@ class Utils {
 
   ///请求通知
   static Future<void> requestNotification() async {
-    if (Platform.isMacOS && taptap) return;
+    if (kDebugMode || Platform.isWindows || Platform.isMacOS || taptap) return;
     final notificationStatus = await Permission.notification.status;
     if (notificationStatus.isDenied) {
       await Permission.notification.request();
@@ -87,7 +87,7 @@ class Utils {
 
   ///请求权限
   static Future<void> requestPermission() async {
-    if (taptap && kDebugMode) return;
+    if (taptap || kDebugMode || Platform.isWindows) return;
     final installPackagesStatus =
         await Permission.requestInstallPackages.status;
     if (installPackagesStatus.isDenied) {
@@ -109,7 +109,7 @@ class Utils {
 
   ///后台运行设置
   static Future<void> setBackground() async {
-    if (taptap && kDebugMode) return;
+    if (taptap || kDebugMode || Platform.isWindows) return;
     bool success = await FlutterBackground.initialize(
         androidConfig: const FlutterBackgroundAndroidConfig());
     if (success) {
@@ -119,7 +119,7 @@ class Utils {
 
   ///请求网络
   static Future<void> checkConnect() async {
-    if (taptap && kDebugMode) return;
+    if (taptap || kDebugMode || Platform.isWindows) return;
     checkUpgrade();
   }
 
@@ -186,7 +186,7 @@ class Utils {
 
   ///初始化音频
   static void audioInit(BuildContext context) {
-    if (kDebugMode) return;
+    if (taptap || kDebugMode || Platform.isWindows) return;
     final oldBgm = context.read<SettingViewModel>().oldBgm;
     if (oldBgm) {
       bgmPlayer.setAsset('assets/music/oldBgm.ogg');
