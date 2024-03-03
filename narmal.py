@@ -22,7 +22,7 @@ def clearApk(path):
     for apk in apks:
         os.remove(apk)
 
-output_path = "D:/project/subrecovery/app/web/app/new"
+output_path = "D:/project/subrecovery/app/app/new"
 clearApk(output_path)
 
 version = ""

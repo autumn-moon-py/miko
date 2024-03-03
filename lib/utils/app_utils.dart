@@ -21,6 +21,12 @@ bool taptap = false;
 AudioPlayer bgmPlayer = AudioPlayer();
 AudioPlayer buttonPlayer = AudioPlayer();
 AudioPlayer voicePlayer = AudioPlayer();
+List<String> baseUrl = [
+  'https://subrecovery.top',
+  'https://www.subrecovery.top',
+  'https://app.subrecovery.top',
+  'https://subrecovery.netlify.app'
+];
 
 class Utils {
   ///初始化
@@ -50,8 +56,8 @@ class Utils {
         actions: [
           TextButton(
               onPressed: () {
-                final url = Uri.parse(
-                    'https://www.subrecovery.top/#/post?name=privacy');
+                final url =
+                    Uri.parse('https://www.subrecovery.top/privacy.html');
                 launchUrl(url, mode: LaunchMode.externalNonBrowserApplication);
               },
               child: const Text('隐私政策')),
@@ -81,7 +87,10 @@ class Utils {
     if (kDebugMode || Platform.isWindows || Platform.isMacOS || taptap) return;
     final notificationStatus = await Permission.notification.status;
     if (notificationStatus.isDenied) {
-      await Permission.notification.request();
+      final result = await Permission.notification.request();
+      EasyLoading.showInfo("通知：${result.isGranted ? '已授权' : '未授权'}");
+    } else {
+      EasyLoading.showInfo("通知：未授权，请自行前往设置打开通知");
     }
   }
 
@@ -127,41 +136,47 @@ class Utils {
   static Future<void> checkUpgrade() async {
     final version = await getVersion();
     final dio = Dio();
-    int statusCode = 200;
-    try {
-      final response =
-          await dio.get('https://www.subrecovery.top/app/new/upgrade.json');
-      if (response.statusCode == 200) {
-        final result = jsonDecode(response.toString());
-        if (result['version'] != version) {
-          EasyLoading.showInfo(
-            '${result['version']}\r\n有新版本,请更新\r\n${result['info']}',
-            duration: const Duration(seconds: 5),
-          );
-          await upgrade(result['version']);
+    int statusCode = 0;
+    for (var url in baseUrl) {
+      try {
+        final response = await dio.get('$url/app/new/upgrade.json');
+        statusCode = response.statusCode!;
+        if (statusCode == 200) {
+          final result = jsonDecode(response.toString());
+          if (result['version'] != version) {
+            EasyLoading.showInfo(
+              '${result['version']}\r\n有新版本,请更新\r\n${result['info']}',
+              duration: const Duration(seconds: 5),
+            );
+            await upgrade(result['version']);
+          }
+          break;
         }
-      } else {
-        statusCode = response.statusCode ?? 0;
-        EasyLoading.showError('检查更新失败,状态码: $statusCode');
+      } catch (e) {
+        EasyLoading.showError('检查更新失败,异常：$e');
       }
-    } catch (e) {
-      EasyLoading.showError('检查更新失败,异常：$e');
     }
   }
 
   ///更新
   static Future<void> upgrade(String version) async {
     EasyLoading.showToast('开始更新');
-    String apkUrl =
-        'https://www.subrecovery.top/app/new/app-release-$version.apk';
     const headers = {
       'User-Agent': 'chatapp/(Android;com.example.sub.chatapp) Flutter'
     };
     String fileName = 'app-release-$version.apk';
-    await RUpgrade.upgrade(apkUrl,
-        header: headers,
-        installType: RUpgradeInstallType.normal,
-        fileName: fileName);
+    for (var url in baseUrl) {
+      String apkUrl = '$url/app/new/app-release-$version.apk';
+      final apkSize = await RUpgrade.upgrade(apkUrl,
+              header: headers,
+              installType: RUpgradeInstallType.normal,
+              fileName: fileName) ??
+          0;
+      if (apkSize > 0) {
+        EasyLoading.showToast('更新完成');
+        break;
+      }
+    }
   }
 
   ///下载图片
