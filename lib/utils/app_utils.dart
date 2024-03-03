@@ -83,14 +83,12 @@ class Utils {
   }
 
   ///请求通知
-  static Future<void> requestNotification() async {
+  static Future<void> requestNotification([bool n = false]) async {
     if (kDebugMode || Platform.isWindows || Platform.isMacOS || taptap) return;
     final notificationStatus = await Permission.notification.status;
     if (notificationStatus.isDenied) {
-      final result = await Permission.notification.request();
-      EasyLoading.showInfo("通知：${result.isGranted ? '已授权' : '未授权'}");
-    } else {
-      EasyLoading.showInfo("通知：未授权，请自行前往设置打开通知");
+      await Permission.notification.request();
+      if (n) EasyLoading.showInfo("通知：已授权");
     }
   }
 
