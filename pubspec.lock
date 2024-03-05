@@ -161,6 +161,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "6.1.4"
+  fl_jpush:
+    dependency: "direct main"
+    description:
+      name: fl_jpush
+      sha256: "9214d90c347ee05ee5e3ac5d86831f18b0f4b048eb1fae611ea031309a0a8072"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "4.1.0"
   flutter:
     dependency: "direct main"
     description: flutter

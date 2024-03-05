@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:miko/page/chat/controller.dart';
-import 'package:miko/utils/chat_utils.dart';
 
 import '../../model/message_model.dart';
 import '../../model/user_model.dart';
+import '../../utils/app_utils.dart';
 
 class ChatViewModel with ChangeNotifier {
   String _name = '';
@@ -137,7 +137,7 @@ class ChatViewModel with ChangeNotifier {
 
   Future<void> changeStory() async {
     _story.clear();
-    List<List> story0 = await loadCVS(chapter) as List<List>;
+    List<List> story0 = await Utils.loadCVS(chapter) as List<List>;
     _story.addAll(story0);
   }
 

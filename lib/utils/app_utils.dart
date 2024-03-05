@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:csv/csv.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,8 @@ import 'package:provider/provider.dart';
 import 'package:r_upgrade/r_upgrade.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../main.dart';
+
 bool taptap = false;
 
 AudioPlayer bgmPlayer = AudioPlayer();
@@ -31,6 +34,7 @@ List<String> baseUrl = [
 class Utils {
   ///初始化
   static Future<void> init(BuildContext context) async {
+    if (EnvironmentConfig.appChannel == 'tap') taptap = true;
     getVersion();
     checkConnect();
     setBackground();
@@ -90,6 +94,18 @@ class Utils {
       await Permission.notification.request();
       if (n) EasyLoading.showInfo("通知：已授权");
     }
+  }
+
+  ///读取剧本
+  static Future<List> loadCVS(String chapter) async {
+    //报错检查csv编码是否为utf-8
+    final rawData = await rootBundle.loadString(
+      "assets/story/$chapter.csv",
+    );
+    final result =
+        const CsvToListConverter().convert(rawData, eol: '\r\n'); //win
+    // final result = const CsvToListConverter().convert(rawData, eol: '\n'); //mac
+    return result;
   }
 
   ///请求权限

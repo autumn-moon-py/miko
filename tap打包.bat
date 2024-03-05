@@ -15,5 +15,5 @@ if '%errorlevel%' NEQ '0' (
     pushd "%CD%"
     CD /D "%~dp0"
 
-flutter build apk --target-platform android-arm,android-arm64,android-x64 --no-tree-shake-icons -vv --obfuscate --split-debug-info=debuginfo --dart-define=appChannel=main
+flutter build apk --target-platform android-arm,android-arm64,android-x64 --no-tree-shake-icons -vv --obfuscate --split-debug-info=debuginfo --dart-define=appChannel=tap
 pause

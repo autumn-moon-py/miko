@@ -238,13 +238,7 @@ class _SettingBodyState extends State<SettingBody> {
           if (taptap) const Text('不建议在平台在线游玩,可以前往官网（菜单-关于）下载本地应用'),
           const Text('如有其它问题请前往Q群询问'),
           const Text('下方按钮点击中间会弹出提示'),
-          const Text('miko错字是人设'),
-          buildDefaultItem(
-              leading: Icons.notifications,
-              title: "申请通知权限",
-              onTap: () {
-                Utils.requestNotification(true);
-              })
+          const Text('miko错字是人设')
         ]));
   }
 

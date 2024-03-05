@@ -16,6 +16,10 @@ import 'page/image/image_view_model.dart';
 import 'page/setting/setting_view_model.dart';
 import 'page/trend/trend_view_model.dart';
 
+class EnvironmentConfig {
+  static const appChannel = String.fromEnvironment('appChannel');
+}
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 

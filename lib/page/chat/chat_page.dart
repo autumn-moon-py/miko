@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 
 import '../../utils/app_utils.dart';
 import '../../utils/dialog_utils.dart';
+import '../../utils/notification.dart';
 import '../../widget.dart';
 import 'controller.dart';
 import 'widget.dart';
@@ -41,6 +42,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
         // chatModel.changeChap('第一章');
       }
       storyPlayer(context);
+      await Jpush.setup();
       Future.delayed(const Duration(milliseconds: 100), () {
         chatController.jumpTo(chatController.position.maxScrollExtent);
       });
