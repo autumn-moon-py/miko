@@ -22,6 +22,7 @@ def clearApk(path):
     for apk in apks:
         os.remove(apk)
 
+
 output_path = "D:/project/subrecovery/app/app/new"
 clearApk(output_path)
 
@@ -34,6 +35,5 @@ version = re.sub(r"\n", "", version)
 path = "D:/project/subrecovery/miko/build/app/outputs/flutter-apk"
 shutil.copy(f"{path}/app-release.apk", f"{output_path}/app-release.apk")
 shutil.copy(f"{path}/app-release.apk", f"{output_path}/app-release-{version}.apk")
-
 
 modify_json(version, f"{output_path}/upgrade.json")
