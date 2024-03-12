@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:miko/page/debug/debug_view_model.dart';
 import 'package:miko/utils/routes.dart';
 import 'package:provider/provider.dart';
+import 'package:statsfl/statsfl.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'page/chat/chat_view_model.dart';
@@ -37,7 +38,12 @@ Future<void> main() async {
       await windowManager.focus();
     });
   }
-  runApp(const MyApp());
+  runApp(StatsFl(
+      isEnabled: false,
+      width: 1080,
+      height: 200,
+      align: Alignment.center,
+      child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

@@ -162,7 +162,7 @@ class Utils {
               '${result['version']}\r\n有新版本,请更新\r\n${result['info']}',
               duration: const Duration(seconds: 5),
             );
-            await upgrade(result['version']);
+            await upgrade(result['version'], url);
           }
           break;
         }
@@ -173,24 +173,14 @@ class Utils {
   }
 
   ///更新
-  static Future<void> upgrade(String version) async {
+  static Future<void> upgrade(String version, String url) async {
     EasyLoading.showToast('开始更新');
     const headers = {
-      'User-Agent': 'chatapp/(Android;com.example.sub.chatapp) Flutter'
+      'User-Agent': 'subrecovery/(Android;com.autumnmoon.miko) Flutter'
     };
     String fileName = 'app-release-$version.apk';
-    for (var url in baseUrl) {
-      String apkUrl = '$url/app/new/app-release-$version.apk';
-      final apkSize = await RUpgrade.upgrade(apkUrl,
-              header: headers,
-              installType: RUpgradeInstallType.normal,
-              fileName: fileName) ??
-          0;
-      if (apkSize > 0) {
-        EasyLoading.showToast('更新完成');
-        break;
-      }
-    }
+    String apkUrl = '$url/app/new/app-release-$version.apk';
+    await RUpgrade.upgrade(apkUrl, header: headers, fileName: fileName);
   }
 
   ///下载图片

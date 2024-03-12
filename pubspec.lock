@@ -312,6 +312,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.4.8"
+  keframe:
+    dependency: "direct main"
+    description:
+      name: keframe
+      sha256: a84add1826c54cd68e6095dbcc00cdd84fd4d97820712bfc8e1d06f41b0bfac3
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.0.0"
   lints:
     dependency: transitive
     description:
@@ -629,6 +637,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.11.0"
+  statsfl:
+    dependency: "direct main"
+    description:
+      name: statsfl
+      sha256: "12901533eee23cc04f01858f1e6851beec27d927a9afa694bb3d68403a5e0d13"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.3.0"
   stream_channel:
     dependency: transitive
     description:

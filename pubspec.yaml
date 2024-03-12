@@ -28,6 +28,8 @@ dependencies:
   window_manager: ^0.3.6
   chinese_lunar_calendar: ^0.0.13
   fl_jpush: ^4.1.0
+  keframe: ^3.0.0
+  statsfl: ^2.3.0
 
 dev_dependencies:
   flutter_test:

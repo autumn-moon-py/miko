@@ -5,6 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:keframe/keframe.dart';
 import 'package:miko/page/chat/controller.dart';
 import 'package:miko/page/setting/setting_view_model.dart';
 import 'package:miko/theme/color.dart';
@@ -488,12 +489,15 @@ class _ChatListState extends State<ChatList> {
     debugPrint('构建身体');
     final message = context.watch<ChatViewModel>().message;
     final chatController = context.read<ChatViewModel>().chatController;
-    return ListView.builder(
-        controller: chatController,
-        padding: EdgeInsets.symmetric(vertical: 10.h),
-        physics: const BouncingScrollPhysics(),
-        itemCount: message.length,
-        itemBuilder: (ctx, index) => _bodyItemBuilder(message, index, ctx));
+    return SizeCacheWidget(
+      child: ListView.builder(
+          controller: chatController,
+          padding: EdgeInsets.symmetric(vertical: 10.h),
+          physics: const BouncingScrollPhysics(),
+          itemCount: message.length,
+          itemBuilder: (ctx, index) => FrameSeparateWidget(
+              index: index, child: _bodyItemBuilder(message, index, ctx))),
+    );
   }
 }
 
