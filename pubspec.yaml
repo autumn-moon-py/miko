@@ -1,9 +1,9 @@
 name: miko
 description: A new Flutter project.
 publish_to: "none"
-version: 1.5.0
+version: 1.5.1
 environment:
-  sdk: ">=3.0.6 <4.0.0"
+  sdk: ">=3.1.2 <4.0.0"
 
 dependencies:
   flutter:
@@ -30,6 +30,7 @@ dependencies:
   fl_jpush: ^4.1.0
   keframe: ^3.0.0
   statsfl: ^2.3.0
+
 
 dev_dependencies:
   flutter_test:

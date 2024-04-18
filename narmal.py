@@ -23,16 +23,16 @@ def clearApk(path):
         os.remove(apk)
 
 
-output_path = "D:/project/subrecovery/app/app/new"
+output_path = "D:/project/flutter_project/subrecovery/app/app/new"
 clearApk(output_path)
 
 version = ""
-with open(r"D:/project/subrecovery/miko/pubspec.yaml", "r") as file:
+with open(r"pubspec.yaml", "r") as file:
     lines = file.readlines()
     version = lines[3]
 version = re.sub(r"version:\s*", "", version)
 version = re.sub(r"\n", "", version)
-path = "D:/project/subrecovery/miko/build/app/outputs/flutter-apk"
+path = "build/app/outputs/flutter-apk"
 shutil.copy(f"{path}/app-release.apk", f"{output_path}/app-release.apk")
 shutil.copy(f"{path}/app-release.apk", f"{output_path}/app-release-{version}.apk")
 

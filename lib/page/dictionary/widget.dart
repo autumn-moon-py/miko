@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:keframe/keframe.dart';
 import 'package:miko/model/dictionary_model.dart';
 import 'package:miko/theme/color.dart';
 import 'package:miko/utils/routes.dart';
@@ -15,18 +16,23 @@ class DictionaryBody extends StatefulWidget {
 
 class _DictionaryBodyState extends State<DictionaryBody> {
   Widget _buildGrid(List<Dictionary> data) {
-    return GridView.builder(
-      physics: const NeverScrollableScrollPhysics(),
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      shrinkWrap: true,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 10,
-          childAspectRatio: 3.5),
-      itemCount: data.length,
-      itemBuilder: (context, index) => _buildGridItem(data[index]),
-    );
+    return SizeCacheWidget(
+        estimateCount: 115,
+        child: GridView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            shrinkWrap: true,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+                childAspectRatio: 3.5),
+            itemCount: data.length,
+            itemBuilder: (context, index) => FrameSeparateWidget(
+                index: index,
+                placeHolder: const Icon(Icons.replay_circle_filled_rounded,
+                    color: Colors.blue),
+                child: _buildGridItem(data[index]))));
   }
 
   Widget _buildGridItem(Dictionary dic) {

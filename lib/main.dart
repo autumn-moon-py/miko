@@ -72,7 +72,6 @@ class MyApp extends StatelessWidget {
             builder: (context, _) {
               return GetMaterialApp(
                   title: '异次元通讯',
-                  theme: ThemeData().copyWith(useMaterial3: false),
                   debugShowCheckedModeBanner: false,
                   builder: EasyLoading.init(),
                   initialRoute: '/load',

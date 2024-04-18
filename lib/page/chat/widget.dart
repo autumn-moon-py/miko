@@ -490,6 +490,7 @@ class _ChatListState extends State<ChatList> {
     final message = context.watch<ChatViewModel>().message;
     final chatController = context.read<ChatViewModel>().chatController;
     return SizeCacheWidget(
+      estimateCount: 100,
       child: ListView.builder(
           controller: chatController,
           padding: EdgeInsets.symmetric(vertical: 10.h),

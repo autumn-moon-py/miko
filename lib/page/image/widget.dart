@@ -1,5 +1,6 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
+import 'package:keframe/keframe.dart';
 import 'package:miko/theme/color.dart';
 import 'package:miko/utils/app_utils.dart';
 import 'package:miko/utils/routes.dart';
@@ -16,15 +17,20 @@ class ImageBody extends StatefulWidget {
 
 class _ImageBodyState extends State<ImageBody> {
   Widget _buildGrid(List<String> data) {
-    return GridView.builder(
-      physics: const NeverScrollableScrollPhysics(),
-      padding: EdgeInsets.zero,
-      shrinkWrap: true,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3, mainAxisSpacing: 3, crossAxisSpacing: 3),
-      itemCount: data.length,
-      itemBuilder: (context, index) => _buildGridItem(data[index]),
-    );
+    return SizeCacheWidget(
+        estimateCount: 55,
+        child: GridView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            padding: EdgeInsets.zero,
+            shrinkWrap: true,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3, mainAxisSpacing: 3, crossAxisSpacing: 3),
+            itemCount: data.length,
+            itemBuilder: (context, index) => FrameSeparateWidget(
+                index: index,
+                placeHolder: const Icon(Icons.replay_circle_filled_rounded,
+                    color: Colors.blue),
+                child: _buildGridItem(data[index]))));
   }
 
   Widget _buildGridItem(String image) {

@@ -23,10 +23,9 @@ class ImagePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () {
+    return PopScope(
+      onPopInvoked: (_) {
         Get.back();
-        return Future.value(true);
       },
       child: Scaffold(
           appBar: AppBar(
