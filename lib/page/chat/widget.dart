@@ -5,7 +5,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:keframe/keframe.dart';
 import 'package:miko/page/chat/controller.dart';
 import 'package:miko/page/setting/setting_view_model.dart';
 import 'package:miko/theme/color.dart';
@@ -406,6 +405,16 @@ class ChatList extends StatefulWidget {
 }
 
 class _ChatListState extends State<ChatList> {
+  @override
+  void initState() {
+    super.initState();
+    final controller = context.read<ChatViewModel>().chatController;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.animateTo(controller.position.maxScrollExtent,
+          duration: const Duration(seconds: 1), curve: Curves.ease);
+    });
+  }
+
   Widget _bodyItemBuilder(List<Message> data, int index, BuildContext context) {
     Message item = data[index];
     double maxWidth = MediaQuery.of(context).size.width * 0.8;
@@ -489,16 +498,12 @@ class _ChatListState extends State<ChatList> {
     debugPrint('构建身体');
     final message = context.watch<ChatViewModel>().message;
     final chatController = context.read<ChatViewModel>().chatController;
-    return SizeCacheWidget(
-      estimateCount: 100,
-      child: ListView.builder(
-          controller: chatController,
-          padding: EdgeInsets.symmetric(vertical: 10.h),
-          physics: const BouncingScrollPhysics(),
-          itemCount: message.length,
-          itemBuilder: (ctx, index) => FrameSeparateWidget(
-              index: index, child: _bodyItemBuilder(message, index, ctx))),
-    );
+    return ListView.builder(
+        controller: chatController,
+        padding: EdgeInsets.symmetric(vertical: 10.h),
+        physics: const BouncingScrollPhysics(),
+        itemCount: message.length,
+        itemBuilder: (ctx, index) => _bodyItemBuilder(message, index, ctx));
   }
 }
 
@@ -551,6 +556,10 @@ class _ChooseButtonState extends State<ChooseButton> {
         context.select((ChatViewModel model) => model.rightChoose);
     final leftJump = context.select((ChatViewModel model) => model.leftJump);
     final rightJump = context.select((ChatViewModel model) => model.rightJump);
+    final chatController = context.read<ChatViewModel>().chatController;
+    Future.delayed(const Duration(milliseconds: 100), () {
+      chatController.jumpTo(chatController.position.maxScrollExtent);
+    });
     return !showChoose
         ? const SizedBox()
         : ConstrainedBox(
@@ -597,23 +606,21 @@ class _ToLastState extends State<ToLast> {
         ? const SizedBox()
         : Stack(children: [
             Positioned(
-                right: 5.w,
-                bottom: showChoose ? 120.h : 20.h,
+                right: 10.w,
+                bottom: showChoose ? 250.h : 20.h,
                 child: GestureDetector(
                     onTap: () {
                       final chatScroller =
                           context.read<ChatViewModel>().chatController;
                       final max = chatScroller.position.maxScrollExtent;
-                      chatScroller.animateTo(max,
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.bounceIn);
+                      chatScroller.jumpTo(max);
                     },
                     child: ClipOval(
                         child: Container(
-                            padding: EdgeInsets.all(5.r),
+                            padding: EdgeInsets.all(10.r),
                             color: MyTheme.foreground62,
                             child: const Icon(Icons.arrow_downward,
-                                color: Colors.white)))))
+                                size: 30, color: Colors.white)))))
           ]));
   }
 
