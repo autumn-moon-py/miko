@@ -22,6 +22,7 @@ class DictionaryPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
             centerTitle: true,
+            leading: const BackButton(color: Colors.white),
             title: Text('词典', style: MyTheme.bigStyle),
             backgroundColor: MyTheme.background51),
         body: _dictionaryWidget(
