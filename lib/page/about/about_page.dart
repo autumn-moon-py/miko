@@ -32,6 +32,7 @@ class _AboutPageState extends State<AboutPage> {
     return Scaffold(
         appBar: AppBar(
             centerTitle: true,
+            leading: const BackButton(color: Colors.white),
             backgroundColor: MyTheme.foreground,
             title: GestureDetector(
                 onDoubleTap: () {

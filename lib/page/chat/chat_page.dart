@@ -29,7 +29,6 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       Utils.init(context);
       DialogUtils.init(context);
-      final chatController = context.read<ChatViewModel>().chatController;
       if (kDebugMode) {
         // ignore: unused_local_variable
         final chatModel = context.read<ChatViewModel>();
@@ -43,9 +42,6 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
       }
       storyPlayer(context);
       await Jpush.setup();
-      Future.delayed(const Duration(milliseconds: 100), () {
-        chatController.jumpTo(chatController.position.maxScrollExtent);
-      });
       debugPrint('聊天初始化');
     });
     WidgetsBinding.instance.addObserver(this);

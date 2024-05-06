@@ -156,9 +156,7 @@ class ChatViewModel with ChangeNotifier {
     user.oldMessage = _message;
     user.name = _name;
     user.save();
-    Future.delayed(const Duration(milliseconds: 100), () {
-      chatController.jumpTo(chatController.position.maxScrollExtent);
-    });
+    chatController.jumpTo(chatController.position.maxScrollExtent);
   }
 
   bool checkMessage(Message item) {

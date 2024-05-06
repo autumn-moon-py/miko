@@ -47,20 +47,16 @@ class Jpush {
     bool? status = await FlJPush().isNotificationEnabled();
     debugPrint("通知权限打开状态：$status");
     addEventHandler();
+    clearNotification();
   }
 
   ///发送本地通知
   ///fireTime：延迟时间
   ///badge：桌面角标数量
-  static void notification(String title, String msg,
-      [int fireTime = 1, int badge = 1]) {
+  static void notification(String title, String msg, [int fireTime = 1]) {
     final notificationID = DateTime.now().millisecondsSinceEpoch;
     var localNotification = LocalNotification(
-        id: notificationID,
-        title: title,
-        content: msg,
-        fireTime: fireTime,
-        badge: badge);
+        id: notificationID, title: title, content: msg, fireTime: fireTime);
     FlJPush().sendLocalNotification(
         android: localNotification.toAndroid(), ios: localNotification.toIOS());
   }

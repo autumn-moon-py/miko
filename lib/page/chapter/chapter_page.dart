@@ -60,6 +60,7 @@ class ChapterPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
             centerTitle: true,
+            leading: const BackButton(color: Colors.white),
             title: const Text('章节'),
             backgroundColor: MyTheme.foreground62),
         body: Stack(children: [background, body]));

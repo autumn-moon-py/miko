@@ -14,6 +14,7 @@ class TrendPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
             centerTitle: true,
+            leading: const BackButton(color: Colors.white),
             backgroundColor: MyTheme.background,
             title: const Text('动态')),
         body: Stack(children: [

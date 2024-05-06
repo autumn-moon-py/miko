@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:miko/theme/color.dart';
 
 import 'widget.dart';
@@ -23,18 +22,14 @@ class ImagePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      onPopInvoked: (_) {
-        Get.back();
-      },
-      child: Scaffold(
-          appBar: AppBar(
-              centerTitle: true,
-              title: Text('图鉴', style: MyTheme.bigStyle),
-              backgroundColor: MyTheme.background51),
-          // floatingActionButton: FloatingActionButton(onPressed: () {}),
-          body: _imagePageWidget(
-              body: _buildBody(), background: _buildBackground(context))),
-    );
+    return Scaffold(
+        appBar: AppBar(
+            centerTitle: true,
+            leading: const BackButton(color: Colors.white),
+            title: Text('图鉴', style: MyTheme.bigStyle),
+            backgroundColor: MyTheme.background51),
+        // floatingActionButton: FloatingActionButton(onPressed: () {}),
+        body: _imagePageWidget(
+            body: _buildBody(), background: _buildBackground(context)));
   }
 }

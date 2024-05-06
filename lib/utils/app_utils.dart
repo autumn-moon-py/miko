@@ -167,8 +167,11 @@ class Utils {
           break;
         }
       } catch (e) {
-        EasyLoading.showError('检查更新失败,异常：$e');
+        //
       }
+    }
+    if (statusCode != 200) {
+      // EasyLoading.showToast('你所用的网络可能无法正常更新，不考虑后续更新可以忽略，反正没有新剧情');
     }
   }
 
